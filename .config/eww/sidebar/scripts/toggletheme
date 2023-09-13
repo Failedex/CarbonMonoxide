@@ -1,0 +1,32 @@
+#!/bin/bash
+
+scss_theme="$HOME/.config/eww/shitbar/maincolor.scss"
+
+switch_theme () {
+    echo '$main: $'"$1" > $scss_theme
+}
+
+current=`cat $scss_theme | awk '{print $2}'`
+
+case $current in 
+    '$lavender')
+        switch_theme "pink"   
+        feh --bg-scale $HOME/Pictures/wallpapers/os/void-magenta-pink-1920x1080.png
+        bspc config focused_border_color "#7f849c"
+        ;;
+    '$pink') 
+        switch_theme "green"
+        feh --bg-scale $HOME/Pictures/wallpapers/os/void-black-4k.png
+        bspc config focused_border_color "#a6e3a1"
+        ;;
+    '$green')
+        switch_theme "lavender"
+        feh --bg-scale $HOME/Pictures/wallpapers/os/void-magenta-blue-1920x1080.png
+        bspc config focused_border_color "#7f849c"
+        ;;
+    *)
+        switch_theme "lavender"
+        feh --bg-scale $HOME/Pictures/wallpapers/os/void-magenta-blue-1920x1080.png
+        bspc config focused_border_color "#7f849c"
+        ;;
+esac

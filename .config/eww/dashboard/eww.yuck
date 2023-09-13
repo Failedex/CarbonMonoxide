@@ -1,0 +1,347 @@
+;; variables
+(defpoll time :interval "30s" "date +'%I:%M %p'")
+(defpoll date :interval "1h" "date +'%a, %d %b'")
+(defpoll calendar_day :interval "20h" "date '+%d'")
+(defpoll calendar_year :interval "20h" "date '+%Y'")
+(defpoll volume :interval "1s" "amixer sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+(defpoll brightness :interval "1s" "brightnessctl -m -d intel_backlight | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defpoll cpu :interval "1s" "bash ./scripts/sys_info --cpu")
+(defpoll mem :interval "1s" "bash ./scripts/sys_info --mem")
+(defpoll bat :interval "1s" "bash ./scripts/sys_info --bat")
+(defpoll song :interval "1s" "./scripts/music_info --song")
+(defpoll artist :interval "1s" "./scripts/music_info --artist")
+(defpoll status :interval "1s" "./scripts/music_info --status")
+(defpoll current :interval "1s" "./scripts/music_info --time")
+(defpoll cover :interval "1s" "./scripts/music_info --cover")
+(defpoll hostname :interval "24h" 'echo "$(whoami)@$(hostname)"')
+(defpoll uptime :interval "1m" "uptime -p")
+(defpoll weather :interval "1h" "./scripts/weather.py")
+(defpoll genquote :interval "1h" "./scripts/quote.py")
+(defpoll notesc :interval "2s" "cat -s ~/Documents/fuck.txt")
+(defpoll nightlight :interval "1s" "./scripts/togglenight state")
+(defpoll wifi :interval "2s" `nmcli g | grep -oE "disconnected" | wc -l`)
+(defpoll donotdisturb :interval "2s" `./scripts/donotdisturb check`)
+(defpoll timerdis :interval "1s" `./scripts/timer.py subscribe`)
+(defpoll timerstate :interval "1s" `./scripts/timer.py substate`)
+
+(defvar reveal1 false)
+(defvar reveal2 false)
+(defvar reveal3 false)
+(defvar reveal4 false)
+(defvar reveal5 true)
+
+;; pain
+(defwindow controlpanel
+    :geometry (geometry
+        :x "0px" 
+        :y "10px"
+        :width "1024px"
+        :height "329px"
+        :anchor "top center")
+    :stacking "overlay"
+    :monitor 0
+    (box
+        :orientation "h"
+        :space-evenly false
+        :class "window"
+        (box
+            :orientation "v"
+            :space-evenly false
+            (box
+                :orientation "h"
+                :space-evenly false
+                (box
+                    :orientation "v"
+                    :space-evenly false
+                    (box
+                        :orientation "h"
+                        :space-evenly false
+                        (clock)
+                        (temp))
+                    (stack1))
+                (box
+                    :orientation "v"
+                    :space-evenly false
+                    (stack2)
+                    (media)))
+            (quote))
+        (box
+            :orientation "v"
+            :space-evenly false
+            (stack3)
+            (launcher))))
+
+(defwidget clock []
+    (box
+        :class "clock_widget"
+        :orientation "h"
+        :width 210
+        :height 82
+        :valign "center"
+        :halign "center"
+        :space-evenly false
+        :spacing 10
+        (label :text "󱑍" :style "padding: 0px 15px; font-size: 25px;")
+        (box
+            :orientation "v"
+            :hexpand false
+            (label :class "time" :text time)
+            (label :class "date" :text date))))
+
+(defwidget cal[]
+    (box
+        :class "cal_widget"
+        :width 410
+        :height 247
+        (calendar :day calendar_day :year calendar_year)))
+
+(defwidget notes[]
+    (box
+        :class "notes_widget"
+        :orientation "v"
+        :width 410
+        :height 247
+        :space-evenly false
+        (label :style "color: #f9e2af; font-size: 25;" :text "Notes")
+        (box
+            :orientation "h"
+            ;; add your own todo list :D
+            (button :onclick "echo '' > ~/Documents/fuck.txt" "Empty")
+            (button :onclick "foot nvim ~/Documents/fuck.txt" "Edit"))
+        (scroll
+          :height 120
+          :width 380
+          :vscroll true
+          :hscroll false
+          (label :style "color: #cdd6f4; font-size: 15;" :text notesc :halign "center" :valign "center" :wrap true))))
+
+(defwidget stack1 []
+    (eventbox
+        :onrightclick {reveal1 ? "${EWW_CMD} update reveal1=false" : "${EWW_CMD} update reveal1=true"}
+        :width 410
+        :height 247
+        (overlay
+            (cal)
+            (revealer
+                :reveal reveal1
+                :transition "crossfade"
+                (notes)))))
+
+(defwidget stats[]
+    ;; oh yea I can't interact with these widgets because they are under a eventbox ):
+    (box
+        :class "stats_widget"
+        :width 410
+        :height 247
+        :valign "start"
+        :halign "start"
+        :space-evenly false
+        :orientation "v"
+        (stat :icon "󰕾" :name "volume" :value volume :colour "#eba0ac" :change "amixer sset Master {}% && pkill -RTMIN+1 dwmblocks")
+        (stat :icon "󰃞" :name "brightness" :value brightness :colour "#fab387" :change "brightnessctl set {}%")
+        (stat :icon "󰻠" :name "cpu_usage" :value cpu :colour "#f9e2af")
+        (stat :icon "󰍛" :name "mem_usage" :value mem :colour "#a6e3a1")
+        (stat :icon "󰁹" :name "battery" :value bat :colour "#94e2d5")
+        ))
+
+(defwidget stat[icon name value colour ?change]
+    (box
+        :orientation "h"
+        :tooltip "${name}: ${value}"
+        :class "stat"
+        :style "color: ${colour};"
+        :space-evenly false 
+        :halign "center"
+        :spacing 20
+        (label :text "${icon}")
+        (scale :value value :orientation "h" :min 0 :max 101 :onchange change)))
+
+(defwidget allgraphs[]
+    (box
+        :orientation "v"
+        :width 410
+        :height 247
+        :class "graph_widget"
+        :space-evenly false
+        (box
+            :orientation "h"
+            (button :onclick "${EWW_CMD} update reveal3=false" "cpu")
+            (button :onclick "${EWW_CMD} update reveal3=true" "mem"))
+        (overlay
+            (graphstat :value cpu :name "cpu" :color "#f9e2af")
+            (graphstat :value mem :name "mem" :vis reveal3 :color "#a6e3a1"))))
+
+(defwidget graphstat[value name ?vis color]
+    (box
+        :tooltip "${name}: ${value}"
+        :halign "center"
+        :valign "center"
+        :orientation "v"
+        :space-evenly false
+        :visible vis
+        :class "graph_single"
+        (graph
+            :value value
+            :min 0
+            :max 100
+            :width 350
+            :height 154
+            :style "color: ${color};"
+            :time-range "30s")))
+
+;; dejavu haha
+(defwidget stack2 []
+    (eventbox
+        :onrightclick {reveal4 ? "${EWW_CMD} update reveal4=false" : "${EWW_CMD} update reveal4=true"}
+        :width 410
+        :height 247
+        (overlay
+            (stats)
+            (revealer
+                :reveal reveal4
+                :transition "crossfade"
+                (allgraphs)))))
+
+(defwidget user[]
+    (box
+        :orientation "v"
+        :class "user_widget"
+        :space-evenly false
+        :width 205
+        :height 219
+        :valign "center"
+        (image :style "padding: 10px;" :image-width 100 :image-height 100 :path "./image/fieshidle.gif")
+        (label :text hostname)
+        (label :text uptime :style "font-size: 12px;")))
+
+(defwidget timer[]
+  (box
+    :orientation "v"
+    :class "timer_widget"
+    :space-evenly false
+    :width 205
+    :height 219
+    (label :text timerdis)
+    (box
+      :orientation "h"
+      :class "timer_butt"
+      (button :onclick "./scripts/timer.py timedec" (label :text "-"))
+      (button :onclick "./scripts/timer.py toggle" (label :text { timerstate == "start" ? "󱎫" : "󱫎"}))
+      (button :onclick "./scripts/timer.py timeinc" (label :text "+")))))
+
+(defwidget stack3 []
+    (eventbox
+        :onrightclick {reveal2 ? "${EWW_CMD} update reveal2=false" : "${EWW_CMD} update reveal2=true"}
+        :width 205
+        :height 219
+        (overlay
+            (user)
+            (revealer
+                :reveal reveal2
+                :transition "crossfade"
+                (timer)))))
+
+(defwidget temp[]
+    (box 
+        :orientation "v"
+        :class "temp_widget"
+        :width 210
+        :height 96
+        :halign "center"
+        :valign "center"
+        (box
+            :orientation "h"
+            :space-evenly false
+            :spacing 10
+            (label :text "" :style "font-size: 25; padding: 0px 15px")
+            (label :text weather :limit-width 8))))
+
+(defwidget media []
+    (box 
+        :orientation "h"
+        :class "media_widget"
+        :space-evenly false
+        :width 410
+        :height 96
+        :halign "start"
+        (image :style "margin: 0px 10px 0px 4px;" :path cover :image-width 50 :image-height 50)
+        (eventbox
+            :onrightclick {reveal5 ? "${EWW_CMD} update reveal5=false" : "${EWW_CMD} update reveal5=true"}
+            (overlay
+                (box
+                    :orientation "v"
+                    :space-evenly false
+                    :class "media_simp"
+                    :width 291
+                    :height 30
+                    (scroll 
+                      :hscroll true
+                      :vscroll false
+                      (label :text "${song}"))
+                    (scroll
+                      :hscroll true
+                      :vscroll false
+                      (label :text "${artist}")))
+                (revealer
+                    :reveal reveal5
+                    :transition "crossfade"
+                    (box
+                        :orientation "v"
+                        :space-evenly false
+                        :valign "center"
+                        :halign "start"
+                        :hexpand false
+                        :width 250
+                        :height 96
+                        :class "media_overlay"
+                        (scroll 
+                          :hscroll true
+                          :vscroll false
+                          :width 300
+                          (label :text "${song} - ${artist}" :wrap false :show_truncated true))
+                        (box
+                            :orientation "h"
+                            :class "media_keys"
+                            :halign "center"
+                            :space-evenly false
+                            :spacing 10
+                            (button :onclick "scripts/music_info --prev" "󰒮")
+                            ;; for some reason, the play button isn't centered for me
+                            (button :onclick "scripts/music_info --toggle" :style "padding: 0px 10px 0px 4px;" status)
+                            (button :onclick "scripts/music_info --next" "󰒭"))
+                        ;; (scale :min -5 :active false :max 100 :value current :orientation "h")
+                        ))))))
+
+(defwidget launcher []
+    (box
+        :orientation "v"
+        :width 205
+        :height 205
+        :class "launcher_widget"
+        :space-evenly true
+        :spacing 10
+        :valign "center"
+        ;; these are my own shortcut links, add your own icon and links
+        (box 
+            :orientation "h"
+            :space-evenly true
+            :spacing 10 
+            :halign "center"
+            (button :class {wifi == 0 ? "launchicon" : "launchicoff"} :onclick {wifi == 0 ? "nmcli radio wifi off" : "nmcli radio wifi on"} "󰖩")
+            (button :class {nightlight == "on" ? "launchicon" : "launchicoff"} :onclick "./scripts/togglenight toggle" "󰖔"))
+        (box 
+            :orientation "h"
+            :space-evenly true
+            :spacing 10 
+            :halign "center"
+            (button :class {donotdisturb == "on" ? "launchicon" : "launchicoff"} :onclick "./scripts/donotdisturb toggle" "")
+            (button :class "launchicoff" :onclick "brave 'https://train.nzoi.org.nz' && code-oss ~/Documents/compro" ""))))
+
+(defwidget quote []
+    (box
+        :orientation "v"
+        :width 820
+        :height 81
+        :class "quote_widget"
+        :space-evenly false
+        (literal :content genquote)))

@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+FILE="$HOME/.config/eww/shitbar/night.lock"
+
+
+if [[ "$1" == "toggle" ]]; then
+    if test -f "$FILE"; then
+        rm "$FILE"
+        xrandr --output eDP1 --gamma 1:1:1 --brightness 1.0
+    else
+        touch "$FILE"
+        xrandr --output eDP1 --gamma 1.0:0.88:0.76 --brightness 0.72
+    fi
+elif [[ "$1" == "state" ]]; then
+    if test -f "$FILE"; then
+        echo "on"
+    else 
+        echo "off"
+    fi
+fi

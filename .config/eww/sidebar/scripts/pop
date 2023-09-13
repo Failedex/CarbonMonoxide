@@ -1,0 +1,44 @@
+#!/bin/bash 
+
+EWW_BIN="/usr/bin/ewww"
+# EWW_BIN="$HOME/Packages/eww/target/release/eww"
+
+calendar () {
+    LOCK_FILE="$HOME/.config/eww-calendar.lock"
+
+    run() {
+        ${EWW_BIN} -c $HOME/.config/eww/sidebar open calendar
+    }
+
+    if [[ ! -f "$LOCK_FILE" ]]; then
+        ${EWW_BIN} -c $HOME/.config/eww/sidebar close music
+        touch "$LOCK_FILE"
+        run && echo "ok good!"
+    else
+        ${EWW_BIN} -c $HOME/.config/eww/sidebar close calendar
+        rm "$LOCK_FILE" && echo "closed"
+    fi
+}
+
+music () {
+    LOCK_FILE="$HOME/.config/eww-music.lock"
+
+    run() {
+        ${EWW_BIN} -c $HOME/.config/eww/sidebar open music
+    }
+
+    if [[ ! -f "$LOCK_FILE" ]]; then
+        ${EWW_BIN} -c $HOME/.config/eww/sidebar close calendar
+        touch "$LOCK_FILE"
+        run && echo "ok good!"
+    else
+        ${EWW_BIN} -c $HOME/.config/eww/sidebar close music
+        rm "$LOCK_FILE" && echo "closed"
+    fi
+}
+
+if [ "$1" = "calendar" ]; then
+    calendar
+elif [ "$1" = "music" ]; then
+    music
+fi
