@@ -1,21 +1,37 @@
 #!/bin/bash 
 
-EWW_BIN="/usr/bin/ewww"
+# change this to your eww bin. Don't question mine
+EWW_BIN="$HOME/.local/bin/eww -c $HOME/.config/eww/sidebar"
 # EWW_BIN="$HOME/Packages/eww/target/release/eww"
+
+control () {
+    LOCK_FILE="$HOME/.config/eww-control.lock"
+
+    run() {
+        ${EWW_BIN} open control_panel
+    }
+
+    if [[ ! -f "$LOCK_FILE" ]]; then
+        touch "$LOCK_FILE"
+        run && echo "ok good!"
+    else
+        ${EWW_BIN} close control_panel
+        rm "$LOCK_FILE" && echo "closed"
+    fi
+}
 
 calendar () {
     LOCK_FILE="$HOME/.config/eww-calendar.lock"
 
     run() {
-        ${EWW_BIN} -c $HOME/.config/eww/sidebar open calendar
+        ${EWW_BIN} open calendar
     }
 
     if [[ ! -f "$LOCK_FILE" ]]; then
-        ${EWW_BIN} -c $HOME/.config/eww/sidebar close music
         touch "$LOCK_FILE"
         run && echo "ok good!"
     else
-        ${EWW_BIN} -c $HOME/.config/eww/sidebar close calendar
+        ${EWW_BIN} close calendar
         rm "$LOCK_FILE" && echo "closed"
     fi
 }
@@ -24,15 +40,14 @@ music () {
     LOCK_FILE="$HOME/.config/eww-music.lock"
 
     run() {
-        ${EWW_BIN} -c $HOME/.config/eww/sidebar open music
+        ${EWW_BIN} open music
     }
 
     if [[ ! -f "$LOCK_FILE" ]]; then
-        ${EWW_BIN} -c $HOME/.config/eww/sidebar close calendar
         touch "$LOCK_FILE"
         run && echo "ok good!"
     else
-        ${EWW_BIN} -c $HOME/.config/eww/sidebar close music
+        ${EWW_BIN} close music
         rm "$LOCK_FILE" && echo "closed"
     fi
 }
@@ -41,4 +56,13 @@ if [ "$1" = "calendar" ]; then
     calendar
 elif [ "$1" = "music" ]; then
     music
+elif [ "$1" = "control" ]; then
+    control
+elif [ "$1" = "scrop" ]; then
+    control 
+    sleep 0.5
+    grim -g "$(slurp)" - | wl-copy
+elif [ "$1" = "sscreen" ]; then
+    control 
+    grim - | wl-copy
 fi

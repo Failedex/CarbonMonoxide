@@ -18,10 +18,10 @@ get_status() {
 
 poll() {
     while [[ 1 == 1 ]]; do
+        STATUS="$(mpc status)"
         if [[ -z $STATUS ]]; then
             sleep 30
         fi
-        STATUS="$(mpc status)"
         $1
         mpc idle > /dev/null
     done

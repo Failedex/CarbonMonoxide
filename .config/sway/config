@@ -10,7 +10,11 @@ set $term foot
 set $menu 'wofi -i -I'
 
 ### Output configuration
-output * bg ~/Pictures/wallpapers/minimalistic/lavender-cat.png fill
+# output * bg ~/.config/sway/wallpaper/flower-bw.png fill
+
+# I considered it at some point
+output * bg #dde1e6 solid_color
+
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output eDP-1 resolution 1920x1080 pos 1440 0
@@ -59,26 +63,27 @@ input * {
     xkb_options "caps:escape"
     repeat_rate 50
     repeat_delay 500
+    pointer_accel 0.1
 }
 
-
-input "1739:52774:DELL0A89:00_06CB:CE26_Touchpad" {
+input "type:touchpad" {
     natural_scroll enabled
     dwt enabled
     tap enabled
-    pointer_accel 0.1
 }
 
 # hides mouse after 10 seconds
 seat * hide_cursor 10000
 
-input "1267:11366:ELAN900C:00_04F3:2C66" {
+# my touchscreen and stylus configuration
+input "type:touch" {
     map_to_output eDP-1
 }
 
-input "1267:11366:ELAN900C:00_04F3:2C66_Stylus" {
+input "type:tablet_tool" {
     map_to_output eDP-1
 }
+
 
 ### Key bindings
 #
@@ -129,6 +134,23 @@ input "1267:11366:ELAN900C:00_04F3:2C66_Stylus" {
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+    # swaymonad bindings
+    # bindsym $mod+$up nop focus_prev_window
+    # bindsym $mod+$down nop focus_next_window
+    # bindsym $mod+$left resize shrink width 10px
+    # bindsym $mod+$right resize grow width 10px
+    # bindsym $mod+Shift+$up nop swap_with_prev_window
+    # bindsym $mod+Shift+$down nop swap_with_next_window
+    # bindsym $mod+Shift+Return nop promote_window
+    # bindsym $mod+Shift+Left nop move left
+    # bindsym $mod+Shift+Down nop move down
+    # bindsym $mod+Shift+Up nop move up
+    # bindsym $mod+Shift+Right nop move right
+    # bindsym $mod+Control+$left nop increment_masters
+    # bindsym $mod+Control+$right nop decrement_masters
+    # bindsym $mod+t nop set_layout tall
+    # bindsym $mod+n nop set_layout nop
 #
 # Workspaces:
 #
@@ -243,28 +265,28 @@ bindsym XF86MonBrightnessUp exec 'light -A 5'
 bindsym XF86MonBrightnessDown exec 'light -U 5'
 
 # misc bindings
-bindsym $mod+Shift+x exec "swaylock --image ~/Pictures/wallpapers/minimalistic/dark-cat-rosewater.png"
+bindsym $mod+Shift+x exec "swaylock -c 262626"
 # bindsym $mod+Control+x exec "dm-tool lock"
 bindsym print exec 'grim -g "$(slurp)" - | wl-copy'
 bindsym Shift+print exec 'grim - | wl-copy'
 bindsym $mod+Control+Return exec 'foot -a "foot_float" -w $(slurp -f "%wx%h")'
 bindsym $mod+v exec 'clipman pick -t wofi'
-bindsym $mod+semicolon exec '$HOME/.config/eww/meowayland/scripts/launch'
 bindsym $mod+q exec 'qalculate-gtk'
 bindgesture swipe:down workspace prev
 bindgesture swipe:up workspace next
 
-# dumb window rulesleft
+# dumb window ruleset
 for_window [app_id="foot_float"] floating enabled
 for_window [app_id="mpv"] floating enabled
+for_window [app_id="feh"] floating enabled
 for_window [app_id="qalculate"] floating enabled
 
 # misc settings
-set $bg-color 	         #7f849c
-set $inactive-bg-color   #181825
-set $text-color          #1e1e2e
-set $inactive-text-color #cdd6f4
-set $urgent-bg-color     #f38ba8
+set $bg-color 	         #525252
+set $inactive-bg-color   #262626
+set $text-color          #dde1e6
+set $inactive-text-color #dde1e6
+set $urgent-bg-color     #ee5396
 
 # window colors
 #                       border              background         text                 indicator
@@ -277,7 +299,9 @@ gaps inner 15
 default_border pixel 2
 default_floating_border pixel 2
 xwayland enable
-bindswitch lid:off exec 'swaylock --image ~/Pictures/wallpapers/minimalistic/dark-cat-rosewater.png'
+bindswitch lid:on exec 'swaylock -c 262626'
+bindswitch tablet:on exec '$HOME/.config/sway/bordertoggle.sh tablet'
+bindswitch tablet:off exec '$HOME/.config/sway/bordertoggle.sh normal'
 
 # autostart applications
 exec_always --no-startup-id autotiling

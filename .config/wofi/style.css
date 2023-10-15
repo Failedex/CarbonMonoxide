@@ -1,0 +1,60 @@
+/* ::root{ */
+/*     --accent: #5291e2; */
+/*     --dark: #383C4A; */
+/*     --light: #7C818C; */
+/*     --ld: #404552; */
+/*     --dl: #4B5162 */
+/*     --white: white; */
+/* } */
+
+*{
+    font-family: Iosevka Nerd Font;
+}
+
+window {
+    background-color: #161616;
+    border: 2px solid #525252;
+    border-radius: 5px;
+}
+
+#input {
+    margin: 5px;
+    border-radius: 0px;
+    border: none;
+    border-bottom: 3px solid #393939;
+    background-color: #262626;
+    color: #dde1e6;
+}
+
+#inner-box {
+    background-color: #262626;
+
+}
+
+#outer-box {
+    margin: 5px;
+    padding:20px;
+    background-color: #161616;
+}
+
+#scroll {
+}
+
+#text {
+padding: 5px;
+color: #dde1e6;
+}
+
+#entry:nth-child(even){
+    background-color: #393939;
+    border-radius: 0;
+}
+
+#entry:selected {
+    background-color: #ff7eb6;
+    border-radius: 0;
+}
+
+#text:selected {
+    color: #161616;
+}

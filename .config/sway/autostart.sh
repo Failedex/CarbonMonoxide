@@ -1,6 +1,5 @@
 #!/usr/bin/sh
 
-~/dwm-6.3/i3-battery-popup &
 exec wl-paste -t text --watch clipman store &
 # rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov &
 swayidle -w \
@@ -10,9 +9,10 @@ swayidle -w \
 
 $HOME/.config/eww/meowayland/scripts/timer.py loop &
 
-ewww daemon &
-ewww --config ~/.config/eww/sidebar open bar &
+~/.local/bin/eww daemon &
+~/.local/bin/eww --config ~/.config/eww/sidebar open bar &
 
+# I used to use waybar
 # waybar &
 # nm-applet --indicator &
 
@@ -22,4 +22,7 @@ foot -a sncmpcpp ncmpcpp &
 foot -a sranger ranger &
 
 dunst &
-pulseaudio &
+# pulseaudio &
+pipewire &
+wireplumber &
+pipewire-pulse

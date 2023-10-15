@@ -1,0 +1,85 @@
+
+.userinfo label {
+    font-size: 18px;
+    color: $white0;
+}
+
+.weather label {
+    font-size: 18px; 
+    font-family: "Iosevka Nerd Font Mono";
+    color: $white0;
+}
+
+.title {
+    font-size: 20px;
+    margin: 10px;
+    color: $base;
+    background-color: $red;
+    border-radius: 5px;
+}
+
+.timer {
+    font-size: 40px;
+}
+
+.timer_butt button {
+    background-color: $red; 
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.timer_butt label {
+    color: $base
+}
+
+.bigslide trough {
+    border-radius: 5px; 
+    margin: 5px;
+    min-width: 60px;
+    background-color: $surface1;
+}
+
+.bigslide trough highlight{
+    background-color: $surface2;
+    border-radius: 5px;
+}
+
+.slideicon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.unbarwidget {
+    padding: 5px 5px;
+    border-radius: 5px;
+    background-color: $surface0;
+    margin: 5px;
+    color: $white0;
+}
+
+.quoteauthor {
+    color: $surface2;
+    font-size: 14px;
+}
+
+.quote {
+    // color: $light_blue;
+    font-size: 18px;
+}
+
+.control button {
+    background-color: $surface1;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.control label {
+    font-size: 25px;
+    padding-right: 5px;
+}
+
+.coolmpd label {
+    color: $white0; 
+}
