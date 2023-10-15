@@ -1,8 +1,8 @@
 # Carbon Monoxide, a sway dotfile
 
-![Carbon Monoxide ss](/assests/carbon-monoxide.png)
+![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide.png?raw=true)
 
-![Carbon Monoxide bar demonstration](/assests/carbon-monoxide.gif)
+![Carbon Monoxide bar demonstration](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide.gif?raw=true)
 
 ## Featuring
 - Oxocarbon colour scheme
