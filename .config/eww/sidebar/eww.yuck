@@ -105,13 +105,7 @@
     (literal :content literalworkspace)))
 
 (defwidget tasklist []
-  (box
-    :class "widget"
-    ;; :height 110
-    ;; (scroll 
-    ;;   :vscroll true
-    ;;   :hscroll false
-      (literal :content literaltask)))
+  (literal :content literaltask))
 
 (defwidget dashboard []
     (box

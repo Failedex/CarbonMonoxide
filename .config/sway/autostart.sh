@@ -25,4 +25,6 @@ dunst &
 # pulseaudio &
 pipewire &
 wireplumber &
-pipewire-pulse
+pipewire-pulse &
+
+mpd &

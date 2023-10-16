@@ -44,11 +44,16 @@ def main():
                 continue
             recurse(workspace, apps)
 
-    literal = "(box :class 'tasklist' :orientation 'v' :space-evenly true "
+    literal = "(box :class 'tasklist widget' :orientation 'v' :space-evenly true "
+
+    if len(apps) == 0: 
+        print("")
+        return
+
     for app in apps: 
         path = iconfetch(app.lower())
         if path: 
-            literal += f"(image :image-width 30 :image-height 30 :path \"{path}\") "
+            literal += f"(image :image-width 25 :image-height 25 :path \"{path}\") "
 
     print(literal + ")")
 

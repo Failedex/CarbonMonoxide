@@ -8,6 +8,7 @@
 - Oxocarbon colour scheme
 - Eww bar and animations
 - Widgets
+- Iosevka, if you want
 - "Touch friendly" set up (configuration was made for my touchscreen laptop)
 - Light mode bar???
 - The worst configuration files you have ever seen
@@ -16,6 +17,7 @@
 ## Dependencies 
 
 The config will still run without these, but there will be silent errors and missing features. 
+- Iosevka Nerd Font
 - pamixer
 - brightnessctl
 - nmcli
