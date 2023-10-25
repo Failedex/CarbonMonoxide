@@ -3,7 +3,7 @@
 exec wl-paste -t text --watch clipman store &
 # rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov &
 swayidle -w \
-	timeout 600 'swaylock -f --image ~/Pictures/wallpapers/minimalistic/dark-cat-rosewater.png' \
+	timeout 600 'swaylock -c 262626' \
 	timeout 900 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' &
 

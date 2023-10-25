@@ -4,6 +4,22 @@
 EWW_BIN="$HOME/.local/bin/eww -c $HOME/.config/eww/sidebar"
 # EWW_BIN="$HOME/Packages/eww/target/release/eww"
 
+dashboard () {
+    LOCK_FILE="$HOME/.config/eww-dashboard.lock"
+
+    run() {
+        ${EWW_BIN} open dashboard
+    }
+
+    if [[ ! -f "$LOCK_FILE" ]]; then
+        touch "$LOCK_FILE"
+        run && echo "ok good!"
+    else
+        ${EWW_BIN} close dashboard
+        rm "$LOCK_FILE" && echo "closed"
+    fi
+}
+
 control () {
     LOCK_FILE="$HOME/.config/eww-control.lock"
 
@@ -58,6 +74,8 @@ elif [ "$1" = "music" ]; then
     music
 elif [ "$1" = "control" ]; then
     control
+elif [ "$1" = "dashboard" ]; then
+    dashboard
 elif [ "$1" = "scrop" ]; then
     control 
     sleep 0.5

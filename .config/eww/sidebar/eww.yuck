@@ -69,9 +69,8 @@
     :class "top_modules"
     :height "450"
     :vexpand false
-    (dashboard)
+    (home)
     (workspaces)
-    (tasklist)
     (hiddenctl)
   ))
 
@@ -107,7 +106,7 @@
 (defwidget tasklist []
   (literal :content literaltask))
 
-(defwidget dashboard []
+(defwidget home []
     (box
         :class "widget"
         :hexpand false
@@ -116,7 +115,7 @@
             ;; :onclick "~/.config/eww/meowidgets/scripts/launch"
             ;; :onclick "~/.config/eww/meowayland/scripts/launch"
             :onclick "./scripts/pop control"
-            ;; :onrightclick "./scripts/toggletheme"
+            :onrightclick "./scripts/pop dashboard"
             :cursor "pointer"
             (label :text "" :class "launchicon" :style "padding: 0px 10px 0px 0px; font-size: 20px;"))))
 
@@ -169,7 +168,11 @@
             (button :onclick "swaymsg kill" :style "padding-right: 5px;" :class "closex icon" "󰅙")
             (button :onclick "wofi --show=drun -i -I" :style "padding-right: 3px;" :class "wofi icon" "󰀻")
             (button :onclick "./scripts/touchkey.sh" :style "padding-right: 7px" :class "touchkeyboard icon" "󰌌")))
-      (label :angle {reveal3 ? 90 : 270} :class "revealtouch" :text ""))))
+      (label :angle {reveal3 ? 90 : 270} :class "revealtouch" :text "")
+      (revealer 
+        :reveal {!reveal3}
+        :transition "slidedown"
+        (tasklist)))))
 
 (defwidget playerctl [] 
   (eventbox
@@ -309,3 +312,4 @@
         ))))
 
 (include "./control_panel/eww.yuck")
+(include "./dashboard/eww.yuck")

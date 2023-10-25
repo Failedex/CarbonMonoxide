@@ -12,7 +12,7 @@
 
 .title {
     font-size: 20px;
-    margin: 10px;
+    margin: 0px 10px;
     color: $base;
     background-color: $red;
     border-radius: 5px;
@@ -59,7 +59,7 @@
 }
 
 .quoteauthor {
-    color: $surface2;
+    color: $white0;
     font-size: 14px;
 }
 
@@ -82,4 +82,14 @@
 
 .coolmpd label {
     color: $white0; 
+}
+
+.mpdcover {
+    background-color: $surface0;
+    margin: 5px; 
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
 }

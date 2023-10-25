@@ -1,5 +1,6 @@
 @import './colors';
 @import './control_panel/eww.scss';
+@import './dashboard/eww.scss';
 
 * {
     all: unset;
@@ -29,6 +30,14 @@ scale trough {
 	min-height: 80px;
 	min-width: 15px;
 	margin : 5px;
+}
+
+button {
+    transition-duration: 0.5s;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: $surface2;
 }
 
 .icon {
@@ -64,7 +73,7 @@ scale trough highlight {
     margin: 5px 2px;
     color: $white0;
     // border-style: solid;
-    // border-color: $surface2;
+    // border-color: $white0;
     // border-width: 2px;
 }
 

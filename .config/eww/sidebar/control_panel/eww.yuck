@@ -29,7 +29,7 @@
     :orientation "v"
     (sillyslide)
     (weather)
-    (coolmpd)
+    (coolmpd :h 180 :permashow false)
     (box 
       :orientation "h"
       :space-evenly false 
@@ -81,7 +81,7 @@
         :reveal reveal4
         :transition "slideup"
         (box 
-          :height 130
+          :height 140
           (box 
             :orientation "h"
             (scroll 
@@ -196,18 +196,15 @@
     (literal 
       :content quoteliteral)))
 
-(defwidget coolmpd[]
+(defwidget coolmpd [h permashow]
   (overlay
     (box
       :orientation "v"
       :halign "fill"
-      :height 180
-      :class "unbarwidget"
-      :visible {revealmpd ? cover != "image/emptympd.png" && cover != "" : pcover != "" }
-      (scroll
-        :vscroll true 
-        :hscroll true 
-        (image :style "opacity: 0.4;" :image-height 340 :image-width 340 :path { revealmpd ? cover : pcover })))
+      :height h
+      :class "mpdcover"
+      :style "background-image: url('${revealmpd ? cover : pcover}')"
+      :visible {permashow ? true : revealmpd ? song != "" && song != "Offline" : pcover != "" })
     (box
       :orientation "v" 
       :space-evenly false 

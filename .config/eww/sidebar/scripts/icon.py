@@ -14,7 +14,7 @@ def iconfetch(icon_name):
         return
 def recurse(node, apps): 
     if "app_id" in node:
-        apps.append(node["app_id"])
+        apps.append((node["app_id"], node["pid"]))
         
     for n in node["nodes"]: 
         recurse(n, apps)
@@ -44,16 +44,16 @@ def main():
                 continue
             recurse(workspace, apps)
 
-    literal = "(box :class 'tasklist widget' :orientation 'v' :space-evenly true "
+    literal = "(box :orientation 'v' :space-evenly true "
 
     if len(apps) == 0: 
         print("")
         return
 
-    for app in apps: 
+    for app, pid in apps: 
         path = iconfetch(app.lower())
         if path: 
-            literal += f"(image :image-width 25 :image-height 25 :path \"{path}\") "
+            literal += f"(button :onclick 'swaymsg \"[pid={pid}] focus\" '(image :image-width 25 :image-height 25 :path \"{path}\")) "
 
     print(literal + ")")
 
