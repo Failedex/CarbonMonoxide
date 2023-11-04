@@ -1,0 +1,10 @@
+#!/bin/bash
+
+EWW_BIN="$HOME/.local/bin/eww -c $HOME/.config/eww/sidebar"
+
+tiramisu -s -j | while read -r line; do 
+    line=$(echo $line | sed 's/'\''/"/g')
+    NOTIF="[]"
+    NOTIF="${NOTIF::-1}, $line]"
+    echo $NOTIF
+done

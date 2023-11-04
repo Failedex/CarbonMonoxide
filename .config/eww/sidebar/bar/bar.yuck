@@ -1,0 +1,274 @@
+
+(defwindow bar 
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "42"
+    :height "1080"
+    :anchor "center left")
+  :reserve (struts :distance "50" :side "left")
+  ;; :stacking "bg"
+  :exclusive true
+  :monitor 0
+  ;; :windowtype "dock"
+  :wm-ignore false
+  (barstruct))
+
+(defwidget barstruct []
+  (centerbox 
+    :class "bar"
+    :orientation "v"
+    :height "1080"
+    ;; :space-evenly true
+    (top)
+    (middle)
+    (bottom)
+    ))
+
+(defwidget top [] 
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "start"
+    :class "top_modules"
+    :height "450"
+    :vexpand false
+    (home)
+    (workspaces)
+    (hiddenctl)
+  ))
+
+(defwidget middle [] 
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "center"
+    :vexpand false
+    :class "center_modules"
+    :height "180"
+    (playerctl)
+  ))
+
+(defwidget bottom [] 
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "end"
+    :class "bottom_modules"
+    :vexpand false
+    :hexpand false
+    (sliders)
+    (battery)
+    (clock)
+  ))
+
+(defwidget workspaces []
+  (eventbox
+    :cursor "pointer"
+    (literal :content literalworkspace)))
+
+(defwidget home []
+    (box
+        :class "widget"
+        :hexpand false
+        :vexpand false
+        (eventbox
+            ;; :onclick "~/.config/eww/meowidgets/scripts/launch"
+            ;; :onclick "~/.config/eww/meowayland/scripts/launch"
+            :onclick "./scripts/pop control"
+            :onrightclick "./scripts/pop dashboard"
+            :cursor "pointer"
+            (label :text "" :class "launchicon" :style "padding: 0px 10px 0px 0px; font-size: 20px;"))))
+
+(defwidget clock [] 
+  (eventbox
+    :cursor "pointer"
+    :onclick "./scripts/pop calendar"
+    (box 
+      :orientation "v"
+      :space-evenly false 
+      :class "widget clock"
+
+      (label :text thour)
+      (label :text tmin)
+      (label :text tpm))))
+
+(defwidget battery [] 
+  (box
+    :orientation "v"
+    :space-evenly false 
+    :class "widget"
+    (overlay
+      (scale 
+        :class "${batstat == 'Charging' ? 'charging': bat0 < 16 ? 'dying': 'normal'} bat_scale"
+        :value "${bat0}"
+        :orientation "v"
+        :max 101
+        :min 0
+        :flipped true)
+        (label 
+          :class "lightning"
+          :text "${batstat == "Charging" ? "󱐋": ""}"))
+    (label :text "${bat0}%" :limit-width 3 :show-truncated false)))
+
+(defwidget hiddenctl []
+  (eventbox 
+    :cursor "pointer"
+    :onclick {reveal3 ? "${EWW_CMD} update reveal3=false" : "${EWW_CMD} update reveal3=true"}
+    (box
+      :orientation "v"
+      :class "widget"
+      :space-evenly false
+      (revealer 
+        :reveal reveal3
+        :transition "slideup"
+        :duration "500ms"
+        (box 
+          :class "touch"
+          :orientation "v"
+            (button :onclick "swaymsg kill" :style "padding-right: 5px;" :class "closex icon" "󰅙")
+            (button :onclick "wofi --show=drun -i -I" :style "padding-right: 3px;" :class "wofi icon" "󰀻")
+            (button :onclick "./scripts/touchkey.sh" :style "padding-right: 7px" :class "touchkeyboard icon" "󰌌")))
+      (label :angle {reveal3 ? 90 : 270} :class "revealtouch" :text "")
+      (revealer 
+        :reveal {!reveal3}
+        :transition "slidedown"
+        ;; (tasklist)))))
+        ))))
+
+(defwidget playerctl [] 
+  (eventbox
+    :cursor "pointer"
+    (box 
+      :class "${revealmpd ? "mpd" : "playerctl"} widget"
+      :orientation "v"
+      (eventbox 
+        :onclick "./scripts/pop music"
+        (image :style "border-radius: 25px;" :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover } :image-width 20 :image-height 20))
+      (button :class "icon" :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous" } (label :text "󰒮"))
+      (button :class "icon" :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text  {revealmpd ? status : pstatus == "Playing" ? "" : ""}))
+      (button :class "icon" :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭"))
+      (button :class "icon" :tooltip { revealmpd ? "mpd" : "mpris" } :onclick { revealmpd ? "${EWW_CMD} update revealmpd=false" : "${EWW_CMD} update revealmpd=true"} (label :text { revealmpd ? "󱨥" : "󱨦"})))))
+
+(defwidget sliders [] 
+    (box
+        :class "widget"
+        :orientation "v"
+        :space-evenly false
+        :valign "end"
+        (button :onclick "alacritty -e nmtui" :style "padding-right: 3px;" :tooltip wifi_essid :class "wifi icon" wifi_icon)
+        (reveal_on_hover
+            :revealval reveal1
+            :revealvalstr "reveal1"
+            (box
+                :orientation "v"
+                :space-evenly false
+                :class "sound"
+                (label :style "padding-right: 4px" :class "icon sound" :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+                ;; {volumemute == 'no' ? volume : " Muted"})
+                )
+            (scale 
+                :class "volslide"
+                :value volume
+                :onchange "pamixer --set-volume {}"
+                :orientation "v"
+                :tooltip "${volume}%"
+                :max 100
+                :min 0
+                :flipped true))
+        (reveal_on_hover
+            :revealval reveal2
+            :revealvalstr "reveal2"
+            (box 
+                :orientation "v"
+                :space-evenly false
+                :class "bright"
+                (label :style "padding-right: 8px;" :class "icon" :text "󰃞"))
+            (scale 
+                :class "brislide"
+                :value brightness
+                :onchange "brightnessctl set {}%"
+                :orientation "v"
+                :tooltip "${brightness}%"
+                :max 100
+                :min 0
+                :flipped true))
+        ))
+
+(defwidget reveal_on_hover [revealval revealvalstr ?class ?transition]
+    (box 
+        :class "reveal_on_hover ${class}"
+        :orientation "v"
+        :space-evenly false
+        :valign "end"
+        (eventbox
+            :onhover "${EWW_CMD} update ${revealvalstr}=true"
+            :onhoverlost "${EWW_CMD} update ${revealvalstr}=false"
+            (box 
+                :space-evenly false
+                :orientation "v"
+                (children :nth 0)
+                (revealer 
+                    :reveal revealval
+                    :transition {transition ?:"slidedown"}
+                    :duration "500ms"
+                    (children :nth 1))))))
+
+;; other windows
+(defwindow calendar
+    :geometry (geometry :x "10"
+       :y "10"
+       :width "100"
+       :height "35"
+       :anchor "bottom left")
+    :stacking "overlay"
+    :monitor 0
+    (box
+        :class "popup"
+        (calendar :day calendar_day :year calendar_year :class "cal")))
+
+(defwindow music 
+  :geometry (geometry :x "10"
+              :y "0"
+              :width "440"
+              :height "200"
+              :anchor "center left")
+  :stacking "overlay"
+  :monitor 0
+  (box 
+    :class "popup"
+    (box
+      :orientation "h"
+      :class "widget"
+      :space-evenly false 
+      :style "margin: 5px;"
+      (image :style "margin: 8px" :image-height 180 :image-width 180 :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover })
+      (box
+        :orientation "v"
+        :space-evenly false 
+        :width 210
+        :height 200
+        (scroll
+          :hscroll true
+          :vscroll false
+          (label :style "font-size: 20px; margin-top: 30px;" :text { revealmpd ? song : psong }))
+        (scroll
+          :hscroll true
+          :vscroll false
+          (label :text { revealmpd ? artist : partist }))
+        (box 
+          :orientation "h"
+          :class "mpd_controls"
+          :style "margin-top: 10px;"
+          (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous"} (label :text "󰒮"))
+          (button :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text { revealmpd ? status : pstatus == "Playing" ? "" : ""} ))
+          (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭")))
+        (scale 
+          :visible revealmpd
+          :class "seektime"
+          :value current 
+          :orientation "h"
+          :min -5
+          :max 100
+          :tooltip "${ctime}/${ttime}")
+        ))))

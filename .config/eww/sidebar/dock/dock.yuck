@@ -1,0 +1,58 @@
+
+(deflisten tasksjson "./scripts/icon.sh")
+(defvar revealdock false)
+
+(defwindow dock 
+  :geometry (geometry
+              :x 0
+              :y 0
+              :width 10
+              :height 54
+              :anchor "bottom center")
+  :stacking "overlay"
+  :monitor 0
+  (dockstruct))
+
+(defwidget dockstruct [] 
+  (eventbox
+    :onhover "${EWW_CMD} update revealdock=true"
+    :onhoverlost "${EWW_CMD} update revealdock=false"
+    (box
+      :orientation "v"
+      :space-evenly false
+      :valign "end"
+      (box
+        :height 4)
+      (revealer
+        :reveal revealdock
+        :transition "slideup"
+        (box 
+          :class "popup"
+          :style "margin: 5px;"
+          :height 60
+          :orientation "h"
+          :halign "center"
+          (tasklist))))))
+
+(defwidget tasklist []
+  (box 
+    :orientation "h" 
+    :space-evenly true
+    (for task in {tasksjson}
+      (button
+        :onclick { task.pid != 'null' ? 'swaymsg "[pid=${task.pid}] focus"' : '${task.app_id} &'}
+        (box
+          :orientation "v"
+          :space-evenly false
+          (image 
+            :image-width 50 
+            :image-height 50 
+            :path {task.path})
+          (box 
+            :class "dockindicate"
+            :visible { task.focused == true || task.pid != 'null'}
+            :halign "center"
+            :hexpand false
+            :width { task.focused == true ? 10 : 5 }
+            :height 4))))))
+
