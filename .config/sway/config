@@ -11,6 +11,7 @@ set $menu 'wofi -i -I'
 
 ### Output configuration
 output * bg ~/.config/sway/wallpaper/tile.png tile
+# output * bg ~/Downloads/windows11.jpg fill
 
 # I considered it at some point
 # output * bg #dde1e6 solid_color
@@ -295,6 +296,7 @@ client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-col
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color  $inactive-bg-color
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $urgent-bg-color
 
+corner_radius 5
 gaps inner 15
 default_border pixel 2
 default_floating_border pixel 2

@@ -1,17 +1,15 @@
-@import './colors';
-@import './control_panel/eww.scss';
-@import './dashboard/eww.scss';
+@import './colors.scss';
+@import './bar/bar.scss';
+@import './control_panel/control_panel.scss';
+@import './dashboard/dashboard.scss';
+@import './dock/dock.scss';
+@import './desktop/desktop.scss';
 
 * {
     all: unset;
     color: $white0;
     font-size: 15px;
     font-family: "Iosevka Nerd Font"
-}
-
-.bar {
-    background-color: $base;
-    padding: 5px;
 }
 
 tooltip {
@@ -40,97 +38,12 @@ button:hover {
     background-color: $surface2;
 }
 
-.icon {
-    font-size: 20px;
-    margin: 2px 0px;
-}
-
-.revealtouch {
-    font-size: 20px;
-    margin: 5px 0px;
-    color: $surface2;
-}
 
 scale trough highlight {
     background-color: $white0;
     border-radius: 24px;
 }
 
-.workspaces {
-    padding: 5px;
-}
-
-.workspaces label {
-    font-size: 18;
-    padding-right: 5px;
-    padding: 2px 5px 2px 0px;
-}
-
-.widget {
-    padding: 5px 5px;
-    border-radius: 5px;
-    background-color: $surface0;
-    margin: 5px 2px;
-    color: $white0;
-    // border-style: solid;
-    // border-color: $white0;
-    // border-width: 2px;
-}
-
-.clock label {
-    font-size: 20px;
-}
-
-.bat_scale trough{
-    min-height: 50px; 
-    min-width: 18px; 
-    border-radius: 5px;
-}
-
-.bat_scale trough highlight{
-    border-radius: 5px;
-    background-color: $red;
-}
-
-.charging trough highlight {
-    background-color: $green;
-}
-
-.dying trough highlight {
-   background-color: $maroon;
-}
-
-// .mpd label {
-//     color: $sky;
-// }
-//
-// .playerctl label {
-//     color: $sapphire;
-// }
-
-.mpd_controls label {
-    font-size: 30px;
-    padding: 10px;
-}
-
-.seektime trough {
-    min-height: 15px; 
-    min-width: 180px;
-    margin-left: 15px;
-}
-
-.seektime trough highlight {
-    background-color: $teal;
-}
-
-.popup {
-    background-color: $base;
-    padding: 10px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: $surface2;
-    border-width: 2px;
-}
 
 calendar {
     all: unset;
@@ -152,41 +65,3 @@ calendar:indeterminate {
     color: $surface2;
 }
 
-.touch label {
-    font-size: 20px;
-}
-
-// just color stuff probably 
-// .clock label {
-//     color: $light_blue;
-// }
-//
-// .closex label, .wofi label, .touchkeyboard label, .themetoggle label {
-//     color: $teal;
-// }
-//
-// .wifi label {
-//     color: $teal;
-// }
-//
-// .sound label {
-//     color: $maroon;
-// }
-// .volslide trough highlight {
-//     background-color: $maroon;
-// }
-//
-// .bright label {
-//     color: $green;
-// }
-// .brislide trough highlight {
-//     background-color: $green;
-// }
-//
-.launchicon {
-    color: $red;
-}
-
-.lightning {
-    color: $surface0
-}
