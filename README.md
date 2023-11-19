@@ -2,7 +2,7 @@
 
 ![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide2.png?raw=true)
 
-https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide2.mp4
+https://github.com/Failedex/CarbonMonoxide/assets/92513573/09942151-adb7-4e17-af9e-d1fc3f8e08f7
 
 ## Featuring
 - Oxocarbon colour scheme
