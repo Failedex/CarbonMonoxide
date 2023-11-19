@@ -10,8 +10,7 @@ swayidle -w \
 $HOME/.config/eww/meowayland/scripts/timer.py loop &
 
 ~/.local/bin/eww daemon &
-~/.local/bin/eww --config ~/.config/eww/sidebar open bar &
-~/.local/bin/eww --config ~/.config/eww/sidebar open dock &
+~/.local/bin/eww --config ~/.config/eww/sidebar open-many bar dock desktopicons &
 
 # I used to use waybar
 # waybar &

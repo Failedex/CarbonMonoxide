@@ -8,7 +8,17 @@
 (defpoll timerstate :interval "1s" `./scripts/timer.py substate`)
 (defpoll quoteliteral :interval "1h" `./scripts/quote.py`)
 
+;; sys info
+(defpoll cpu :interval "1s" :run-while reveal5 "bash ./scripts/sys_info --cpu")
+(defpoll mem :interval "1s" :run-while reveal5 "bash ./scripts/sys_info --mem")
+
+(defvar gapsouter 0)
+(defvar gapsinner 10)
+(defvar borderpixel 2)
+
 (defvar reveal4 false)
+(defvar reveal5 false)
+(defvar reveal6 false)
 
 (defwindow control_panel
   :geometry (geometry
@@ -24,12 +34,15 @@
 
 (defwidget control_widget[]
   (box 
-    :class "popup"
+    :class "controlpanelwindow"
     :space-evenly false
     :orientation "v"
-    (sillyslide)
+    (user)
+    (notes)
+    (sysinfo)
+    (wmctrl)
     (weather)
-    (coolmpd :h 180 :permashow false)
+    (coolmpd :h 180 :permashow true)
     (box 
       :orientation "h"
       :space-evenly false 
@@ -49,19 +62,9 @@
       :space-evenly true
       :height 80 
       :halign "fill"
-      (button :onclick "swaymsg '[workspace=\"^[1-5]$\"] floating toggle'" (label :text "󰄶"))
+      (button :onclick "./scripts/pop colourpick" (label :text "󰈊"))
       (button :onclick "./scripts/pop scrop" (label :text "󰆞"))
       (button :onclick "./scripts/toggletheme toggle" (label :text {dark == "true" ? "" : ""})))))
-
-(defwidget sillyslide[] 
-  (box
-    :orientation "v" 
-    :space-evenly false
-    :height 200
-    :halign "fill"
-    (overlay
-      (user)
-      (notes))))
 
 (defwidget notes []
   (eventbox
@@ -71,7 +74,6 @@
     :cursor "pointer"
     :halign "fill"
     :height 60
-    :valign "end"
     (box 
       :class "notes unbarwidget"
       :orientation "v"
@@ -89,17 +91,159 @@
               :vscroll true
               (label :text notesc))))))))
 
-(defwidget user[]
-  (box
-    :height 200
+(defwidget revcal []
+  (eventbox
+    :onhover "${EWW_CMD} update reveal6=true"
+    :onhoverlost "${EWW_CMD} update reveal6=false"
     :halign "fill"
-    :valign "start"
-    :class "unbarwidget"
-    :hexpand true
+    :height 60
+    (box 
+      :class "unbarwidget"
+      :orientation "v"
+      :space-evenly false 
+      (label :class "title" :text "Calendar")
+      (revealer 
+        :reveal reveal6
+        :transition "slideup"
+        (calendar 
+          :class "revcal"
+          :height 140
+          :show-details false
+          :show-heading true
+          :show-day-names false
+          :show-week-numbers false
+          :day calendar_day 
+          :year calendar_year)))))
+
+(defwidget wmctrl []
+  (eventbox
+    :onhover "${EWW_CMD} update reveal6=true"
+    :onhoverlost "${EWW_CMD} update reveal6=false"
+    :halign "fill"
+    :height 60
+    (box 
+      :class "unbarwidget"
+      :orientation "v"
+      :space-evenly false 
+      (label :class "title" :text "Sway")
+      (revealer 
+        :reveal reveal6
+        :transition "slideup"
+        (box
+          :height 140
+          :orientation "v"
+          :valign "fill"
+          :space-evenly false
+          (wmslider 
+            :name "gaps outer" 
+            :val gapsouter 
+            :onchange "swaymsg gaps outer all set {}" 
+            :max 300 
+            :reset "${EWW_CMD} update gapsouter=0 && swaymsg gaps outer all set 0")
+          (wmslider 
+            :name "gaps inner" 
+            :val gapsinner 
+            :onchange "swaymsg gaps inner all set {}" 
+            :max 150
+            :reset "${EWW_CMD} update gapsinner=15 && swaymsg gaps inner all set 15")
+          (wmslider 
+            :name "border size" 
+            :val borderpixel 
+            :onchange "swaymsg default_border pixel {} && swaymsg '[app_id=\".*\"] border pixel {}'" 
+            :max 50
+            :reset "${EWW_CMD} update borderpixel=2 && swaymsg default_border pixel 2 && swaymsg '[app_id=\".*\"] border pixel 2'")
+          (box 
+            :orientation "h"
+            :space-evenly false 
+            :halign "center"
+            :spacing 10 
+            (label :text "natural scrolling")
+            (checkbox 
+              :onchecked "swaymsg input \"type:touchpad\" natural_scroll enable"
+              :onunchecked "swaymsg input \"type:touchpad\" natural_scroll disable"))
+          (box 
+            :orientation "h"
+            :space-evenly false 
+            :halign "center"
+            :spacing 10
+            (label :text "disable when typing")
+            (checkbox 
+              :onchecked "swaymsg input \"type:touchpad\" dwt enable"
+            ))
+
+          )))))
+
+(defwidget sysinfo []
+  (eventbox
+    :onhover "${EWW_CMD} update reveal5=true"
+    :onhoverlost "${EWW_CMD} update reveal5=false"
+    :halign "fill"
+    :height 60
+    (box
+      :class "unbarwidget"
+      :orientation "v"
+      :space-evenly false
+      (label :class "title" :text "System")
+      (revealer 
+        :reveal reveal5
+        :transition "slideup"
+          (box 
+            :orientation "h"
+            :height 140 
+            (systat :icon "󰻠" :val cpu)
+            (systat :icon "󰍛" :val mem)
+            (systat :icon "" :val bat0)
+            )))))
+
+(defwidget wmslider [name val onchange max reset]
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+    :width 20
+    :vexpand false
+    :valign "center"
+    :spacing 10
+    (label 
+      :text name)
+    (scale 
+      :min 0 
+      :max max
+      :class "wmctrlslide"
+      :tooltip val
+      :value val
+      :onchange onchange)
+    (button 
+      :onclick reset 
+      :style "padding: 0px 8px 0px 3px;"
+      "")))
+
+(defwidget systat [icon val] 
+  (overlay
+    (circular-progress 
+      :halign "center"
+      :valign "center"
+      :class "circsys"
+      :thickness 40
+      :value val)
+      
+    (box
+      :class "circiconcontain"
+      :halign "center"
+      :valign "center"
+      :height 55
+      :width 55
+      (label :text icon))))
+
+(defwidget user[]
+  (revealer
+    :reveal {!reveal4 && !reveal5 && !reveal6}
+    :transition "slideup"
     (box
       :orientation "h"
       :space-evenly false 
       :height 140
+      :class "unbarwidget"
       :valign "start"
       :halign "fill"
       :hexpand true
@@ -191,8 +335,8 @@
   (box
     :class "quotewid unbarwidget"
     :halign "fill"
-    :height 140
-    :valign "center"
+    :valign "fill"
+    :vexpand true
     (literal 
       :content quoteliteral)))
 

@@ -38,6 +38,10 @@ button:hover {
     background-color: $surface2;
 }
 
+scale slider {
+    min-width: 15px;
+    min-height: 15px;
+}
 
 scale trough highlight {
     background-color: $white0;
@@ -65,3 +69,20 @@ calendar:indeterminate {
     color: $surface2;
 }
 
+checkbutton {
+    border-radius: 24px;
+    background-color: $surface1;
+    padding: 4px;
+    check {
+        min-height: 15px;
+        min-width: 15px;
+        color: $white0;
+    }
+}
+
+checkbutton:checked {
+    check{
+        border-radius: 24px;
+        background-color: $white0;
+    }
+}

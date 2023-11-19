@@ -1,4 +1,8 @@
 
+.controlpanelwindow {
+    padding: 5px; 
+}
+
 .userinfo label {
     font-size: 18px;
     color: $white0;
@@ -12,7 +16,7 @@
 
 .title {
     font-size: 20px;
-    margin: 0px 10px;
+    margin: 10px;
     color: $base;
     background-color: $red;
     border-radius: 5px;
@@ -92,4 +96,41 @@
     background-size: cover;
     background-position: center;
     opacity: 0.4;
+}
+
+.circiconcontain {
+    border-radius: 70px;
+    background-color: $surface0;
+}
+
+.circiconcontain label {
+    font-family: "Iosevka Nerd Font Mono";
+    font-size: 40px;
+    border-radius: 70px;
+    color: $white0;
+}
+
+.circsys {
+    color: $red;
+    background-color: $surface1;
+}
+
+.revcal {
+    font-size: 13px;
+}
+
+.wmctrlslide {
+    trough {
+        min-width: 160px;
+        min-height: 15px;
+        // max-height: 15px;
+        slider {
+            background-color: $white2;
+            min-height: 15px;
+            min-width: 15px;
+            border-radius: 25px;
+            // border: solid 10px;
+            // border-color: $surface2;
+        }
+    }
 }

@@ -1,8 +1,8 @@
 # Carbon Monoxide, a sway dotfile
 
-![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide.png?raw=true)
+![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide2.png?raw=true)
 
-![Carbon Monoxide bar demonstration](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide.gif?raw=true)
+https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide2.mp4
 
 ## Featuring
 - Oxocarbon colour scheme
@@ -30,7 +30,7 @@ The config will still run without these, but there will be silent errors and mis
 - a file under `~/Documents/fuck.txt`. This is a to do list
 
 ## Set up 
-Just a heads up that my eww binary is under `~/.local/bin/eww`, which might not be the case for you. If this is the case, edit `/.config/sway/autostart.sh` and `/.config/eww/sidebar/scripts/pop`.
+Just a heads up that my eww binary is under `~/.local/bin/eww`, so you might have to edit some scripts I have if this is not the case for you.
 
 It should be possible to set this configuration up using 
 ```

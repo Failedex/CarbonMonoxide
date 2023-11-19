@@ -72,6 +72,13 @@
     padding: 10px;
 }
 
+.seektime slider {
+    background-color: $white0;
+    border-radius: 25px;
+    min-height: 15px;
+    min-width: 15px;
+}
+
 .seektime trough {
     min-height: 15px; 
     min-width: 180px;
@@ -128,4 +135,18 @@
 
 .lightning {
     color: $surface0
+}
+
+.workspacething, .workspacethingactive {
+    transition: 500ms;
+    border-radius: 5;
+    margin: 6px;
+}
+
+.workspacething {
+    background-color: $surface2;
+}
+
+.workspacethingactive {
+    background-color: $red;
 }

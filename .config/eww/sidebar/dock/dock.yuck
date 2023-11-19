@@ -40,6 +40,7 @@
     :space-evenly true
     (for task in {tasksjson}
       (button
+        :tooltip { task.name }
         :onclick { task.pid != 'null' ? 'swaymsg "[pid=${task.pid}] focus"' : '${task.app_id} &'}
         (box
           :orientation "v"

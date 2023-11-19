@@ -6,7 +6,7 @@
     :width "42"
     :height "1080"
     :anchor "center left")
-  :reserve (struts :distance "50" :side "left")
+  ;; :reserve (struts :distance "60" :side "left")
   ;; :stacking "bg"
   :exclusive true
   :monitor 0
@@ -15,15 +15,22 @@
   (barstruct))
 
 (defwidget barstruct []
-  (centerbox 
-    :class "bar"
-    :orientation "v"
-    :height "1080"
-    ;; :space-evenly true
-    (top)
-    (middle)
-    (bottom)
-    ))
+  (box
+    :orientation "h"
+    :space-evenly false 
+    (revealer 
+      :transition "slideright"
+      :reveal revealcontrolpanel
+      (control_widget))
+      (centerbox 
+        :class "bar"
+        :orientation "v"
+        :height "1080"
+        ;; :space-evenly true
+        (top)
+        (middle)
+        (bottom)
+        )))
 
 (defwidget top [] 
   (box
@@ -65,7 +72,18 @@
 (defwidget workspaces []
   (eventbox
     :cursor "pointer"
-    (literal :content literalworkspace)))
+    (box
+      :class "workspaces widget"
+      :orientation "v"
+      :space-evenly false
+      (for workspace in {workspacejson}
+        (button
+          :onclick "swaymsg -t command workspace number ${workspace.name}"
+          (box
+            :hexpand false
+            :width 10
+            :height { workspace.focused ? 60 : !workspace.empty ? 40 : 30}
+            :class { workspace.focused ? "workspacethingactive" : "workspacething"}))))))
 
 (defwidget home []
     (box
@@ -75,7 +93,8 @@
         (eventbox
             ;; :onclick "~/.config/eww/meowidgets/scripts/launch"
             ;; :onclick "~/.config/eww/meowayland/scripts/launch"
-            :onclick "./scripts/pop control"
+            ;; :onclick "./scripts/pop control"
+            :onclick "${EWW_CMD} update revealcontrolpanel=${ !revealcontrolpanel }"
             :onrightclick "./scripts/pop dashboard"
             :cursor "pointer"
             (label :text "" :class "launchicon" :style "padding: 0px 10px 0px 0px; font-size: 20px;"))))
@@ -129,7 +148,7 @@
             (button :onclick "swaymsg kill" :style "padding-right: 5px;" :class "closex icon" "󰅙")
             (button :onclick "wofi --show=drun -i -I" :style "padding-right: 3px;" :class "wofi icon" "󰀻")
             (button :onclick "./scripts/touchkey.sh" :style "padding-right: 7px" :class "touchkeyboard icon" "󰌌")))
-      (label :angle {reveal3 ? 90 : 270} :class "revealtouch" :text "")
+      (label :angle {reveal3 ? 90 : 270} :class "revealtouch" :tooltip "touch control" :text "")
       (revealer 
         :reveal {!reveal3}
         :transition "slidedown"
@@ -268,7 +287,8 @@
           :class "seektime"
           :value current 
           :orientation "h"
-          :min -5
+          :onchange "mpc seek {}%"
+          :min 0
           :max 100
           :tooltip "${ctime}/${ttime}")
         ))))

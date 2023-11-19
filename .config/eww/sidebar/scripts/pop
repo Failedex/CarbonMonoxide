@@ -76,11 +76,16 @@ elif [ "$1" = "control" ]; then
     control
 elif [ "$1" = "dashboard" ]; then
     dashboard
+elif [ "$1" = "colourpick" ]; then
+    COLOUR=$(grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | awk -F ' ' 'NR==2 {print $3}')
+    wl-copy "$COLOUR"
+    notify-send "$COLOUR" "Colour copied to clipboard"
 elif [ "$1" = "scrop" ]; then
-    control 
-    sleep 0.5
+    # control 
+    # sleep 0.5
     grim -g "$(slurp)" - | wl-copy
+    notify-send "Screenshot Taken" "Image copied to clipboard"
 elif [ "$1" = "sscreen" ]; then
-    control 
+    # control 
     grim - | wl-copy
 fi
