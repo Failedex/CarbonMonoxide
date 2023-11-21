@@ -1,5 +1,5 @@
 #!/bin/bash
-EWW_BIN="$HOME/.local/bin/eww -c $HOME/.config/eww/sidebar"
+EWW_BIN="$(which eww) -c $HOME/.config/eww/sidebar"
 
 $HOME/.config/eww/sidebar/scripts/icon.py
 while [ 1 == 1 ] ; do

@@ -37,6 +37,7 @@
     :class "controlpanelwindow"
     :space-evenly false
     :orientation "v"
+    :valign "end"
     (user)
     (notes)
     (sysinfo)

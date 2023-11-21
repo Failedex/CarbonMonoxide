@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 # change this to your eww bin. Don't question mine
-EWW_BIN="$HOME/.local/bin/eww -c $HOME/.config/eww/sidebar"
+EWW_BIN="$(which eww) -c $HOME/.config/eww/sidebar"
 # EWW_BIN="$HOME/Packages/eww/target/release/eww"
 
 dashboard () {
@@ -79,12 +79,12 @@ elif [ "$1" = "dashboard" ]; then
 elif [ "$1" = "colourpick" ]; then
     COLOUR=$(grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | awk -F ' ' 'NR==2 {print $3}')
     wl-copy "$COLOUR"
-    notify-send "$COLOUR" "Colour copied to clipboard"
+    notify-send -i ~/.config/eww/sidebar/image/eyedropper.svg "$COLOUR" "Colour copied to clipboard"
 elif [ "$1" = "scrop" ]; then
     # control 
     # sleep 0.5
     grim -g "$(slurp)" - | wl-copy
-    notify-send "Screenshot Taken" "Image copied to clipboard"
+    notify-send -i ~/.config/eww/sidebar/image/screenshot.svg "Screenshot Taken" "Image copied to clipboard"
 elif [ "$1" = "sscreen" ]; then
     # control 
     grim - | wl-copy

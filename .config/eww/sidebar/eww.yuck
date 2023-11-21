@@ -10,7 +10,10 @@
 (defpoll calendar_year :interval "20h" "date '+%Y'")
 (defpoll bat0 :interval "30s" "cat /sys/class/power_supply/BAT0/capacity")
 (defpoll batstat :interval "30s" "cat /sys/class/power_supply/BAT0/status")
+(defpoll homedir :interval "24h" "echo ~")
 (deflisten workspacejson "./scripts/workspace.sh")
+(defvar newnotification '{"source": "", "icon": "", "summary": "", "body": "", "action": "", "timeout": -1}')
+(defvar notifications "[]")
 
 ;; mpd
 (deflisten song :runwhile revealmpd "./scripts/music_info --song")
@@ -41,3 +44,4 @@
 (include "./dashboard/dashboard.yuck")
 (include "./dock/dock.yuck")
 (include "./desktop/desktop.yuck")
+(include "./notfication/notification.yuck")

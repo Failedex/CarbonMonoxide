@@ -6,11 +6,11 @@ https://github.com/Failedex/CarbonMonoxide/assets/92513573/09942151-adb7-4e17-af
 
 ## Featuring
 - Oxocarbon colour scheme
-- Eww bar and animations
-- Widgets
+- Eww bar, dock, and widgets
+- Eww animations
 - Iosevka, if you want
 - "Touch friendly" set up (configuration was made for my touchscreen laptop)
-- Light mode bar???
+- Light mode???
 - The worst configuration files you have ever seen
 - A few [symptoms](https://www.mayoclinic.org/diseases-conditions/carbon-monoxide/symptoms-causes/syc-20370642), only a few.
 
@@ -30,8 +30,6 @@ The config will still run without these, but there will be silent errors and mis
 - a file under `~/Documents/fuck.txt`. This is a to do list
 
 ## Set up 
-Just a heads up that my eww binary is under `~/.local/bin/eww`, so you might have to edit some scripts I have if this is not the case for you.
-
 It should be possible to set this configuration up using 
 ```
 stow .

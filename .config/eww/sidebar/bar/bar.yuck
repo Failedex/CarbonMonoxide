@@ -163,11 +163,11 @@
       :orientation "v"
       (eventbox 
         :onclick "./scripts/pop music"
-        (image :style "border-radius: 25px;" :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover } :image-width 20 :image-height 20))
+        (image :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover } :image-width 20 :image-height 20))
       (button :class "icon" :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous" } (label :text "󰒮"))
       (button :class "icon" :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text  {revealmpd ? status : pstatus == "Playing" ? "" : ""}))
       (button :class "icon" :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭"))
-      (button :class "icon" :tooltip { revealmpd ? "mpd" : "mpris" } :onclick { revealmpd ? "${EWW_CMD} update revealmpd=false" : "${EWW_CMD} update revealmpd=true"} (label :text { revealmpd ? "󱨥" : "󱨦"})))))
+      (button :class "icon" :tooltip { revealmpd ? "mpd" : "mpris" } :onclick "${EWW_CMD} update revealmpd=${!revealmpd}" (label :text { revealmpd ? "󱨥" : "󱨦"})))))
 
 (defwidget sliders [] 
     (box
