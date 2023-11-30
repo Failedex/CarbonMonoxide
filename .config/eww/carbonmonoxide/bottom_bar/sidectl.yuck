@@ -1,0 +1,192 @@
+
+(defwindow sidectl1
+  :geometry (geometry
+              :x "0%"
+              :y "0%"
+              :width 320
+              :height 0
+              :anchor "bottom right")
+  :monitor 0 
+  :stacking "overlay"
+  (revealer
+    :reveal reveal1 
+    :transition "slideup"
+    (box
+      :orientation "v"
+      :valign "end"
+      :space-evenly false
+      (box
+        :height 700
+        :class "popup"
+          (notiweathertoggle))
+
+      (box
+        :class "popup"
+        (box
+          :class "unbarwidget"
+          (calendar 
+            :day calendar_day 
+            :year calendar_year 
+            :class "")))
+      )))
+
+(defwindow sidectl2 
+  :geometry (geometry 
+              :x 100 
+              :y 0
+              :width 200
+              :height 0
+              :anchor "bottom right")
+  :monitor 0 
+  :stacking "overlay"
+  (revealer 
+    :reveal reveal2 
+    :transition "slideup"
+    (box 
+      :class "popup"
+      :orientation "v"
+      :space-evenly false
+      (box
+        :orientation "v"
+        :class "widget"
+        :spacing 10
+
+        (box
+          :orientation "h"
+          (button 
+            :onclick {wifi_radio == "enabled" ? "nmcli radio wifi off" : "nmcli radio wifi on"}
+            (label 
+              :class {wifi_radio == "enabled" ? "icontitlesel" : "icontitle"}
+              :text wifi_icon))
+
+          (button 
+            :onclick {caffeine ? "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false" : "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"}
+            (label 
+              :class {caffeine ? "icontitlesel" : "icontitle"}
+              :text ""))
+
+          (button 
+            :onclick "./scripts/toggletheme toggle" 
+            (label 
+              :class "icontitle"
+              :text {dark == "true" ? "" : ""}))
+          )
+
+        (sliderctl :icon {volumemute == 'false' ? "󰕾" : "󰖁"} :value volume :onchange "pamixer --set-volume {}")
+        (sliderctl :icon "󰃞" :value brightness :onchange "brightnessctl set {}%"))
+)))
+
+(defwidget sliderctl [icon value onchange]
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :hexpand true
+    :spacing 5
+
+    (label 
+      :class "icon"
+      :text icon
+      :style "margin-left: 5px;")
+
+    (scale 
+      :class "sliderctl"
+      :orientation "h"
+      :value value
+      :tooltip "${value}%"
+      :min 0
+      :max 100
+      :onchange onchange)))
+
+(defwindow sidectl3
+  :geometry (geometry
+              :x 150
+              :y 0
+              :width 440
+              :height 0
+              :anchor "bottom right")
+  :monitor 0 
+  :stacking "overlay"
+  (revealer
+    :reveal reveal3
+    :transition "slideup"
+    (box 
+      :class "popup"
+      (box
+        :orientation "h"
+        :class "unbarwidget"
+        :space-evenly false 
+        :spacing 20
+        (image :style "margin: 5px;" :image-height 190 :image-width 190 :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover })
+        (box
+          :orientation "v"
+          :space-evenly false 
+          :width 210
+          :height 200
+          (scroll
+            :hscroll true
+            :vscroll false
+            (label :class "mtitle" :text { revealmpd ? song : psong }))
+          (scroll
+            :hscroll true
+            :vscroll false
+            (label :class "mauthor" :text { revealmpd ? artist : partist }))
+          (box 
+            :orientation "h"
+            :class "mpd_controls"
+            :style "margin-top: 10px;"
+            (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous"} (label :text "󰒮"))
+            (button :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text { revealmpd ? status : pstatus == "Playing" ? "" : ""} ))
+            (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭")))
+          (scale 
+            :visible revealmpd
+            :class "seektime"
+            :value current 
+            :orientation "h"
+            :onchange "mpc seek {}%"
+            :min 0
+            :max 100
+            :tooltip "${ctime}/${ttime}"))
+        (box 
+          :orientation "v"
+          :space-evenly false
+          :valign "center"
+          :halign "end"
+          :visible revealmpd 
+          :class "sidempdctl"
+          (scale 
+            :value mpdvol 
+            :orientation "v"
+            :class "mpdvolumeseek"
+            :onchange "mpc volume {}"
+            :min 0 
+            :max 100
+            :flipped true
+            :tooltip "volume: ${mpdvol}%")
+          (button 
+            :onclick "mpc random"
+            (label 
+              :text {mpdrandom == "on" ? "󰒝" : "󰒞"}))
+          (button 
+            :onclick "mpc single"
+            (label 
+              :text {mpdsingle == "on" ? "󰑘" : "󰑖"}))
+          )
+        ))))
+
+(defwindow sidectl4 
+  :geometry (geometry
+             :x 0
+             :y 0
+             :width 340
+             :height 0
+             :anchor "bottom left"
+             )
+  :stacking "overlay"
+  :monitor 0
+  (revealer
+    :reveal revealcontrolpanel
+    :transition "slideup"
+    (box 
+      :class "popup"
+      (control_widget :short true))))
+  

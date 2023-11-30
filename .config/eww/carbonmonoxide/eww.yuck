@@ -1,0 +1,94 @@
+(defpoll thour :interval "60s" "date +'%I'")
+(defpoll tmin :interval "60s" "date +'%M'")
+(defpoll tpm :interval "60s" "date +'%p'")
+(defpoll volumemute :interval "1s" "pamixer --get-mute")
+(defpoll volume :interval "1s" "pamixer --get-volume")
+(defpoll brightness :interval "2s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defpoll wifi_icon :interval "30s" "./scripts/wifi --ICON")
+(defpoll wifi_essid :interval "30s" "./scripts/wifi --ESSID")
+(defpoll wifi_radio :interval "2s" "nmcli radio wifi")
+(defpoll calendar_day :interval "20h" "date '+%d'")
+(defpoll calendar_year :interval "20h" "date '+%Y'")
+(defpoll bat0 :interval "30s" "bash ./scripts/sys_info --bat")
+;; (defpoll batstat :interval "30s" "cat /sys/class/power_supply/BAT0/status")
+(defpoll homedir :interval "24h" "echo ~")
+
+(deflisten workspacejson "./scripts/workspace.sh")
+
+;; used mainly in control panel and dashboard
+(defpoll hostname :interval "24h" 'echo "$(whoami)"')
+(defpoll uptime :interval "1m" "uptime -p")
+(defpoll weatherjson :initial "[]" :interval "1h" "./scripts/weather.py")
+(defpoll genquote :interval "1h" "./scripts/quote.py")
+(defpoll datehour :interval "30m" "date +'%H'")
+(defpoll notesc :interval "2s" :run-while reveal4 "cat -s ~/Documents/fuck.txt")
+(defpoll timerdis :interval "1s" `./scripts/timer.py subscribe`)
+(defpoll timerstate :interval "1s" `./scripts/timer.py substate`)
+(defpoll quotejson :interval "1h" `./scripts/quote.py`)
+
+;; dock 
+(deflisten tasksjson "./scripts/icon.sh")
+(defvar revealdock false)
+
+;; fucking desktop icons
+(defpoll trashcanpath :interval "24h" "./scripts/iconfetch.py trashcan_empty")
+
+;; sys info
+;; (defpoll cpu :interval "1s" :run-while reveal5 "bash ./scripts/sys_info --cpu")
+;; (defpoll mem :interval "1s" :run-while reveal5 "bash ./scripts/sys_info --mem")
+(defvar gapsouter 0)
+(defvar gapsinner 10)
+(defvar borderpixel 2)
+(defvar caffeine false)
+
+; Notifications
+(deflisten  notifications :initial '{
+    "count": 0,
+    "dnd": false,
+    "notifications": [],
+    "popups": []
+    }'
+    "./scripts/notifCatch"
+)
+
+;; cava pipe ("borrowed from tail-r")
+;; (deflisten cavajson :initial "[]" "./scripts/cava_pipe.sh")
+
+;; mpd
+(deflisten song :runwhile revealmpd "./scripts/music_info --song")
+(deflisten artist :runwhile revealmpd "./scripts/music_info --artist")
+(defpoll current :interval "1s" :runwhile revealmpd "./scripts/music_info --time")
+(defpoll ctime :interval "1s" :runwhile revealmpd "./scripts/music_info --ctime")
+(defpoll ttime :interval "1s" :runwhile revealmpd "./scripts/music_info --ttime")
+(deflisten cover :runwhile revealmpd "./scripts/music_info --cover")
+(deflisten status :runwhile revealmpd "./scripts/music_info --status")
+(deflisten mpdvol :runwhile revealmpd "./scripts/music_info --volume")
+(deflisten mpdsingle :runwhile revealmpd "./scripts/music_info --single")
+(deflisten mpdrandom :runwhile revealmpd "./scripts/music_info --random")
+
+;; playerctl
+(deflisten psong :runwhile {!revealmpd} "playerctl metadata --format '{{ title }}' -F")
+(deflisten partist :runwhile {!revealmpd} "playerctl metadata --format '{{ artist }}' -F")
+(deflisten pcover :runwhile {!revealmpd} "./scripts/pollcover.sh")
+(deflisten pstatus :runwhile {!revealmpd} "playerctl status -F")
+
+(defvar reveal1 false)
+(defvar reveal2 false)
+(defvar reveal3 false)
+(defvar reveal4 false)
+(defvar reveal5 false)
+(defvar reveal6 false)
+(defvar revealweather false)
+(defvar revealmpd false)
+(defvar revealcontrolpanel false)
+
+(defpoll dark :interval "1h" "./scripts/toggletheme")
+
+
+;; (include "./bar/bar.yuck")
+(include "./bottom_bar/bar.yuck")
+(include "./control_panel/control_panel.yuck")
+(include "./dashboard/dashboard.yuck")
+(include "./dock/dock.yuck")
+(include "./desktop/desktop.yuck")
+(include "./notification/notification.yuck")
