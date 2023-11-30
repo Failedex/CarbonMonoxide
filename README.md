@@ -1,14 +1,19 @@
 # Carbon Monoxide, a sway dotfile
 
-![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide2.png?raw=true)
+![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide3.png?raw=true)
 
-https://github.com/Failedex/CarbonMonoxide/assets/92513573/09942151-adb7-4e17-af9e-d1fc3f8e08f7
+https://github.com/Failedex/CarbonMonoxide/assets/92513573/f35b322f-3af1-4b10-8103-559f0973c15a
+
+or a bottom bar if you want
+![Carbon Monoxide bottom bar ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide_bottom.png?raw=true)
+
+
+https://github.com/Failedex/CarbonMonoxide/assets/92513573/dd0a75d6-f05b-4469-88ab-5055d61087f6
 
 ## Featuring
 - Oxocarbon colour scheme
 - Eww bar, dock, and widgets
-- Eww animations
-- Iosevka, if you want
+- Eww animations (quite a lot of them)
 - "Touch friendly" set up (configuration was made for my touchscreen laptop)
 - Light mode???
 - The worst configuration files you have ever seen
