@@ -257,8 +257,10 @@
     :stacking "overlay"
     :monitor 0
     (box
-        :class "popup"
-        (calendar :day calendar_day :year calendar_year :class "cal")))
+      :class "popup"
+      (box
+        :class "unbarwidget"
+        (calendar :day calendar_day :year calendar_year :class "cal"))))
 
 (defwindow music 
   :geometry (geometry :x "0"

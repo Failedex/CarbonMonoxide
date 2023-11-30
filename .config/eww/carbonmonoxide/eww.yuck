@@ -85,8 +85,8 @@
 (defpoll dark :interval "1h" "./scripts/toggletheme")
 
 
-;; (include "./bar/bar.yuck")
-(include "./bottom_bar/bar.yuck")
+(include "./bar/bar.yuck")
+;; (include "./bottom_bar/bar.yuck")
 (include "./control_panel/control_panel.yuck")
 (include "./dashboard/dashboard.yuck")
 (include "./dock/dock.yuck")

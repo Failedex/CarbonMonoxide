@@ -7,10 +7,11 @@ swayidle -w \
 	timeout 900 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' &
 
-$HOME/.config/eww/meowayland/scripts/timer.py loop &
+$HOME/.config/eww/carbonmonoxide/scripts/timer.py loop &
 
-~/.local/bin/eww daemon &
-~/.local/bin/eww --config ~/.config/eww/sidebar open-many bar dock desktopicons &
+$(which eww) daemon &
+$(which eww) --config ~/.config/eww/carbonmonoxide open-many bar dock desktopicons notifypopup &
+# $(which eww) --config ~/.config/eww/carbonmonoxide open-many bar sidectl1 sidectl2 sidectl3 sidectl4 desktopicons notifypopup &
 
 # I used to use waybar
 # waybar &
@@ -21,7 +22,7 @@ foot -a sterm &
 foot -a sncmpcpp ncmpcpp &
 foot -a sranger ranger &
 
-dunst &
+# dunst &
 # pulseaudio &
 pipewire &
 wireplumber &
