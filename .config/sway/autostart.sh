@@ -10,7 +10,7 @@ swayidle -w \
 $HOME/.config/eww/carbonmonoxide/scripts/timer.py loop &
 
 $(which eww) daemon &
-$(which eww) --config ~/.config/eww/carbonmonoxide open-many bar dock desktopicons notifypopup &
+$(which eww) --config ~/.config/eww/carbonmonoxide open-many bar desktopicons notifypopup &
 # $(which eww) --config ~/.config/eww/carbonmonoxide open-many bar sidectl1 sidectl2 sidectl3 sidectl4 desktopicons notifypopup &
 
 # I used to use waybar

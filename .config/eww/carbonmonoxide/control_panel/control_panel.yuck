@@ -98,7 +98,7 @@
       :orientation "v"
       :valign "fill"
       :space-evenly false
-      :spacing 5
+      :spacing 2
       (wmslider 
         :name "gaps outer" 
         :val gapsouter 
@@ -134,6 +134,18 @@
         (label :text "disable when typing")
         (checkbox 
           :onchecked "swaymsg input \"type:touchpad\" dwt enable"
+          :onunchecked "swaymsg input \"type:touchpad\" dwt disable"
+        ))
+
+      (box 
+        :orientation "h"
+        :space-evenly false 
+        :halign "center"
+        :spacing 10
+        (label :text "caffeine")
+        (checkbox 
+          :onchecked "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"
+          :onunchecked "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false"
         ))
 )))
 

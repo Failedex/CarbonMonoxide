@@ -86,6 +86,11 @@ def main():
     for app in apps: 
         name = app["app_id"].lower()
         path = fetch(name)
+
+        # xournalpp is annoying 
+        if name == "com.github.xournalpp.xournalpp":
+            name = "xournalpp"
+
         if path: 
             a = app.copy()
             a["path"] = fetch(name)
