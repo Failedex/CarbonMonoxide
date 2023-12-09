@@ -10,6 +10,7 @@
 (defpoll calendar_day :interval "20h" "date '+%d'")
 (defpoll calendar_year :interval "20h" "date '+%Y'")
 (defpoll bat0 :interval "30s" "bash ./scripts/sys_info --bat")
+(defpoll baticon :interval "30s" "bash ./scripts/sys_info --baticon")
 ;; (defpoll batstat :interval "30s" "cat /sys/class/power_supply/BAT0/status")
 (defpoll homedir :interval "24h" "echo ~")
 
@@ -85,8 +86,8 @@
 (defpoll dark :interval "1h" "./scripts/toggletheme")
 
 
-(include "./bar/bar.yuck")
-;; (include "./bottom_bar/bar.yuck")
+;; (include "./bar/bar.yuck")
+(include "./bottom_bar/bar.yuck")
 (include "./control_panel/control_panel.yuck")
 (include "./dashboard/dashboard.yuck")
 (include "./dock/dock.yuck")

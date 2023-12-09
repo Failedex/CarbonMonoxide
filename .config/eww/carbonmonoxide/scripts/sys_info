@@ -80,6 +80,24 @@ get_battery() {
     echo $battery_percentage
 }
 
+get_battery_icon () {
+    battery_info=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
+    battery_percentage=$(echo "$battery_info" | grep -E "percentage" | awk '{print $2}' | tr -d '%')
+    icon=""
+
+    if [ "$battery_percentage" -le 20 ]; then 
+        icon=""
+    elif [ "$battery_percentage" -le 40 ]; then 
+        icon=""
+    elif [ "$battery_percentage" -le 60 ]; then 
+        icon=""
+    elif [ "$battery_percentage" -le 80 ]; then 
+        icon=""
+    fi
+
+    echo $icon
+}
+
 ## Execute accordingly
 if [[ "$1" == "--cpu" ]]; then
 	get_cpu
@@ -89,4 +107,6 @@ elif [[ "$1" == "--blight" ]]; then
 	get_blight
 elif [[ "$1" == "--bat" ]]; then
 	get_battery
+elif [[ "$1" == "--baticon" ]]; then
+	get_battery_icon
 fi
