@@ -95,7 +95,7 @@
             ;; :onclick "~/.config/eww/meowayland/scripts/launch"
             ;; :onclick "./scripts/pop control"
             :onclick "${EWW_CMD} update revealcontrolpanel=${ !revealcontrolpanel }"
-            :onrightclick "${EWW_CMD} open dashboard --toggle"
+            :onrightclick "${EWW_CMD} open wallpaperselect --toggle"
             :cursor "pointer"
             (label :text "" :halign "center" :class "launchicon" :style "padding: 2px 0px;"))))
 

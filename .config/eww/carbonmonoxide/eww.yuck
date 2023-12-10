@@ -19,7 +19,7 @@
 ;; used mainly in control panel and dashboard
 (defpoll hostname :interval "24h" 'echo "$(whoami)"')
 (defpoll uptime :interval "1m" "uptime -p")
-(defpoll weatherjson :initial "[]" :interval "1h" "./scripts/weather.py")
+(defpoll weatherjson :initial "{\"success\": false}" :interval "1h" :run-while revealcontrolpanel "./scripts/weather.py")
 (defpoll genquote :interval "1h" "./scripts/quote.py")
 (defpoll datehour :interval "30m" "date +'%H'")
 (defpoll notesc :interval "2s" :run-while reveal4 "cat -s ~/Documents/fuck.txt")
@@ -73,6 +73,9 @@
 (deflisten pcover :runwhile {!revealmpd} "./scripts/pollcover.sh")
 (deflisten pstatus :runwhile {!revealmpd} "playerctl status -F")
 
+;; wallpaper thing
+(defvar wallpapers "[]")
+
 (defvar reveal1 false)
 (defvar reveal2 false)
 (defvar reveal3 false)
@@ -93,3 +96,4 @@
 (include "./dock/dock.yuck")
 (include "./desktop/desktop.yuck")
 (include "./notification/notification.yuck")
+(include "./wallpapers/wallpapers.yuck")

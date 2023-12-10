@@ -106,3 +106,12 @@ checkbutton:checked {
     margin: 10px;
 }
 
+entry {
+    padding: 5px;
+    margin: 5px; 
+    border-radius: 5px;
+    border-style: solid; 
+    border-color: $surface2;
+    background-color: $surface1;
+    color: $white0;
+}
