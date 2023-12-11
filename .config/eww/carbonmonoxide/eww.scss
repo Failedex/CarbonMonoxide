@@ -107,6 +107,7 @@ checkbutton:checked {
 }
 
 entry {
+    // image: url('./image/screenshot.png');
     padding: 5px;
     margin: 5px; 
     border-radius: 5px;
@@ -115,3 +116,4 @@ entry {
     background-color: $surface1;
     color: $white0;
 }
+

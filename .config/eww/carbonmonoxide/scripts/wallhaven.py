@@ -18,7 +18,7 @@ try:
         else: 
             os.mkdir(imgdir)
 
-        data = json.loads(requests.get(f"https://wallhaven.cc/api/v1/search?q={' '.join(sys.argv[2:])}&ratios=landscape").text)
+        data = json.loads(requests.get(f"https://wallhaven.cc/api/v1/search?q={'+'.join(sys.argv[2:])}&ratios=landscape").text)
         
         smaller = []
         count = 0

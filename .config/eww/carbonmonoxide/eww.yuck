@@ -1,34 +1,39 @@
-(defpoll thour :interval "60s" "date +'%I'")
-(defpoll tmin :interval "60s" "date +'%M'")
-(defpoll tpm :interval "60s" "date +'%p'")
-(defpoll volumemute :interval "1s" "pamixer --get-mute")
-(defpoll volume :interval "1s" "pamixer --get-volume")
-(defpoll brightness :interval "2s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
-(defpoll wifi_icon :interval "30s" "./scripts/wifi --ICON")
-(defpoll wifi_essid :interval "30s" "./scripts/wifi --ESSID")
-(defpoll wifi_radio :interval "2s" "nmcli radio wifi")
-(defpoll calendar_day :interval "20h" "date '+%d'")
-(defpoll calendar_year :interval "20h" "date '+%Y'")
-(defpoll bat0 :interval "30s" "bash ./scripts/sys_info --bat")
-(defpoll baticon :interval "30s" "bash ./scripts/sys_info --baticon")
+(defpoll thour :initial "0" :interval "60s" "date +'%I'")
+(defpoll tmin :initial "0" :interval "60s" "date +'%M'")
+(defpoll tpm :initial "0" :interval "60s" "date +'%p'")
+(defpoll volumemute :initial "false" :interval "1s" "pamixer --get-mute")
+(defpoll volume :initial "0" :interval "1s" "pamixer --get-volume")
+(defpoll brightness :initial "0" :interval "2s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defpoll wifi_icon :initial "" :interval "30s" "./scripts/wifi --ICON")
+(defpoll wifi_essid :initial "" :interval "30s" "./scripts/wifi --ESSID")
+(defpoll wifi_radio :initial "off" :interval "2s" "nmcli radio wifi")
+(defpoll calendar_day :initial "1" :interval "20h" "date '+%d'")
+(defpoll calendar_year :initial "2000" :interval "20h" "date '+%Y'")
+(defpoll bat0 :initial "0" :interval "30s" "bash ./scripts/sys_info --bat")
+(defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
 ;; (defpoll batstat :interval "30s" "cat /sys/class/power_supply/BAT0/status")
-(defpoll homedir :interval "24h" "echo ~")
+(defpoll homedir :initial "" :interval "24h" "echo ~")
 
-(deflisten workspacejson "./scripts/workspace.sh")
+(deflisten workspacejson 
+  :initial '[{"focused": true, "empty": false, "name": 1}, {"focused": false, "empty": true, "name": 2}, {"focused": false, "empty": true, "name": 3}, {"focused": false, "empty": true, "name": 4}, {"focused": false, "empty": true, "name": 5}]'
+  "./scripts/workspace.sh")
 
 ;; used mainly in control panel and dashboard
-(defpoll hostname :interval "24h" 'echo "$(whoami)"')
-(defpoll uptime :interval "1m" "uptime -p")
-(defpoll weatherjson :initial "{\"success\": false}" :interval "1h" :run-while revealcontrolpanel "./scripts/weather.py")
-(defpoll genquote :interval "1h" "./scripts/quote.py")
-(defpoll datehour :interval "30m" "date +'%H'")
+(defpoll hostname :initial "idk" :interval "24h" 'echo "$(whoami)"')
+(defpoll uptime :initial "idk" :interval "1m" "uptime -p")
+(defpoll weatherjson 
+  ;; :initial '{"success": false}'
+  :interval "1h" 
+  :run-while revealcontrolpanel 
+  "./scripts/weather.py")
+(defpoll datehour :initial "12" :interval "30m" "date +'%H'")
 (defpoll notesc :interval "2s" :run-while reveal4 "cat -s ~/Documents/fuck.txt")
 (defpoll timerdis :interval "1s" `./scripts/timer.py subscribe`)
 (defpoll timerstate :interval "1s" `./scripts/timer.py substate`)
 (defpoll quotejson :interval "1h" `./scripts/quote.py`)
 
 ;; dock 
-(deflisten tasksjson "./scripts/icon.sh")
+(deflisten tasksjson :initial "[]" "./scripts/icon.sh")
 (defvar revealdock false)
 
 ;; fucking desktop icons
@@ -58,12 +63,12 @@
 ;; mpd
 (deflisten song :runwhile revealmpd "./scripts/music_info --song")
 (deflisten artist :runwhile revealmpd "./scripts/music_info --artist")
-(defpoll current :interval "1s" :runwhile revealmpd "./scripts/music_info --time")
+(defpoll current :initial "0" :interval "1s" :runwhile revealmpd "./scripts/music_info --time")
 (defpoll ctime :interval "1s" :runwhile revealmpd "./scripts/music_info --ctime")
 (defpoll ttime :interval "1s" :runwhile revealmpd "./scripts/music_info --ttime")
 (deflisten cover :runwhile revealmpd "./scripts/music_info --cover")
 (deflisten status :runwhile revealmpd "./scripts/music_info --status")
-(deflisten mpdvol :runwhile revealmpd "./scripts/music_info --volume")
+(deflisten mpdvol :initial "0" :runwhile revealmpd "./scripts/music_info --volume")
 (deflisten mpdsingle :runwhile revealmpd "./scripts/music_info --single")
 (deflisten mpdrandom :runwhile revealmpd "./scripts/music_info --random")
 
