@@ -1,6 +1,6 @@
 @import './colors.scss';
-@import './bar/bar.scss';
-// @import './bottom_bar/bar.scss';
+// @import './bar/bar.scss';
+@import './bottom_bar/bar.scss';
 @import './control_panel/control_panel.scss';
 @import './dashboard/dashboard.scss';
 @import './dock/dock.scss';
@@ -104,5 +104,16 @@ checkbutton:checked {
     border-color: $surface2;
     border-width: 2px;
     margin: 10px;
+}
+
+entry {
+    // image: url('./image/screenshot.png');
+    padding: 5px;
+    margin: 5px; 
+    border-radius: 5px;
+    border-style: solid; 
+    border-color: $surface2;
+    background-color: $surface1;
+    color: $white0;
 }
 

@@ -125,7 +125,7 @@
     @extend .seektime;
     trough {
         min-height: 10px;
-        min-width: 200px;
+        min-width: 350px;
     }
 }
 
@@ -148,20 +148,37 @@
 }
 
 .icontitle {
-    @extend .title; 
     min-width: 1em;
     min-height: 1em;
-    font-family: "Symbols Nerd font";
+    margin: 5px;
+    padding: 5px;
+    label {
+        color: $white0;
+        margin: 0px 5px;
+    }
+    background-color: $surface1;
+    border-radius: 5px;
 }
 
 .icontitlesel {
-    @extend .titlesel; 
     min-width: 1em;
     min-height: 1em;
-    font-family: "Symbols Nerd font";
+    margin: 5px;
+    padding: 5px;
+    label {
+        color: $surface0;
+        margin: 0px 5px;
+    }
+    background-color: $red;
+    border-radius: 5px;
 }
 
 .launchicon {
     @extend .icon;
     color: $red;
+}
+
+.minichargeindicator {
+    @extend .icon;
+    color: $green; 
 }

@@ -47,7 +47,7 @@
     :valign "fill"
     (playerctl)
     (sysicons)
-    (battery)
+    ;; (battery)
     (clock)
     ))
 
@@ -87,9 +87,10 @@
         :orientation "h"
         :space-evenly false 
         :spacing 5 
-        (label :class "icon" :text wifi_icon)
-        (label :class "icon" :text {volumemute == 'false' ? "󰕾" : "󰖁"})
-        (label :class "icon" :text "󰃞")))))
+        (label :tooltip wifi_essid :class "icon" :text wifi_icon)
+        (label :tooltip "${volume}%" :class "icon" :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+        (label :tooltip "${bat0}%" :class {EWW_BATTERY.BAT0.status == "Charging" ? "minichargeindicator" : "icon"} :text baticon)
+        ))))
 
 (defwidget battery []
   (box
@@ -147,7 +148,7 @@
             ;; :onclick "~/.config/eww/meowayland/scripts/launch"
             ;; :onclick "./scripts/pop control"
             :onclick "${EWW_CMD} update revealcontrolpanel=${ !revealcontrolpanel }"
-            :onrightclick "${EWW_CMD} open dashboard --toggle"
+            :onrightclick "${EWW_CMD} open wallpaperselect --toggle"
             :cursor "pointer"
             (label :text "" :halign "center" :class "launchicon" :style "padding: 0px 4px;"))))
 

@@ -32,7 +32,7 @@
 
 (defwindow sidectl2 
   :geometry (geometry 
-              :x 100 
+              :x 50 
               :y 0
               :width 200
               :height 0
@@ -49,32 +49,87 @@
       (box
         :orientation "v"
         :class "widget"
-        :spacing 10
+        :spacing 20
+        :space-evenly false 
+
+        (box
+          :orientation "v"
+          :height 150
+          (box 
+            :orientation "h"
+            (togglebuttons 
+              :icon wifi_icon 
+              :class {wifi_radio == "enabled" ? "icontitlesel" : "icontitle"}
+              :text {wifi_radio == "enabled" ? wifi_essid == "" ? "Disconnected" : "Connected" : "Off"}
+              :subtext wifi_essid
+              :toggle {wifi_radio == "enabled" ? "nmcli radio wifi off" : "nmcli radio wifi on"})
+
+            (togglebuttons 
+              :icon ""
+              :class {caffeine ? "icontitlesel" : "icontitle"}
+              :text "Caffeine"
+              :subtext {caffeine ? "on" : "off"}
+              :toggle {caffeine ? "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false" : "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"}))
+
+          (box
+            :orientation "h"
+            (togglebuttons 
+              :icon {dark == "true" ? "" : ""}
+              :class "icontitle"
+              :text "Oxocarbon"
+              :subtext {dark == "true" ? "dark" : "light"}
+              :toggle "./scripts/toggletheme toggle")
+
+            (togglebuttons
+              :icon ""
+              :class {notifications.dnd ? "icontitlesel" : "icontitle"}
+              :text "Do not disturb"
+              :subtext {notifications.dnd ? "on" : "off"}
+              :toggle "./scripts/notifManage --toggle")
+            ))
+
+        (sliderctl :icon {volumemute == 'false' ? "󰕾" : "󰖁"} :value volume :onchange "pamixer --set-volume {}")
+        (sliderctl :icon "󰃞" :value brightness :onchange "brightnessctl set {}%")
 
         (box
           :orientation "h"
-          (button 
-            :onclick {wifi_radio == "enabled" ? "nmcli radio wifi off" : "nmcli radio wifi on"}
+          :space-evenly false 
+          :halign "end"
+          (overlay
+            (scale 
+              :class "${EWW_BATTERY.BAT0.status == 'Charging' ? 'charging': bat0 < 16 ? 'dying': 'normal'} bat_scale"
+              :value "${bat0}"
+              :orientation "h"
+              :max 100 
+              :min 0
+              :active false)
             (label 
-              :class {wifi_radio == "enabled" ? "icontitlesel" : "icontitle"}
-              :text wifi_icon))
+              :class "lightning"
+              :visible {EWW_BATTERY.BAT0.status == "Charging"}
+              :text "󱐋"))
+          (label :text "${bat0}%"))
+))))
 
-          (button 
-            :onclick {caffeine ? "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false" : "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"}
-            (label 
-              :class {caffeine ? "icontitlesel" : "icontitle"}
-              :text ""))
-
-          (button 
-            :onclick "./scripts/toggletheme toggle" 
-            (label 
-              :class "icontitle"
-              :text {dark == "true" ? "" : ""}))
-          )
-
-        (sliderctl :icon {volumemute == 'false' ? "󰕾" : "󰖁"} :value volume :onchange "pamixer --set-volume {}")
-        (sliderctl :icon "󰃞" :value brightness :onchange "brightnessctl set {}%"))
-)))
+(defwidget togglebuttons [icon class text ?subtext toggle]
+  (button 
+    :onclick toggle 
+    (box 
+      :orientation "h"
+      :class class 
+      :space-evenly false
+      (label 
+        :class "icon"
+        :halign "start"
+        :text icon)
+      (box 
+        :orientation "v"
+        :hexpand true
+        :halign "center"
+        (label 
+          :text text)
+        (label 
+          :limit-width 17
+          :text subtext)))))
 
 (defwidget sliderctl [icon value onchange]
   (box 
