@@ -57,7 +57,7 @@
             (box 
               :orientation "v"
               :space-evenly false 
-              :class "weatherinfo"
+              :class "mainentry"
               :spacing 5
               (button
                 :onclick "./scripts/wallhaven.py select ${wall.url}"

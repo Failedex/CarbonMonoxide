@@ -285,7 +285,7 @@
 
 (defwidget weatherhour[hour]
   (box 
-    :class "weatherinfosmall"
+    :class "smallentry"
     :orientation "h"
     :height 80 
     :halign "fill"
@@ -308,7 +308,7 @@
 
 (defwidget weathermain[]
   (box 
-    :class "weatherinfo"
+    :class "mainentry"
     :orientation "h"
     :halign "fill"
     :height 150
@@ -491,3 +491,5 @@
           (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous"} (label :text "󰒮"))
           (button :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text { revealmpd ? status : pstatus == "Playing" ? "" : ""} ))
           (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭")))))))
+
+(include "./control_panel/windowswitcher.yuck")

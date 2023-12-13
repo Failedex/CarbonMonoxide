@@ -8,26 +8,6 @@
     color: $white0;
 }
 
-.weatherinfo {
-    background-color: $surface1;
-    padding: 5px; 
-    border-radius: 5px;
-    margin: 5px;
-}
-
-.weatherinfo label {
-    font-size: 18px; 
-    font-family: "Iosevka Nerd Font Mono";
-    color: $white0;
-}
-
-.weatherinfosmall {
-    @extend .weatherinfo;
-    label {
-        font-size: 15px;
-    }
-}
-
 .titlesel {
     font-size: 20px;
     margin: 5px;
@@ -167,4 +147,18 @@
 .fadeoutbox {
     background-image: linear-gradient(180deg, transparent, $surface0);
     border-radius: 5px;
+}
+
+// stupid window overview thing
+.overviewworkspace {
+    background-color: $surface1;
+    border-radius: 5px;
+}
+
+.overviewwindow {
+    background-color: $base;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: $surface2;
+    border-width: 2px;
 }

@@ -245,3 +245,28 @@
       :class "popup"
       (control_widget :short true))))
   
+(defwidget touchpad []
+  (box 
+    :class "unbarwidget"
+    :orientation "h"
+    :width 180 
+    (box 
+      :orientation "h"
+      (box 
+        :orientation "v"
+        (button :onclick "swaymsg floating toggle" 
+          (label :class "title icon" :text "󱟱"))
+        (button :onclick "foot -D ~" 
+          (label :class "title icon" :text ""))
+        (button :onclick "~/.config/sway/togglescratch.sh sterm" 
+          (label :class "title icon" :text ""))
+      )
+    (box 
+      :orientation "v"
+      (button :onclick "swaymsg kill" 
+        (label :class "title icon" :text "󰅙"))
+      (button :onclick "${EWW_CMD} update revealcontrolpanel=false && wofi --show=drun -i -I"
+        (label :class "title icon" :text "󰀻"))
+      (button :onclick "./scripts/touchkey.sh && ${EWW_CMD} update revealcontrolpanel=false" 
+        (label :class "title icon" :text "󰌌"))
+      ))))

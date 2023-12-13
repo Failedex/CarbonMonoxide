@@ -117,3 +117,22 @@ entry {
     color: $white0;
 }
 
+.mainentry {
+    background-color: $surface1;
+    padding: 5px; 
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.mainentry label {
+    font-size: 18px; 
+    font-family: "Iosevka Nerd Font Mono";
+    color: $white0;
+}
+
+.smallentry {
+    @extend .mainentry;
+    label {
+        font-size: 15px;
+    }
+}

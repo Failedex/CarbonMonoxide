@@ -81,6 +81,9 @@
 ;; wallpaper thing
 (defvar wallpapers "[]")
 
+;; windows for workspace switching
+(defvar windows "[[], [], [], [], []]")
+
 (defvar reveal1 false)
 (defvar reveal2 false)
 (defvar reveal3 false)

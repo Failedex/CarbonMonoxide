@@ -1,6 +1,6 @@
 [general]
 
-framerate = 60
+framerate = 20
 bars = 30
 
 [output]

@@ -4,7 +4,8 @@ dark="oxocarbon"
 light="oxocarbon_light"
 
 switch_theme () {
-    echo '@import '"\"$1\"" > $scss_theme
+    echo '@import '"\"./themes/$1.scss\"" > $scss_theme
+    sed -i "s/include=.*/include=~\/.config\/foot\/themes\/$1.ini/" $HOME/.config/foot/foot.ini
 }
 
 current=`cat $scss_theme | awk '{print $2}'`
@@ -12,13 +13,13 @@ current=`cat $scss_theme | awk '{print $2}'`
 if [[ $1 == "toggle" ]]; then
     case $current in 
     "\"./themes/${light}.scss\"")
-        switch_theme "./themes/$dark.scss"   
+        switch_theme $dark
         ;;
     "\"./themes/${dark}.scss\"") 
-        switch_theme "./themes/$light.scss"
+        switch_theme $light
         ;;
     *)
-        switch_theme "./themes/$dark.scss"   
+        switch_theme $dark
         ;;
     esac
 else

@@ -2,16 +2,26 @@
 from iconfetch import fetch
 import subprocess
 import json
+import os 
+
+eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.path.expanduser('~')}/.config/eww/carbonmonoxide"]
 
 def recurse(node, apps): 
     if "app_id" in node and node["app_id"]:
+        node["app_id"] = node["app_id"].lower()
+
+        if node["app_id"] == "com.github.xournalpp.xournalpp":
+            node["app_id"] = "xournalpp"
 
         apps.append({
             "app_id": node["app_id"],
             "name": node["name"],
             "pid": node["pid"], 
-            "focused": node["focused"]
+            "focused": node["focused"],
+            "rect": node["rect"],
+            "path": fetch(node["app_id"]) or fetch("unknown")
         })
+
         # memo.add(node["app_id"])
         
     for n in node["nodes"]: 
@@ -36,43 +46,29 @@ def main():
     #         focus = res["name"]
 
     apps = []
-    # memo = set()
+    windows = [[] for _ in range(5)]
+    external = False
 
     for output in result["nodes"]:
         if output["name"] != "eDP-1" and output["name"] != "DP-1": 
             continue 
+        if output["name"] == "DP-1": 
+            external = True
         for workspace in output["nodes"]: 
             # if not workspace["name"] == focus: 
             #     continue
-            recurse(workspace, apps)
 
-    # literal = "(box :orientation 'h' :space-evenly true "
-    # apps that should just be there
+            found = []
+            recurse(workspace, found)
 
-    # permanent = ["firefox", "thunar", "xournalpp", "discord"]
-    #
-    # for p in permanent:
-    #     found = False
-    #     i = 0
-    #     while i < len(apps):
-    #         app = apps[i]["app_id"].lower()
-    #         pid = apps[i]["pid"]
-    #         if app == p or (app == "com.github.xournalpp.xournalpp" and p == "xournalpp"):
-    #             apps[i]["path"] = fetch(app)
-    #             appsjson.append(apps[i].copy())
-    #             found = True
-    #             del apps[i]
-    #             break
-    #         i += 1
-    #
-    #     if not found: 
-    #         appsjson.append({
-    #             "path": fetch(p),
-    #             "app_id": p, 
-    #             "pid": None , 
-    #             "focused": False
-    #         })
-    #
+            apps.extend(found)
+            if output["name"] == "eDP-1":
+                windows[int(workspace["name"])-1] = found
+
+    if external: 
+        for w in windows: 
+            for i in w:
+                i["rect"]["x"] -= 1440
 
     appsdict = {
         "firefox": [],
@@ -84,19 +80,12 @@ def main():
     appsjson = []
 
     for app in apps: 
-        name = app["app_id"].lower()
-        path = fetch(name)
+        a = app.copy()
+        name = a["app_id"]
 
-        # xournalpp is annoying 
-        if name == "com.github.xournalpp.xournalpp":
-            name = "xournalpp"
-
-        if path: 
-            a = app.copy()
-            a["path"] = fetch(name)
-            if name not in appsdict: 
-                appsdict[name] = []
-            appsdict[name].append(a)
+        if name not in appsdict: 
+            appsdict[name] = []
+        appsdict[name].append(a)
 
     for key, value in appsdict.items(): 
         if len(value) == 0: 
@@ -121,6 +110,8 @@ def main():
                 focused = f
             ))
 
+
+    subprocess.run(eww_bin + ["update", f"windows={json.dumps(windows)}"])
 
     print(json.dumps(appsjson))
 

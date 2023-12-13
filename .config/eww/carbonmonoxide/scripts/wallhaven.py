@@ -24,7 +24,7 @@ try:
         count = 0
         for d in data["data"]: 
 
-            if count == 8: 
+            if count == 15: 
                 break
             count += 1
 
@@ -34,9 +34,9 @@ try:
 
             smaller.append({"path": imgdir+"/"+d["id"]+".png", "fav": d["favorites"], "views": d["views"], "url": d["path"]})
 
+            subprocess.run(eww_bin+["update", f"wallpapers={json.dumps(smaller)}"])
+
         # print(json.dumps(smaller))
-        eww_bin.extend(["update", f"wallpapers={json.dumps(smaller)}"])
-        subprocess.run(eww_bin)
     elif sys.argv[1] == "select":
         url = sys.argv[2]
 

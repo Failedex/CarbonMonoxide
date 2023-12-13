@@ -11,13 +11,32 @@
   (barstruct))
 
 (defwidget barstruct []
-  (centerbox 
-    :class "bar"
-    :orientation "h"
-    :height "60"
-    (left)
-    (middle)
-    (right)))
+  (box 
+    :orientation "v"
+    :space-evenly false 
+    (centerbox 
+      :class "bar"
+      :orientation "h"
+      :height "60"
+      (left)
+      (middle)
+      (right))
+    (revealer 
+      :transition "slideup"
+      :reveal revealcontrolpanel
+      (box 
+        :class "bar"
+        :orientation "h"
+        :space-evenly false
+        (box
+          :orientation "v"
+          :space-evenly false 
+          (user)
+          (chooser))
+        (overview)
+        (timer)
+        (touchpad)
+        ))))
 
 (defwidget left [] 
   (box
