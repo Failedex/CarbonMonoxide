@@ -135,9 +135,9 @@
   (overlay
     (box
       :halign "fill"
-      :width 180
-      :class { (revealmpd ? cover != "./image/emptympd.png" : pcover != "") ? "mpdcover" : "widget"}
-      :style "background-image: url('${revealmpd ? cover : pcover}')")
+      :width 150
+      :class { pcover != "" ? "mpdcover" : "widget"}
+      :style "background-image: url('${pcover}')")
     (box 
       ;; :class "widget"
       :orientation "h"
@@ -147,15 +147,14 @@
       :valign "center"
       (eventbox 
         :onclick "${EWW_CMD} update reveal1=false reveal2=false reveal3=${!reveal3}"
-        (image :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover } :image-width 30 :image-height 30 :style "padding: 0px 5px;"))
-      (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous" } 
+        (image :path { pcover == "" ? "./image/emptympd.png" : pcover } :image-width 30 :image-height 30 :style "padding: 0px 5px;"))
+      (button :onclick "playerctl previous" 
         (label :class "icon" :text "󰒮"))
-      (button :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } 
-        (label :class "icon" :text  {revealmpd ? status : pstatus == "Playing" ? "" : ""}))
-      (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} 
+      (button :onclick "playerctl play-pause"
+        (label :class "icon" :text  { pstatus == "Playing" ? "" : "" }))
+      (button :onclick "playerctl next" 
         (label :class "icon" :text "󰒭"))
-      (button :tooltip { revealmpd ? "mpd" : "mpris" } :onclick "${EWW_CMD} update revealmpd=${!revealmpd}" 
-        (label :class "icon" :text { revealmpd ? "󱨥" : "󱨦"})))))
+      )))
 
 (defwidget home []
     (box

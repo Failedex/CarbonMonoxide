@@ -463,16 +463,16 @@
       :orientation "v"
       :halign "fill"
       :height h
-      :class { (revealmpd ? cover != "./image/emptympd.png" : pcover != "") ? "mpdcover" : "unbarwidget"}
-      :style "background-image: url('${revealmpd ? cover : pcover}')"
-      :visible {permashow ? true : revealmpd ? song != "" && song != "Offline" : pcover != "" })
+      :class { pcover != "" ? "mpdcover" : "unbarwidget"}
+      :style "background-image: url('${pcover}')"
+      :visible {permashow ? true : pcover != "" })
     (box 
       :orientation "h"
       :space-evenly false 
       :halign "center"
       :valign "center"
       :spacing 10
-      (image :image-width 100 :image-height 100 :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover })
+      (image :image-width 100 :image-height 100 :path { pcover == "" ? "./image/emptympd.png" : pcover })
       (box
         :orientation "v" 
         :space-evenly false 
@@ -483,16 +483,19 @@
         (scroll
           :hscroll true
           :vscroll false
-          (label :style "font-size: 20px;" :text { revealmpd ? song : psong }))
+          (label :style "font-size: 20px;" :text psong))
         (scroll
           :hscroll true
           :vscroll false
-          (label :text { revealmpd ? artist : partist }))
+          (label :text partist))
         (box
           :orientation "h"
           :class "mpd_controls"
-          (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous"} (label :text "󰒮"))
-          (button :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text { revealmpd ? status : pstatus == "Playing" ? "" : ""} ))
-          (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭")))))))
+          (button :onclick "playerctl previous" 
+            (label :text "󰒮"))
+          (button :style "padding-right: 3px;" :onclick "playerctl play-pause" 
+            (label :text { pstatus == "Playing" ? "" : ""} ))
+          (button :onclick "playerctl next" 
+            (label :text "󰒭")))))))
 
 (include "./control_panel/windowswitcher.yuck")
