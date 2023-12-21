@@ -1,0 +1,21 @@
+#!/usr/bin/bash 
+
+FOCUS=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused==true).name')
+
+if [[ $1 == "move" ]]; then
+    if [[ $FOCUS -ge 6 ]]; then 
+        swaymsg move container to workspace number $(($2+5))
+    else
+        swaymsg move container to workspace number $2
+    fi
+elif [[ $1 == "focus" ]]; then
+    if [[ $FOCUS -ge 6 ]]; then 
+        swaymsg workspace number $(($2+5))
+    else
+        swaymsg workspace number $2
+    fi
+else
+    echo "nuh uh"
+    exit 1
+fi
+

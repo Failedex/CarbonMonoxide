@@ -10,10 +10,11 @@
 
 .titlesel {
     font-size: 20px;
+    // font-weight: bold;
     margin: 5px;
     padding: 5px;
     color: $base;
-    background-color: $red;
+    background-color: $accent;
     border-radius: 5px;
 }
 
@@ -37,7 +38,7 @@
 }
 
 .timer_butt button {
-    background-color: $red; 
+    background-color: $accent; 
     margin: 5px;
     padding: 10px;
     border-radius: 5px;
@@ -122,7 +123,7 @@
 }
 
 .circsys {
-    color: $red;
+    color: $accent;
     background-color: $surface1;
 }
 

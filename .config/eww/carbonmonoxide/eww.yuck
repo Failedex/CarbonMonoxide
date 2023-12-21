@@ -94,7 +94,7 @@
 (defvar revealmpd false)
 (defvar revealcontrolpanel false)
 
-(defpoll dark :interval "1h" "./scripts/toggletheme")
+(defpoll theme :interval "1h" "./scripts/toggletheme")
 
 
 ;; (include "./bar/bar.yuck")

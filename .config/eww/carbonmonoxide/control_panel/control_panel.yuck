@@ -48,7 +48,7 @@
       :halign "fill"
       (button :onclick "./scripts/pop colourpick" (label :text "󰈊"))
       (button :onclick "./scripts/pop scrop" (label :text "󰆞"))
-      (button :onclick "./scripts/toggletheme toggle" (label :text {dark == "true" ? "" : ""})))))
+      (button :onclick "./scripts/toggletheme toggle" (label :text "")))))
 
 (defwidget chooser []
   (box 
@@ -93,61 +93,64 @@
   (revealer 
     :reveal reveal6
     :transition "slideup"
-    (box
+    (scroll
+      :hscroll false 
+      :vscroll true
       :height 140
-      :orientation "v"
-      :valign "fill"
-      :space-evenly false
-      :spacing 2
-      (wmslider 
-        :name "gaps outer" 
-        :val gapsouter 
-        :onchange "swaymsg gaps outer all set {}" 
-        :max 300 
-        :reset "${EWW_CMD} update gapsouter=0 && swaymsg gaps outer all set 0")
-      (wmslider 
-        :name "gaps inner" 
-        :val gapsinner 
-        :onchange "swaymsg gaps inner all set {}" 
-        :max 150
-        :reset "${EWW_CMD} update gapsinner=15 && swaymsg gaps inner all set 15")
-      (wmslider 
-        :name "border size" 
-        :val borderpixel 
-        :onchange "swaymsg default_border pixel {} && swaymsg '[app_id=\".*\"] border pixel {}'" 
-        :max 50
-        :reset "${EWW_CMD} update borderpixel=2 && swaymsg default_border pixel 2 && swaymsg '[app_id=\".*\"] border pixel 2'")
-      (box 
-        :orientation "h"
-        :space-evenly false 
-        :halign "center"
-        :spacing 10 
-        (label :text "natural scrolling")
-        (checkbox 
-          :onchecked "swaymsg input \"type:touchpad\" natural_scroll enable"
-          :onunchecked "swaymsg input \"type:touchpad\" natural_scroll disable"))
-      (box 
-        :orientation "h"
-        :space-evenly false 
-        :halign "center"
-        :spacing 10
-        (label :text "disable when typing")
-        (checkbox 
-          :onchecked "swaymsg input \"type:touchpad\" dwt enable"
-          :onunchecked "swaymsg input \"type:touchpad\" dwt disable"
-        ))
+      (box
+        :orientation "v"
+        :valign "fill"
+        :space-evenly false
+        :spacing 5
+        (wmslider 
+          :name "gaps outer" 
+          :val gapsouter 
+          :onchange "swaymsg gaps outer all set {}" 
+          :max 300 
+          :reset "${EWW_CMD} update gapsouter=0 && swaymsg gaps outer all set 0")
+        (wmslider 
+          :name "gaps inner" 
+          :val gapsinner 
+          :onchange "swaymsg gaps inner all set {}" 
+          :max 150
+          :reset "${EWW_CMD} update gapsinner=15 && swaymsg gaps inner all set 15")
+        (wmslider 
+          :name "border size" 
+          :val borderpixel 
+          :onchange "swaymsg default_border pixel {} && swaymsg '[app_id=\".*\"] border pixel {}'" 
+          :max 50
+          :reset "${EWW_CMD} update borderpixel=2 && swaymsg default_border pixel 2 && swaymsg '[app_id=\".*\"] border pixel 2'")
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10 
+          (label :text "natural scrolling")
+          (checkbox 
+            :onchecked "swaymsg input \"type:touchpad\" natural_scroll enable"
+            :onunchecked "swaymsg input \"type:touchpad\" natural_scroll disable"))
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10
+          (label :text "disable when typing")
+          (checkbox 
+            :onchecked "swaymsg input \"type:touchpad\" dwt enable"
+            :onunchecked "swaymsg input \"type:touchpad\" dwt disable"
+          ))
 
-      (box 
-        :orientation "h"
-        :space-evenly false 
-        :halign "center"
-        :spacing 10
-        (label :text "caffeine")
-        (checkbox 
-          :onchecked "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"
-          :onunchecked "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false"
-        ))
-)))
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10
+          (label :text "caffeine")
+          (checkbox 
+            :onchecked "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"
+            :onunchecked "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false"
+          ))
+))))
 
 (defwidget sysinfo []
   (revealer 
@@ -399,7 +402,7 @@
   (box 
     :halign "fill"
     :valign "fill" 
-    ;; :height 420
+    :width 320
     :vexpand true
     :space-evenly false 
     :orientation "v"

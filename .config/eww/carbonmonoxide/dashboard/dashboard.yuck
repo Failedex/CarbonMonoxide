@@ -149,7 +149,7 @@
     :class "unbarwidget"
     :vexpand true
     :onclick "./scripts/toggletheme toggle" 
-    (label :style "font-size: 18px;" :text {dark == "false" ? "light " : "dark "})))
+    (label :style "font-size: 18px;" :text "")))
 
 ;; (defwidget dquote []
 ;;   (box 

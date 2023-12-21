@@ -83,7 +83,7 @@
           (box
             :hexpand false
             :height 10
-            :width { workspace.focused ? 120 : !workspace.empty ? 80 : 50}
+            :width { workspace.focused ? 100 : !workspace.empty ? 80 : 50}
             :class { workspace.focused ? "workspacethingactive" : "workspacething"}))))))
 
 (defwidget clock []

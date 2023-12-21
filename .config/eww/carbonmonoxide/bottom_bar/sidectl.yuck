@@ -74,10 +74,10 @@
           (box
             :orientation "h"
             (togglebuttons 
-              :icon {dark == "true" ? "" : ""}
+              :icon ""
               :class "icontitle"
-              :text "Oxocarbon"
-              :subtext {dark == "true" ? "dark" : "light"}
+              :text "Theme"
+              :subtext theme
               :toggle "./scripts/toggletheme toggle")
 
             (togglebuttons
@@ -255,18 +255,18 @@
       (box 
         :orientation "v"
         (button :onclick "swaymsg floating toggle" 
-          (label :class "title icon" :text "󱟱"))
+          (label :class "largetouchicon" :text "󱟱"))
         (button :onclick "foot -D ~" 
-          (label :class "title icon" :text ""))
+          (label :class "largetouchicon" :text ""))
         (button :onclick "~/.config/sway/togglescratch.sh sterm" 
-          (label :class "title icon" :text ""))
+          (label :class "largetouchicon" :text ""))
       )
     (box 
       :orientation "v"
       (button :onclick "swaymsg kill" 
-        (label :class "title icon" :text "󰅙"))
+        (label :class "largetouchicon" :text "󰅙"))
       (button :onclick "${EWW_CMD} update revealcontrolpanel=false && wofi --show=drun -i -I"
-        (label :class "title icon" :text "󰀻"))
+        (label :class "largetouchicon" :text "󰀻"))
       (button :onclick "./scripts/touchkey.sh && ${EWW_CMD} update revealcontrolpanel=false" 
-        (label :class "title icon" :text "󰌌"))
+        (label :class "largetouchicon" :text "󰌌"))
       ))))

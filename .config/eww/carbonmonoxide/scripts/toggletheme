@@ -1,31 +1,49 @@
 #!/bin/bash
 scss_theme="$HOME/.config/eww/carbonmonoxide/colors.scss"
-dark="oxocarbon"
-light="oxocarbon_light"
+# dark="oxocarbon"
+# light="oxocarbon_light"
 
 switch_theme () {
     echo '@import '"\"./themes/$1.scss\"" > $scss_theme
-    sed -i "s/include=.*/include=~\/.config\/foot\/themes\/$1.ini/" $HOME/.config/foot/foot.ini
+
+    if [[ -f "$HOME/.config/foot/themes/$1.ini" ]]; then
+        echo "exists"
+        sed -i "s/include=.*/include=~\/.config\/foot\/themes\/$1.ini/" $HOME/.config/foot/foot.ini
+    fi
+
+    sleep 1
+    notify-send -a Theme "Theme selected" "$1"
 }
 
-current=`cat $scss_theme | awk '{print $2}'`
+current=`cat $scss_theme | sed 's/@import \".\/themes\/\(.*\).scss\"/\1/'`
 
 if [[ $1 == "toggle" ]]; then
     case $current in 
-    "\"./themes/${light}.scss\"")
-        switch_theme $dark
+    "oxocarbon")
+        switch_theme "oxocarbon_light"
+        swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
         ;;
-    "\"./themes/${dark}.scss\"") 
-        switch_theme $light
+    "oxocarbon_light") 
+        switch_theme "catppuccin"
+        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
+        ;;
+    "catppuccin") 
+        switch_theme "swamp"
+        swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
+        ;;
+    "swamp") 
+        switch_theme "biscuit"
+        swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
+        ;;
+    "biscuit") 
+        switch_theme "camellia"
+        swaymsg output \* bg ~/.config/sway/wallpaper/camelliaq3.png fill
         ;;
     *)
-        switch_theme $dark
+        switch_theme "oxocarbon"
+        swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
         ;;
     esac
 else
-    if [[ $current == "\"./themes/$dark.scss\"" ]]; then
-        echo true
-    else 
-        echo false
-    fi
+    echo $current
 fi

@@ -11,7 +11,9 @@
     all: unset;
     color: $white0;
     font-size: 15px;
-    font-family: "Iosevka Nerd Font"
+    font-family: "Iosevka Nerd Font";
+    // font-weight: bold;
+    // font-smooth: never;
 }
 
 tooltip {
@@ -65,12 +67,12 @@ calendar {
 
 calendar:selected {
     color: $base;
-    background-color: $red;
+    background-color: $accent;
     border-radius: 25px;
 }
 
 calendar.header {
-    color: $red;
+    color: $accent;
     font-weight: bold;
 }
 
@@ -126,7 +128,6 @@ entry {
 
 .mainentry label {
     font-size: 18px; 
-    font-family: "Iosevka Nerd Font Mono";
     color: $white0;
 }
 

@@ -20,6 +20,18 @@
     padding: 0px 2px;
 }
 
+.largetouchicon {
+    font-size: 30px;
+    min-width: 1em; 
+    min-height: 1em;
+    font-family: "Symbols Nerd Font";
+    margin: 5px;
+    padding: 5px;
+    color: $white0;
+    background-color: $surface1;
+    border-radius: 5px;
+}
+
 .workspaces {
     padding: 5px; 
 }
@@ -35,11 +47,12 @@
 }
 
 .workspacethingactive {
-    background-color: $red;
+    background-color: $accent;
 }
 
 .clock label {
     font-size: 20px;
+    // font-weight: bold;
 }
 
 .bat_scale {
@@ -52,7 +65,7 @@
         }
         highlight {
             border-radius: 5px; 
-            background-color: $red;
+            background-color: $accent;
         }
     }
 }
@@ -62,7 +75,7 @@
 }
 
 .dying trough highlight {
-   background-color: $maroon;
+   background-color: $red;
 }
 
 .lightning {
@@ -89,7 +102,7 @@
         }
 
         highlight {
-            background-color: $red;
+            background-color: $accent;
         }
     }
 }
@@ -168,14 +181,15 @@
     label {
         color: $surface0;
         margin: 0px 5px;
+        // font-weight: bold;
     }
-    background-color: $red;
+    background-color: $accent;
     border-radius: 5px;
 }
 
 .launchicon {
     @extend .icon;
-    color: $red;
+    color: $accent;
 }
 
 .minichargeindicator {
