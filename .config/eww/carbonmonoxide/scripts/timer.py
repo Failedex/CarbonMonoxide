@@ -2,6 +2,9 @@
 import time
 import os
 import sys
+import subprocess
+
+eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.path.expanduser('~')}/.config/eww/carbonmonoxide"]
 
 def startstop():
     if os.path.exists("/tmp/timerstamp"):
@@ -13,25 +16,37 @@ def startstop():
         os.popen("notify-send 'timer start'")
 
         
+
+# fuck it, I'm sure we don't need the loop function
 def readtime():
+    if not os.path.exists("/tmp/timer"):
+        with open("/tmp/timer", "x") as f: 
+            f.write("25")
 
-    with open("/tmp/timer") as f:
-        timer = int(f.read())
+    while True:
+        with open("/tmp/timer") as f:
+            timer = int(f.read())
 
-    current = time.time()
-    
-    if os.path.exists("/tmp/timerstamp"):
-        with open("/tmp/timerstamp") as f:
-            timestamp = float(f.read())
+        if os.path.exists("/tmp/timerstamp"):
+            current = time.time()
+            with open("/tmp/timerstamp") as f:
+                timestamp = float(f.read())
 
-        if current - timestamp >= timer*60:
-            print("OwO")
+            if current - timestamp >= timer*60:
+                os.remove("/tmp/timerstamp")
+                os.popen("notify-send 'time is up'")
+                print("OwO")
+                subprocess.run(eww_bin + ["update", f"timerdis=OwO"])
+            else:
+                m, s = divmod((timer*60) - (current-timestamp), 60)
+                print (f"{int(m)}:{int(s)}")
+                subprocess.run(eww_bin + ["update", f"timerdis={int(m)}:{int(s)}"])
         else:
-            m, s = divmod((timer*60) - (current-timestamp), 60)
-            print (f"{int(m)}:{int(s)}")
+            print(timer)
+            subprocess.run(eww_bin + ["update", f"timerdis={timer}"])
 
-    else:
-        print(timer)
+        time.sleep(1)
+
 
 def loop():
     if not os.path.exists("/tmp/timer"):

@@ -7,8 +7,19 @@ switch_theme () {
     echo '@import '"\"./themes/$1.scss\"" > $scss_theme
 
     if [[ -f "$HOME/.config/foot/themes/$1.ini" ]]; then
-        echo "exists"
         sed -i "s/include=.*/include=~\/.config\/foot\/themes\/$1.ini/" $HOME/.config/foot/foot.ini
+    fi
+
+    inactivebg=$(sed -n "s/\$surface0: \(.*\);/\1/p" ./themes/$1.scss)
+    bg=$(sed -n "s/\$surface2: \(.*\);/\1/p" ./themes/$1.scss)
+    text=$(sed -n "s/\$white0: \(.*\);/\1/p" ./themes/$1.scss)
+    urgent="#ee5396"
+
+    if [ -n $surface0 ] && [ -n $surface2 ] && [ -n $white0 ]; then
+        swaymsg "client.focused          $bg           $bg          $text          $bg"
+        swaymsg "client.unfocused        $inactivebg $inactivebg $text  $inactivebg"
+        swaymsg "client.focused_inactive $inactivebg $inactivebg $text  $inactivebg"
+        swaymsg "client.urgent           $urgent    $urgent   $text          $urgent"
     fi
 
     sleep 1

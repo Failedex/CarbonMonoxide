@@ -28,8 +28,7 @@
   "./scripts/weather.py")
 (defpoll datehour :initial "12" :interval "30m" "date +'%H'")
 (defpoll notesc :interval "2s" :run-while reveal4 "cat -s ~/Documents/fuck.txt")
-(defpoll timerdis :interval "1s" `./scripts/timer.py subscribe`)
-(defpoll timerstate :interval "1s" `./scripts/timer.py substate`)
+(deflisten timerdis `./scripts/timer.py subscribe`)
 (defpoll quotejson :interval "1h" `./scripts/quote.py`)
 
 ;; dock 

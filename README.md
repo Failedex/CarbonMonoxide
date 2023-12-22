@@ -1,21 +1,22 @@
 # Carbon Monoxide, a sway dotfile
 
+I usually forget to update these screenshots and stuff
+![Carbon Monoxide bottom bar ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide_bottom.png?raw=true)
+
+https://github.com/Failedex/CarbonMonoxide/assets/92513573/dd0a75d6-f05b-4469-88ab-5055d61087f6
+
+Old sidebar, still exists in the config if you want to use it as a reference
 ![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide3.png?raw=true)
 
 https://github.com/Failedex/CarbonMonoxide/assets/92513573/f35b322f-3af1-4b10-8103-559f0973c15a
 
-or a bottom bar if you want
-![Carbon Monoxide bottom bar ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide_bottom.png?raw=true)
-
-
-https://github.com/Failedex/CarbonMonoxide/assets/92513573/dd0a75d6-f05b-4469-88ab-5055d61087f6
 
 ## Featuring
-- Oxocarbon colour scheme
+- Oxocarbon color scheme
 - Eww bar, dock, and widgets
 - Eww animations (quite a lot of them)
 - "Touch friendly" set up (configuration was made for my touchscreen laptop)
-- Light mode???
+- Other themes
 - The worst configuration files you have ever seen
 - A few [symptoms](https://www.mayoclinic.org/diseases-conditions/carbon-monoxide/symptoms-causes/syc-20370642), only a few.
 
@@ -32,13 +33,13 @@ The config will still run without these, but there will be silent errors and mis
 - python3 (for quotes, weather, timer, and sway workspaces)
 - wvkbd-mobintl and wofi (for touchscreen purposes)
 - swaylock
-- a file under `~/Documents/fuck.txt`. This is a to do list
+- a file under `~/Documents/fuck.txt`. This is a to-do list
 
 ## Set up 
+### Warning: This configuration is barely tested on other devices, it is much safer to use this as a reference.
 It should be possible to set this configuration up using 
 ```
 stow .
 ```
 
-If there are any conflicts, move your current configurations somewhere else. I ecourage users to look through the config and make your own changes, because the defaults are tailored to my preferences, and my preference is a bit silly. 
-Alternatively, just use this as a reference.
+If there are any conflicts, move your current configurations somewhere else. I encourage users to look through the config and make your own changes, because the defaults are tailored to my preferences, and my preference is a bit silly. 

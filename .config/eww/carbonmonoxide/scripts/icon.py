@@ -6,12 +6,20 @@ import os
 
 eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.path.expanduser('~')}/.config/eww/carbonmonoxide"]
 
-def recurse(node, apps): 
+def recurse(node, apps, output): 
     if "app_id" in node and node["app_id"]:
         node["app_id"] = node["app_id"].lower()
 
         if node["app_id"] == "com.github.xournalpp.xournalpp":
             node["app_id"] = "xournalpp"
+
+        node["rect"]["x"] -= output["rect"]["x"]
+        node["rect"]["y"] -= output["rect"]["y"]
+        # for monitors that aren't 1920/1080
+        node["rect"]["width"] *= 1920/output["rect"]["width"]
+        node["rect"]["height"] *= 1080/output["rect"]["height"]
+        node["rect"]["x"] *= 1920/output["rect"]["width"]
+        node["rect"]["y"] *= 1080/output["rect"]["height"]
 
         apps.append({
             "app_id": node["app_id"],
@@ -25,10 +33,10 @@ def recurse(node, apps):
         # memo.add(node["app_id"])
         
     for n in node["nodes"]: 
-        recurse(n, apps)
+        recurse(n, apps, output)
 
     for n in node["floating_nodes"]: 
-        recurse(n, apps)
+        recurse(n, apps, output)
 
 def main(): 
 
@@ -46,29 +54,22 @@ def main():
     #         focus = res["name"]
 
     apps = []
-    windows = [[] for _ in range(5)]
-    external = False
+    windows = [[] for _ in range(10)]
 
     for output in result["nodes"]:
         if output["name"] != "eDP-1" and output["name"] != "DP-1": 
             continue 
-        if output["name"] == "DP-1": 
-            external = True
         for workspace in output["nodes"]: 
             # if not workspace["name"] == focus: 
             #     continue
 
             found = []
-            recurse(workspace, found)
+            recurse(workspace, found, output)
 
             apps.extend(found)
-            if output["name"] == "eDP-1":
-                windows[int(workspace["name"])-1] = found
-
-    if external: 
-        for w in windows: 
-            for i in w:
-                i["rect"]["x"] -= 1440
+            # if output["name"] == "eDP-1":
+            #     windows[int(workspace["name"])-1] = found
+            windows[int(workspace["name"])-1] = found
 
     appsdict = {
         "firefox": [],

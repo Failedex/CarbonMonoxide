@@ -298,8 +298,11 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 corner_radius 5
 gaps inner 15
-default_border pixel 2
-default_floating_border pixel 2
+font pango:IosevkaNerdFont Regular 12
+titlebar_padding 8
+title_align center
+default_border normal 2
+default_floating_border normal 2
 xwayland enable
 bindswitch lid:on exec 'swaylock -c 262626'
 bindswitch tablet:on exec '$HOME/.config/sway/bordertoggle.sh tablet'

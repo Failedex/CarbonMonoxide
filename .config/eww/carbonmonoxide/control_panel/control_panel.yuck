@@ -212,20 +212,24 @@
       :orientation "h"
       :space-evenly false 
       :height 140
+      :width 320
       :class "unbarwidget"
       :valign "start"
       :halign "fill"
       :hexpand true
       (image :style "margin: 10px;" :image-width 80 :image-height 80 :path "./image/fieshidle.gif")
-      (box
-        :orientation "v"
-        :class "userinfo"
-        :space-evenly false
-        :valign "center"
-        :halign "center"
+      (scroll
+        :hscroll true 
+        :vscroll false
         :hexpand true
-        (label :text "${datehour < 12 ? 'Good morning' : datehour < 18 ? 'Good afternoon' : datehour < 22 ? 'Good evening' : 'Good night'} ${hostname}")
-        (label :text uptime :style "font-size: 12px;")))))
+        (box
+          :orientation "v"
+          :class "userinfo"
+          :space-evenly false
+          :valign "center"
+          :halign "center"
+          (label :halign "start" :text "${datehour < 12 ? 'Good morning' : datehour < 18 ? 'Good afternoon' : datehour < 22 ? 'Good evening' : 'Good night'} ${hostname}")
+          (label :halign "start" :text uptime :style "font-size: 12px;"))))))
 
 (defwidget notiweathertoggle[]
   (box 
@@ -351,7 +355,7 @@
       :class "timer_butt"
       :valign "end"
       (button :onclick "./scripts/timer.py timedec" (label :text "-"))
-      (button :onclick "./scripts/timer.py toggle" (label :style "padding-right: 3px;" :text { timerstate == "start" ? "󱎫" : "󱫎"}))
+      (button :onclick "./scripts/timer.py toggle" (label :style "padding-right: 3px;" :text { !matches(timerdis, ":") ? "󱎫" : "󱫎"}))
       (button :onclick "./scripts/timer.py timeinc" (label :text "+")))))
 
 (defwidget bigslide []
