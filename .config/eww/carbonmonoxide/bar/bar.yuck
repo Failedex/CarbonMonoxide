@@ -165,21 +165,20 @@
   (eventbox
     :cursor "pointer"
     (box 
-      :class "${revealmpd ? "mpd" : "playerctl"} widget"
+      :class "playerctl widget"
       :orientation "v"
       :space-evenly true
       :spacing 5
       (eventbox 
         :onclick "${EWW_CMD} open music --toggle"
-        (image :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover } :image-width 20 :image-height 20))
-      (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous" } 
+        (image :path { pcover == "" ? "./image/emptympd.png" : pcover } :image-width 20 :image-height 20))
+      (button :onclick "playerctl previous"
         (label :class "picon" :text "󰒮"))
-      (button :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } 
-        (label :class "picon" :text  {revealmpd ? status : pstatus == "Playing" ? "" : ""}))
-      (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} 
+      (button :onclick "playerctl play-pause" 
+        (label :class "picon" :text  { pstatus == "Playing" ? "" : "" }))
+      (button :onclick "playerctl next"
         (label :class "picon" :text "󰒭"))
-      (button :tooltip { revealmpd ? "mpd" : "mpris" } :onclick "${EWW_CMD} update revealmpd=${!revealmpd}" 
-        (label :class "picon" :text { revealmpd ? "󱨥" : "󱨦"})))))
+      )))
 
 (defwidget sliders [] 
     (box
@@ -277,7 +276,7 @@
       :class "unbarwidget"
       :space-evenly false 
       :spacing 20
-      (image :style "margin: 5px;" :image-height 190 :image-width 190 :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover })
+      (image :style "margin: 5px;" :image-height 190 :image-width 190 :path { pcover == "" ? "./image/emptympd.png" : pcover })
       (box
         :orientation "v"
         :space-evenly false 
@@ -286,20 +285,21 @@
         (scroll
           :hscroll true
           :vscroll false
-          (label :class "mtitle" :text { revealmpd ? song : psong }))
+          (label :class "mtitle" :text psong))
         (scroll
           :hscroll true
           :vscroll false
-          (label :class "mauthor" :text { revealmpd ? artist : partist }))
+          (label :class "mauthor" :text partist))
         (box 
           :orientation "h"
           :class "mpd_controls"
           :style "margin-top: 10px;"
-          (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous"} (label :text "󰒮"))
-          (button :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text { revealmpd ? status : pstatus == "Playing" ? "" : ""} ))
-          (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭")))
+          (button :onclick "playerctl previous" 
+            (label :text "󰒮"))
+          (button :style "padding-right: 3px;" :onclick "playerctl play-pause" 
+            (label :text { pstatus == "Playing" ? "" : ""} ))
+          (button :onclick "playerctl next" (label :text "󰒭")))
         (scale 
-          :visible revealmpd
           :class "seektime"
           :value current 
           :orientation "h"
@@ -312,7 +312,6 @@
         :space-evenly false
         :valign "center"
         :halign "end"
-        :visible revealmpd 
         :class "sidempdctl"
         (scale 
           :value mpdvol 

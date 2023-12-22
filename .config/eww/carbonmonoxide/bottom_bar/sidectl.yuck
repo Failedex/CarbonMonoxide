@@ -171,7 +171,7 @@
         :class "unbarwidget"
         :space-evenly false 
         :spacing 20
-        (image :style "margin: 5px;" :image-height 190 :image-width 190 :path { revealmpd ? cover : pcover == "" ? "./image/emptympd.png" : pcover })
+        (image :style "margin: 5px;" :image-height 190 :image-width 190 :path { pcover == "" ? "./image/emptympd.png" : pcover })
         (box
           :orientation "v"
           :space-evenly false 
@@ -180,51 +180,51 @@
           (scroll
             :hscroll true
             :vscroll false
-            (label :class "mtitle" :text { revealmpd ? song : psong }))
+            (label :class "mtitle" :text psong))
           (scroll
             :hscroll true
             :vscroll false
-            (label :class "mauthor" :text { revealmpd ? artist : partist }))
+            (label :class "mauthor" :text partist))
           (box 
             :orientation "h"
             :class "mpd_controls"
             :style "margin-top: 10px;"
-            (button :onclick { revealmpd ? "./scripts/music_info --prev" : "playerctl previous"} (label :text "󰒮"))
-            (button :style "padding-right: 3px;" :onclick { revealmpd ? "./scripts/music_info --toggle" : "playerctl play-pause" } (label :text { revealmpd ? status : pstatus == "Playing" ? "" : ""} ))
-            (button :onclick { revealmpd ? "./scripts/music_info --next" : "playerctl next"} (label :text "󰒭")))
+            (button :onclick "playerctl previous" (label :text "󰒮"))
+            (button :style "padding-right: 3px;" :onclick "playerctl play-pause" 
+              (label :text { pstatus == "Playing" ? "" : ""} ))
+            (button :onclick "playerctl next" 
+              (label :text "󰒭")))
           (scale 
-            :visible revealmpd
             :class "seektime"
-            :value current 
+            :value { ptime.position }
             :orientation "h"
-            :onchange "mpc seek {}%"
+            ;; :onchange "playerctl position {}"
             :min 0
             :max 100
-            :tooltip "${ctime}/${ttime}"))
+            :tooltip {ptime.readable}))
         (box 
           :orientation "v"
           :space-evenly false
           :valign "center"
           :halign "end"
-          :visible revealmpd 
           :class "sidempdctl"
           (scale 
-            :value mpdvol 
+            :value { pside.volume } 
             :orientation "v"
             :class "mpdvolumeseek"
-            :onchange "mpc volume {}"
+            :onchange "playerctl volume {}"
             :min 0 
             :max 100
             :flipped true
-            :tooltip "volume: ${mpdvol}%")
+            :tooltip "volume: ${pside.volume}")
           (button 
-            :onclick "mpc random"
+            :onclick "playerctl shuffle toggle"
             (label 
-              :text {mpdrandom == "on" ? "󰒝" : "󰒞"}))
+              :text {pside.shuffle == "true" ? "󰒝" : "󰒞"}))
           (button 
-            :onclick "mpc single"
+            :onclick "playerctl loop ${pside.loop == 'Track' ? 'Playlist' : 'Track'}"
             (label 
-              :text {mpdsingle == "on" ? "󰑘" : "󰑖"}))
+              :text {pside.loop == "Track" ? "󰑘" : "󰑖"}))
           )
         ))))
 

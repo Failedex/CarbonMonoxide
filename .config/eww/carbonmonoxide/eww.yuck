@@ -59,23 +59,13 @@
 ;; cava pipe ("borrowed from tail-r")
 ;; (deflisten cavajson :initial "[]" "./scripts/cava_pipe.sh")
 
-;; mpd
-(deflisten song :runwhile revealmpd "./scripts/music_info --song")
-(deflisten artist :runwhile revealmpd "./scripts/music_info --artist")
-(defpoll current :initial "0" :interval "1s" :runwhile revealmpd "./scripts/music_info --time")
-(defpoll ctime :interval "1s" :runwhile revealmpd "./scripts/music_info --ctime")
-(defpoll ttime :interval "1s" :runwhile revealmpd "./scripts/music_info --ttime")
-(deflisten cover :runwhile revealmpd "./scripts/music_info --cover")
-(deflisten status :runwhile revealmpd "./scripts/music_info --status")
-(deflisten mpdvol :initial "0" :runwhile revealmpd "./scripts/music_info --volume")
-(deflisten mpdsingle :runwhile revealmpd "./scripts/music_info --single")
-(deflisten mpdrandom :runwhile revealmpd "./scripts/music_info --random")
-
 ;; playerctl
-(deflisten psong :runwhile {!revealmpd} "playerctl metadata --format '{{ title }}' -F")
-(deflisten partist :runwhile {!revealmpd} "playerctl metadata --format '{{ artist }}' -F")
-(deflisten pcover :runwhile {!revealmpd} "./scripts/pollcover.sh")
-(deflisten pstatus :runwhile {!revealmpd} "playerctl status -F")
+(deflisten psong "playerctl metadata --format '{{ title }}' -F")
+(deflisten partist "playerctl metadata --format '{{ artist }}' -F")
+(deflisten pcover "./scripts/pollcover.sh")
+(deflisten pstatus "playerctl status -F")
+(deflisten ptime "playerctl -F metadata -f '{ \"position\": {{position*100/mpris:length}}, \"readable\": \"{{duration(position)}}/{{duration(mpris:length)}}\" }'")
+(deflisten pside "playerctl -F metadata -f '{ \"volume\": {{volume*100}}, \"shuffle\": \"{{shuffle}}\", \"loop\": \"{{loop}}\" }'")
 
 ;; wallpaper thing
 (defvar wallpapers "[]")
@@ -90,7 +80,6 @@
 (defvar reveal5 false)
 (defvar reveal6 false)
 (defvar revealweather false)
-(defvar revealmpd false)
 (defvar revealcontrolpanel false)
 
 (defpoll theme :interval "24h" "./scripts/toggletheme")
