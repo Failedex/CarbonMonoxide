@@ -93,7 +93,7 @@
 (defvar revealmpd false)
 (defvar revealcontrolpanel false)
 
-(defpoll theme :interval "1h" "./scripts/toggletheme")
+(defpoll theme :interval "24h" "./scripts/toggletheme")
 
 
 ;; (include "./bar/bar.yuck")

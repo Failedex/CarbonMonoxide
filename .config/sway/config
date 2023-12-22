@@ -299,6 +299,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 corner_radius 5
 gaps inner 15
 font pango:IosevkaNerdFont Regular 12
+titlebar_separator enable
 titlebar_padding 8
 title_align center
 default_border normal 2
