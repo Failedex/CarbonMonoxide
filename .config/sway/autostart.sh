@@ -27,3 +27,4 @@ wireplumber &
 pipewire-pulse &
 
 mpd &
+mpDris2 &
