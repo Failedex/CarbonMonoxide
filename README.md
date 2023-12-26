@@ -28,7 +28,7 @@ The config will still run without these, but there will be silent errors and mis
 - brightnessctl
 - nmcli
 - playerctl
-- mpc (and mpd I guess)
+- mpDris2 (and mpd I guess)
 - grim and wl-copy
 - python3 (for quotes, weather, timer, and sway workspaces)
 - wvkbd-mobintl and wofi (for touchscreen purposes)
