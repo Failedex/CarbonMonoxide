@@ -21,6 +21,8 @@ from gi.repository import GLib
 from gi.repository import Gtk, GdkPixbuf
 from html.parser import HTMLParser
 
+# Taken from Juminai (and slightly modified)
+
 log_file = os.path.expandvars("/tmp/eww/notifications.json")
 cache_dir = os.path.expandvars("/tmp/eww/notifications_img")
 eww_dir = os.path.expandvars('$HOME/.config/eww/carbonmonoxide')

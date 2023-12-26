@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# Taken from Juminai
+
 dismiss() {
     dbus-send --session --type=method_call \
         --dest=org.freedesktop.Notifications \

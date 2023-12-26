@@ -64,8 +64,8 @@
 (deflisten partist "playerctl metadata --format '{{ artist }}' -F")
 (deflisten pcover "./scripts/pollcover.sh")
 (deflisten pstatus "playerctl status -F")
-(deflisten ptime "playerctl -F metadata -f '{ \"position\": {{position*100/mpris:length}}, \"readable\": \"{{duration(position)}}/{{duration(mpris:length)}}\" }'")
-(deflisten pside "playerctl -F metadata -f '{ \"volume\": {{volume*100}}, \"shuffle\": \"{{shuffle}}\", \"loop\": \"{{loop}}\" }'")
+(deflisten ptime "playerctl -F metadata -f '{ \"position\": {{position/1000000}}, \"duration\": {{mpris:length/1000000}}, \"readable\": \"{{duration(position)}}/{{duration(mpris:length)}}\" }'")
+;; (deflisten pside "playerctl -F metadata -f '{ \"volume\": {{volume*100}}, \"shuffle\": \"{{shuffle}}\", \"loop\": \"{{loop}}\" }'")
 
 ;; wallpaper thing
 (defvar wallpapers "[]")

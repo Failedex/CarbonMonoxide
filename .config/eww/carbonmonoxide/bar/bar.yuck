@@ -300,35 +300,11 @@
             (label :text { pstatus == "Playing" ? "" : ""} ))
           (button :onclick "playerctl next" (label :text "󰒭")))
         (scale 
-          :class "seektime"
-          :value current 
-          :orientation "h"
-          :onchange "mpc seek {}%"
-          :min 0
-          :max 100
-          :tooltip "${ctime}/${ttime}"))
-      (box 
-        :orientation "v"
-        :space-evenly false
-        :valign "center"
-        :halign "end"
-        :class "sidempdctl"
-        (scale 
-          :value mpdvol 
-          :orientation "v"
-          :class "mpdvolumeseek"
-          :onchange "mpc volume {}"
-          :min 0 
-          :max 100
-          :flipped true
-          :tooltip "volume: ${mpdvol}%")
-        (button 
-          :onclick "mpc random"
-          (label 
-            :text {mpdrandom == "on" ? "󰒝" : "󰒞"}))
-        (button 
-          :onclick "mpc single"
-          (label 
-            :text {mpdsingle == "on" ? "󰑘" : "󰑖"}))
-        )
+            :class "seektime"
+            :value { ptime.position }
+            :orientation "h"
+            ;; :onchange "playerctl position {}"
+            :min 0
+            :max { ptime.duration }
+            :tooltip { ptime.readable }))
       )))

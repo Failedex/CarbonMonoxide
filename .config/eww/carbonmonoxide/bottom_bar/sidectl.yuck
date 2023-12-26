@@ -190,7 +190,7 @@
             :class "mpd_controls"
             :style "margin-top: 10px;"
             (button :onclick "playerctl previous" (label :text "󰒮"))
-            (button :style "padding-right: 3px;" :onclick "playerctl play-pause" 
+            (button :onclick "playerctl play-pause" 
               (label :text { pstatus == "Playing" ? "" : ""} ))
             (button :onclick "playerctl next" 
               (label :text "󰒭")))
@@ -200,32 +200,32 @@
             :orientation "h"
             ;; :onchange "playerctl position {}"
             :min 0
-            :max 100
-            :tooltip {ptime.readable}))
-        (box 
-          :orientation "v"
-          :space-evenly false
-          :valign "center"
-          :halign "end"
-          :class "sidempdctl"
-          (scale 
-            :value { pside.volume } 
-            :orientation "v"
-            :class "mpdvolumeseek"
-            :onchange "playerctl volume {}"
-            :min 0 
-            :max 100
-            :flipped true
-            :tooltip "volume: ${pside.volume}")
-          (button 
-            :onclick "playerctl shuffle toggle"
-            (label 
-              :text {pside.shuffle == "true" ? "󰒝" : "󰒞"}))
-          (button 
-            :onclick "playerctl loop ${pside.loop == 'Track' ? 'Playlist' : 'Track'}"
-            (label 
-              :text {pside.loop == "Track" ? "󰑘" : "󰑖"}))
-          )
+            :max { ptime.duration }
+            :tooltip { ptime.readable }))
+        ;; (box 
+        ;;   :orientation "v"
+        ;;   :space-evenly false
+        ;;   :valign "center"
+        ;;   :halign "end"
+        ;;   :class "sidempdctl"
+        ;;   (scale 
+        ;;     :value { pside.volume } 
+        ;;     :orientation "v"
+        ;;     :class "mpdvolumeseek"
+        ;;     :onchange "playerctl volume {}"
+        ;;     :min 0 
+        ;;     :max 100
+        ;;     :flipped true
+        ;;     :tooltip "volume: ${pside.volume}")
+        ;;   (button 
+        ;;     :onclick "playerctl shuffle toggle"
+        ;;     (label 
+        ;;       :text {pside.shuffle == "true" ? "󰒝" : "󰒞"}))
+        ;;   (button 
+        ;;     :onclick "playerctl loop ${pside.loop == 'Track' ? 'Playlist' : 'Track'}"
+        ;;     (label 
+        ;;       :text {pside.loop == "Track" ? "󰑘" : "󰑖"}))
+        ;;   )
         ))))
 
 (defwindow sidectl4 

@@ -84,8 +84,11 @@
 
 // for the music popup
 .mpd_controls label {
+    font-family: "Symbols Nerd Font";
+    min-width: 1em;
+    min-height: 1em;
     font-size: 30px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .seektime {

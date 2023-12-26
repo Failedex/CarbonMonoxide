@@ -74,4 +74,14 @@
               (label 
                 :class "notifbody"
                 :visible {noti.body != "null"}
-                :text {noti.body})))))))
+                :text {noti.body})))))
+
+    (box
+      :orientation "h"
+      (for action in {noti.actions}
+        (button
+          :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}"
+          (label 
+            :class "notifactions"
+            :text {action[1]}))
+        ))))

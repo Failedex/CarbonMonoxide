@@ -39,6 +39,10 @@ if [[ $1 == "toggle" ]]; then
         swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
         ;;
     "catppuccin") 
+        switch_theme "rosepine"
+        swaymsg output \* bg ~/.config/sway/wallpaper/rosepine.jpg fill
+        ;;
+    "rosepine") 
         switch_theme "swamp"
         swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
         ;;
@@ -48,7 +52,7 @@ if [[ $1 == "toggle" ]]; then
         ;;
     "biscuit") 
         switch_theme "camellia"
-        swaymsg output \* bg ~/.config/sway/wallpaper/camelliaq3.png fill
+        swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
         ;;
     *)
         switch_theme "oxocarbon"
