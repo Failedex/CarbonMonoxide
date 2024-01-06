@@ -61,7 +61,7 @@
               :icon wifi_icon 
               :class {wifi_radio == "enabled" ? "icontitlesel" : "icontitle"}
               :text {wifi_radio == "enabled" ? wifi_essid == "" ? "Disconnected" : "Connected" : "Off"}
-              :subtext wifi_essid
+              :subtext { wifi_essid == "" ? "..." : wifi_essid}
               :toggle {wifi_radio == "enabled" ? "nmcli radio wifi off" : "nmcli radio wifi on"})
 
             (togglebuttons 
