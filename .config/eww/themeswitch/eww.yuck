@@ -53,12 +53,12 @@
               :class "icon"
               :text "󰒮"))
           (button 
-            :onclick "./scripts/select ${current}"
+            :onclick "${home}/.config/eww/themeswitch/scripts/select ${current}"
             (label 
               :class "icon"
               :text "󰄬"))
           (button 
-            :onclick "./scripts/select"
+            :onclick "${home}/.config/eww/themeswitch/scripts/select"
             (label 
               :class "icon"
               :text "󰅖"))

@@ -1,0 +1,3 @@
+eww -c ~/.config/eww/themeswitch open switcher
+sleep 0.2
+eww -c ~/.config/eww/themeswitch update reveal=true

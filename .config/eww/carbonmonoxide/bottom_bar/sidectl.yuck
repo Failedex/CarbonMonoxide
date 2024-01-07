@@ -78,7 +78,7 @@
               :class "icontitle"
               :text "Theme"
               :subtext theme
-              :toggle "${EWW_CMD} update reveal2=false && eww -c ~/.config/eww/themeswitch open switcher && eww -c ~/.config/eww/themeswitch update reveal=true")
+              :toggle "${EWW_CMD} update reveal2=false && ~/.config/eww/themeswitch/scripts/pop")
 
             (togglebuttons
               :icon ""
