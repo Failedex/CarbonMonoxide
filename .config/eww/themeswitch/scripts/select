@@ -1,0 +1,8 @@
+#!/usr/bin/sh 
+if [ -n "$1" ]; then
+    ~/.config/eww/carbonmonoxide/scripts/toggletheme select $1 
+    sleep 1
+fi
+eww -c ./ update reveal=false
+sleep 1
+eww -c ./ close switcher

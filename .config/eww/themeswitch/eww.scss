@@ -1,0 +1,26 @@
+* {
+    all: unset;
+    font-size: 20px;
+    font-family: "Iosevka Nerd Font";
+}
+
+.window {
+    background-color: #323232;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 500ms ease-in-out;
+}
+
+.switcher {
+    padding: 25px;
+    border-radius: 5px;
+    transition: background-color 1s ease-in-out;
+    transition: color 1s ease-in-out;
+}
+.icon {
+    font-family: "Symbols Nerd Font";
+    min-width: 1em;
+    min-height: 1em;
+    font-size: 40px;
+}

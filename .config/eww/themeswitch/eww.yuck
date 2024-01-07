@@ -1,0 +1,71 @@
+(defvar reveal false)
+(defpoll current :initial "oxocarbon" :interval "24h" "eww -c ~/.config/eww/carbonmonoxide get theme")
+(defpoll themes :interval "24h" "cat ./scripts/themes.json")
+(defpoll home :interval "24h" "echo $HOME")
+
+(defwindow switcher 
+  :geometry (geometry
+              :x 0
+              :y 0
+              :width "100%"
+              :height "0%"
+              :anchor "top center")
+  :monitor 0 
+  :stacking "overlay"
+  (revealer 
+    :reveal reveal
+    :transition "slidedown"
+    (box 
+      :height 1080
+      :class "window"
+      :style "background-image: url('${home}/.config/sway/wallpaper/${themes[current].background}');"
+      (box 
+        :valign "center"
+        :halign "center"
+        :class "switcher"
+        :style "
+        background-color: ${themes[current].bg};
+        color: ${themes[current].fg};
+        "
+        :width 400
+        :height 200
+        :orientation "v"
+        :space-evenly true
+        (box 
+          :orientation "h"
+          :space-evenly true
+          :hexpand true
+          (scroll 
+            :hscroll true
+            :vscroll false
+            (image 
+              :image-height 120 
+              :path "${home}/.config/sway/wallpaper/${themes[current].background}"))
+          (label 
+            :halign "center"
+            :hexpand true
+            :text "${current}"))
+        (box 
+          :orientation "h"
+          (button 
+            :onclick "${EWW_CMD} update current=${themes[current].prev}"
+            (label 
+              :class "icon"
+              :text "󰒮"))
+          (button 
+            :onclick "./scripts/select ${current}"
+            (label 
+              :class "icon"
+              :text "󰄬"))
+          (button 
+            :onclick "./scripts/select"
+            (label 
+              :class "icon"
+              :text "󰅖"))
+          (button 
+            :onclick "${EWW_CMD} update current=${themes[current].next}"
+            (label 
+              :class "icon"
+              :text "󰒭")))
+
+        ))))

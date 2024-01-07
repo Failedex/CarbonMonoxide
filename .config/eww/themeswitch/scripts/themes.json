@@ -1,0 +1,51 @@
+{
+    "oxocarbon": {
+        "background": "tile.png",
+        "prev": "camellia",
+        "next": "oxocarbon_light",
+        "bg": "#262626", 
+        "fg": "#dde1e6"
+    },
+    "oxocarbon_light": {
+        "background": "tile.png",
+        "prev": "oxocarbon",
+        "next": "catppuccin",
+        "bg": "#dde1e6",
+        "fg": "#525252" 
+    },
+    "catppuccin": {
+        "background": "catppuccinlan.png",
+        "prev": "oxocarbon_light",
+        "next": "rosepine",
+        "bg": "#313244",
+        "fg": "#cdd6f4" 
+    },
+    "rosepine": {
+        "background": "rosepine.jpg",
+        "prev": "catppuccin",
+        "next": "swamp",
+        "bg": "#26233a",
+        "fg": "#e0def4" 
+    },
+    "swamp": {
+        "background": "swamp.png",
+        "prev": "rosepine",
+        "next": "biscuit",
+        "bg": "#3A3124",
+        "fg": "#D2C3A4" 
+    },
+    "biscuit": {
+        "background": "biscuitcat.png",
+        "prev": "swamp",
+        "next": "camellia",
+        "bg": "#2d2424",
+        "fg": "#DCC9BC" 
+    },
+    "camellia": {
+        "background": "camelliawoman.jpg",
+        "prev": "biscuit",
+        "next": "oxocarbon",
+        "bg": "#1E1F24",
+        "fg": "#E4E5E7" 
+    }
+}
