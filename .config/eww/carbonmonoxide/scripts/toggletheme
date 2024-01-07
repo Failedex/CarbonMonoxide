@@ -10,9 +10,9 @@ switch_theme () {
         sed -i "s/include=.*/include=~\/.config\/foot\/themes\/$1.ini/" $HOME/.config/foot/foot.ini
     fi
 
-    inactivebg=$(sed -n "s/\$surface0: \(.*\);/\1/p" ./themes/$1.scss)
-    bg=$(sed -n "s/\$surface2: \(.*\);/\1/p" ./themes/$1.scss)
-    text=$(sed -n "s/\$white0: \(.*\);/\1/p" ./themes/$1.scss)
+    inactivebg=$(sed -n "s/\$surface0: \(.*\);/\1/p" $HOME/.config/eww/carbonmonoxide/themes/$1.scss)
+    bg=$(sed -n "s/\$surface2: \(.*\);/\1/p" $HOME/.config/eww/carbonmonoxide/themes/$1.scss)
+    text=$(sed -n "s/\$white0: \(.*\);/\1/p" $HOME/.config/eww/carbonmonoxide/themes/$1.scss)
     urgent="#ee5396"
 
     if [ -n $surface0 ] && [ -n $surface2 ] && [ -n $white0 ]; then
@@ -51,6 +51,37 @@ if [[ $1 == "toggle" ]]; then
         swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
         ;;
     "biscuit") 
+        switch_theme "camellia"
+        swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
+        ;;
+    *)
+        switch_theme "oxocarbon"
+        swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
+        ;;
+    esac
+elif [[ $1 == "select" ]]; then
+    case $2 in 
+    "oxocarbon_light")
+        switch_theme "oxocarbon_light"
+        swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
+        ;;
+    "catppuccin") 
+        switch_theme "catppuccin"
+        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
+        ;;
+    "rosepine") 
+        switch_theme "rosepine"
+        swaymsg output \* bg ~/.config/sway/wallpaper/rosepine.jpg fill
+        ;;
+    "swamp") 
+        switch_theme "swamp"
+        swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
+        ;;
+    "biscuit") 
+        switch_theme "biscuit"
+        swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
+        ;;
+    "camellia") 
         switch_theme "camellia"
         swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
         ;;
