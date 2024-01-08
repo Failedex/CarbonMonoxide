@@ -77,14 +77,29 @@
       :class "workspaces widget"
       :orientation "h"
       :space-evenly false
-      (for workspace in {workspacejson}
+      (for i in {"[0, 1, 2, 3, 4]"}
         (button
-          :onclick "swaymsg -t command workspace number ${workspace.name}"
+          :onclick "swaymsg -t command workspace number ${workspacejson[i].name}"
           (box
             :hexpand false
             :height 10
-            :width { workspace.focused ? 100 : !workspace.empty ? 80 : 50}
-            :class { workspace.focused ? "workspacethingactive" : "workspacething"}))))))
+            ;; :width { workspace.focused ? 100 : !workspace.empty ? 80 : 50}
+            :class { workspacejson[i].focused ? "workspacethingactive" : "workspacething"}
+            :orientation "h"
+            :space-evenly false
+            (box 
+              :width 50)
+            (revealer 
+              :reveal { !workspacejson[i].empty || workspacejson[i].focused }
+              :transition "slideright"
+              (box 
+                :width 30))
+            (revealer 
+              :reveal { workspacejson[i].focused }
+              :transition "slideright"
+              (box 
+                :width 20))
+            ))))))
 
 (defwidget clock []
   (box
