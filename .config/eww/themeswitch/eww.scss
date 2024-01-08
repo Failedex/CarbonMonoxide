@@ -4,15 +4,23 @@
     font-family: "Iosevka Nerd Font";
 }
 
+revealer {
+    all: unset;
+    margin: 0px;
+    padding: 0px;
+}
+
 .window {
     background-color: #323232;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     transition: background-image 500ms ease-in-out;
+    margin: 0px;
+    padding: 0px;
 }
 
-.switcher {
+.switcherw {
     padding: 25px;
     border-radius: 5px;
     transition: background-color 1s ease-in-out;

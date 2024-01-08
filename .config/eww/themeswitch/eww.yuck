@@ -9,12 +9,13 @@
               :y 0
               :width "100%"
               :height "0%"
-              :anchor "top center")
+              :anchor "top left")
   :monitor 0 
   :stacking "overlay"
   (revealer 
     :reveal reveal
     :transition "slidedown"
+    :class ""
     (box 
       :height 1080
       :class "window"
@@ -22,7 +23,7 @@
       (box 
         :valign "center"
         :halign "center"
-        :class "switcher"
+        :class "switcherw"
         :style "
         background-color: ${themes[current].bg};
         color: ${themes[current].fg};
