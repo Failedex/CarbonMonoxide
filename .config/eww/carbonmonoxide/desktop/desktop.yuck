@@ -16,7 +16,7 @@
       :dragtype "file"
       :class "desktopbox"
       :onclick "thunar ${homedir}/.local/share/Trash/files"
-      :ondropped "./scripts/trashput.sh {}"
+      :ondropped "notify-send {}"
       (box
         :orientation "v"
         :space-evenly false 

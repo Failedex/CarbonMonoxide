@@ -15,7 +15,7 @@
     :orientation "v"
     :space-evenly false 
     (centerbox 
-      :class "bar"
+      :class "barwidget"
       :orientation "h"
       :height "60"
       (left)
@@ -25,7 +25,7 @@
       :transition "slideup"
       :reveal revealcontrolpanel
       (box 
-        :class "bar"
+        :class "barwidget"
         :orientation "h"
         :space-evenly false
         (box

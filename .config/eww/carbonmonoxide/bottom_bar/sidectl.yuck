@@ -198,7 +198,7 @@
             :class "seektime"
             :value { ptime.position }
             :orientation "h"
-            ;; :onchange "playerctl position {}"
+            :onchange "playerctl position {}"
             :min 0
             :max { ptime.duration }
             :tooltip { ptime.readable }))

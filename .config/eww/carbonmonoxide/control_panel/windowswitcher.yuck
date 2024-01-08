@@ -17,7 +17,9 @@
         :spacing 10
         (for i in {[0, 1, 2, 3, 4]}
           (button
+            ;; :ondropped "notify-send 'real'"
             :onclick "${EWW_CMD} update revealcontrolpanel=false && swaymsg -t command workspace number ${i+1}"
+            ;; :onclick "swaymsg -t command workspace number ${i+1}"
             (box 
               :class "overviewworkspace"
               :space-evenly false 
@@ -42,10 +44,15 @@
     :halign "start"
     :valign "start"
     :class "overviewwindow"
-    (image 
+    (eventbox
       :valign "center"
       :halign "center"
-      :image-height {round(w.rect.width/5.8 * 45/100, 0)}
-      :image-width {round(w.rect.height/5.8 * 45/100, 0)}
-      :path {w.path}
-      )))
+      :dragvalue "${w.pid}"
+      :dragtype "text"
+      (image 
+        :valign "center"
+        :halign "center"
+        :image-height {round(w.rect.width/5.8 * 45/100, 0)}
+        :image-width {round(w.rect.height/5.8 * 45/100, 0)}
+        :path {w.path}
+        ))))
