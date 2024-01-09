@@ -36,11 +36,13 @@
           :orientation "h"
           :space-evenly true
           :hexpand true
-          (scroll 
-            :hscroll true
-            :vscroll false
+          (scroll
+            :vscroll true
+            :hscroll false
+            :height 100
             (image 
-              :image-height 120 
+              ;; :image-height 120
+              :image-width 150 
               :path "${home}/.config/sway/wallpaper/${themes[current].background}"))
           (label 
             :halign "center"

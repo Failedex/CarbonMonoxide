@@ -10,6 +10,10 @@ switch_theme () {
         sed -i "s/include=.*/include=~\/.config\/foot\/themes\/$1.ini/" $HOME/.config/foot/foot.ini
     fi
 
+    if [[ -f "$HOME/.config/wofi/themes/$1.css" ]]; then 
+        sed -i "s/@import.*/@import \".config\/wofi\/themes\/$1.css\";/" $HOME/.config/wofi/style.css
+    fi
+
     inactivebg=$(sed -n "s/\$surface0: \(.*\);/\1/p" $HOME/.config/eww/carbonmonoxide/themes/$1.scss)
     bg=$(sed -n "s/\$surface2: \(.*\);/\1/p" $HOME/.config/eww/carbonmonoxide/themes/$1.scss)
     text=$(sed -n "s/\$white0: \(.*\);/\1/p" $HOME/.config/eww/carbonmonoxide/themes/$1.scss)
