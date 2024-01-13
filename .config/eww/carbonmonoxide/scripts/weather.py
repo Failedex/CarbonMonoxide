@@ -71,8 +71,6 @@ try:
     req = json.loads(req)
     res = req["current_condition"][0].copy() 
 
-    res["success"] = True
-
     code = int(res["weatherCode"])
     if day:
         if code in code_icon: 
@@ -122,5 +120,32 @@ try:
     print(json.dumps(res))
 
 except Exception as e:
-    print(e)
-    print('{"success": "false"}')
+    # print(e)
+    print(""" 
+{
+    "FeelsLikeC": "0", 
+    "FeelsLikeF": "0", 
+    "cloudcover": "0", 
+    "humidity": "0", 
+    "localObsDateTime": "2000-00-00 07:27 AM", 
+    "observation_time": "07:27 AM", 
+    "precipInches": "0.0", 
+    "precipMM": "0.0", 
+    "pressure": "0", 
+    "pressureInches": "0", 
+    "temp_C": "0", 
+    "temp_F": "0", 
+    "uvIndex": "0", 
+    "visibility": "0", 
+    "visibilityMiles": "0", 
+    "weatherCode": "727", 
+    "weatherDesc": [{"value": "Idk"}], 
+    "weatherIconUrl": [{"value": ""}], 
+    "winddir16Point": "", 
+    "winddirDegree": "0", 
+    "windspeedKmph": "0", 
+    "windspeedMiles": "0", 
+    "icon": "idk", 
+    "hourly": []
+  }
+    """)

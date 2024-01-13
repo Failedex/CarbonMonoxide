@@ -325,7 +325,6 @@
       :image-width 100 
       :image-height 100 
       :style "margin: 10px;"
-      :visible {weatherjson.success}
       :path "./image/weather/${weatherjson.icon}.svg")
     (scroll
       :hscroll true 
@@ -334,10 +333,9 @@
       :hexpand true
       (box
         :orientation "v"
-        (label :visible {weatherjson.success} :halign "start" :text {weatherjson.weatherDesc[0].value})
-        (label :visible {weatherjson.success} :halign "start" :text "Feels like ${weatherjson.FeelsLikeC}°C")
-        (label :visible {weatherjson.success} :halign "start" :text "← ${weatherjson.windspeedKmph} km/h")
-        (label :visible {!weatherjson.success} :text "no wifi")
+        (label :halign "start" :text {weatherjson.weatherDesc[0].value})
+        (label :halign "start" :text "Feels like ${weatherjson.FeelsLikeC}°C")
+        (label :halign "start" :text "← ${weatherjson.windspeedKmph} km/h")
         ;; (label :halign "start" :text "${weatherjson.visibility} km")
         ;; (label :halign "start" :text "${weatherjson.precipMM} mm")
         ))))
