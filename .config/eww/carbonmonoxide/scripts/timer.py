@@ -81,6 +81,7 @@ def timeinc():
     timer+=5
     with open("/tmp/timer", "w") as f:
         f.write(str(timer))
+    subprocess.run(eww_bin + ["update", f"timerdis={timer}"])
 
 def timedec():
     with open("/tmp/timer", "r") as f:
@@ -89,6 +90,7 @@ def timedec():
     timer-=5
     with open("/tmp/timer", "w") as f:
         f.write(str(timer))
+    subprocess.run(eww_bin + ["update", f"timerdis={timer}"])
 
 a = sys.argv[1]
 
