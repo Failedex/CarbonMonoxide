@@ -71,6 +71,7 @@ def update():
             #     windows[int(workspace["name"])-1] = found
             windows[int(workspace["name"])-1] = found
 
+    # change this yourself lol
     appsdict = {
         "firefox": [],
         "thunar": [], 
@@ -78,6 +79,13 @@ def update():
         "discord": [], 
         "foot": []
     }
+    # translate to launch cmd
+    appsexec = {
+        "discord": "discord-wayland",
+        "xournalpp": "com.github.xournalpp.xournalpp",
+        "foot": "org.codeberg.dnkl.foot",
+    }
+
     appsjson = []
 
     for app in apps: 
@@ -93,7 +101,7 @@ def update():
             appsjson.append(dict(
                 path = fetch(key),
                 name = key,
-                app_id = key, 
+                app_id = key if key not in appsexec else appsexec[key], 
                 pid = None, 
                 focused = []
             ))

@@ -37,7 +37,7 @@
     (for task in {tasksjson}
       (button
         :tooltip { task.name }
-        :onclick { task.pid != 'null' ? 'swaymsg "[pid=${task.pid}] focus"' : '${task.app_id} &'}
+        :onclick { task.pid != 'null' ? 'swaymsg "[pid=${task.pid}] focus"' : '(cd && gtk-launch ${task.app_id}) &'}
         (box
           :orientation "v"
           :space-evenly false
