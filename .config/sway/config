@@ -11,7 +11,6 @@ set $menu 'wofi -i -I'
 
 ### Output configuration
 output * bg ~/.config/sway/wallpaper/tile.png tile
-# output * bg ~/Downloads/windows11.jpg fill
 
 # I considered it at some point
 # output * bg #dde1e6 solid_color
@@ -31,33 +30,6 @@ workspace 7 output DP-1
 workspace 8 output DP-1
 workspace 9 output DP-1
 workspace 0 output DP-1
-
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 input * {
     xkb_layout "us"
@@ -87,98 +59,67 @@ input "type:tablet_tool" {
 
 
 ### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
     bindsym $mod+Return exec $term
 
-    # Kill focused window
     bindsym $mod+w kill
 
-    # Start your launcher
     bindsym $mod+d exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
     bindsym $mod+Control+r reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Control+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
 #
 # Moving around:
 #
-    # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
+
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
 
-    # swaymonad bindings
-    # bindsym $mod+$up nop focus_prev_window
-    # bindsym $mod+$down nop focus_next_window
-    # bindsym $mod+$left resize shrink width 10px
-    # bindsym $mod+$right resize grow width 10px
-    # bindsym $mod+Shift+$up nop swap_with_prev_window
-    # bindsym $mod+Shift+$down nop swap_with_next_window
-    # bindsym $mod+Shift+Return nop promote_window
-    # bindsym $mod+Shift+Left nop move left
-    # bindsym $mod+Shift+Down nop move down
-    # bindsym $mod+Shift+Up nop move up
-    # bindsym $mod+Shift+Right nop move right
-    # bindsym $mod+Control+$left nop increment_masters
-    # bindsym $mod+Control+$right nop decrement_masters
-    # bindsym $mod+t nop set_layout tall
-    # bindsym $mod+n nop set_layout nop
 #
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+1 exec '~/.config/sway/workspace focus 1'
-    bindsym $mod+2 exec '~/.config/sway/workspace focus 2'
-    bindsym $mod+3 exec '~/.config/sway/workspace focus 3'
-    bindsym $mod+4 exec '~/.config/sway/workspace focus 4'
-    bindsym $mod+5 exec '~/.config/sway/workspace focus 5'
+    bindsym $mod+1 exec '~/.config/sway/scripts/workspace focus 1'
+    bindsym $mod+2 exec '~/.config/sway/scripts/workspace focus 2'
+    bindsym $mod+3 exec '~/.config/sway/scripts/workspace focus 3'
+    bindsym $mod+4 exec '~/.config/sway/scripts/workspace focus 4'
+    bindsym $mod+5 exec '~/.config/sway/scripts/workspace focus 5'
     bindsym $mod+6 workspace number 6
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
     # Move focused container to workspace
-    bindsym $mod+Shift+1 exec '~/.config/sway/workspace move 1'
-    bindsym $mod+Shift+2 exec '~/.config/sway/workspace move 2'
-    bindsym $mod+Shift+3 exec '~/.config/sway/workspace move 3'
-    bindsym $mod+Shift+4 exec '~/.config/sway/workspace move 4'
-    bindsym $mod+Shift+5 exec '~/.config/sway/workspace move 5'
+    bindsym $mod+Shift+1 exec '~/.config/sway/scripts/workspace move 1'
+    bindsym $mod+Shift+2 exec '~/.config/sway/scripts/workspace move 2'
+    bindsym $mod+Shift+3 exec '~/.config/sway/scripts/workspace move 3'
+    bindsym $mod+Shift+4 exec '~/.config/sway/scripts/workspace move 4'
+    bindsym $mod+Shift+5 exec '~/.config/sway/scripts/workspace move 5'
     bindsym $mod+Shift+6 move container to workspace number 6
     bindsym $mod+Shift+7 move container to workspace number 7
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 
     # moving workspaces to monitors
     bindsym $mod+Control+Shift+l move workspace to output right
@@ -188,14 +129,11 @@ input "type:tablet_tool" {
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
+    # I use auto tile
     # bindsym $mod+Shift+b splith
     # bindsym $mod+Shift+v splitv
     bindsym $mod+b border toggle
 
-    # Switch the current container between different layout styles
     # bindsym $mod+s layout stacking
     bindsym $mod+t layout toggle tabbed stacking split
     # bindsym $mod+e layout toggle split
@@ -204,35 +142,22 @@ input "type:tablet_tool" {
     bindsym $mod+Shift+f fullscreen
     # bindsym $mod+Shift+f nop fullscreen
 
-    # Toggle the current focus between tiling and floating mode
     bindsym $mod+f floating toggle
 
-    # Swap focus between the tiling area and the floating area
     bindsym $mod+Shift+space focus mode_toggle
 
-    # Move focus to the parent container
     bindsym $mod+a focus parent
     bindsym $mod+z focus child
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    # bindsym $mod+Shift+s move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    # bindsym $mod+s scratchpad show
-
     # better scratchpads
     for_window [app_id="sterm"] move scratchpad, resize set width 1300 height 700
-    bindsym $mod+s exec "~/.config/sway/togglescratch.sh sterm"
+    bindsym $mod+s exec "~/.config/sway/scripts/togglescratch.sh sterm"
     for_window [app_id="sncmpcpp"] move scratchpad, resize set width 1300 height 700
-    bindsym $mod+n exec "~/.config/sway/togglescratch.sh sncmpcpp"
+    bindsym $mod+n exec "~/.config/sway/scripts/togglescratch.sh sncmpcpp"
     for_window [app_id="sranger"] move scratchpad, resize set width 1300 height 700
-    bindsym $mod+e exec "~/.config/sway/togglescratch.sh sranger"
+    bindsym $mod+e exec "~/.config/sway/scripts/togglescratch.sh sranger"
 
 #
 # Resizing containers:
@@ -306,9 +231,9 @@ default_border normal 2
 default_floating_border normal 2
 xwayland enable
 bindswitch lid:on exec 'swaylock -c 262626'
-bindswitch tablet:on exec '$HOME/.config/sway/bordertoggle.sh tablet'
-bindswitch tablet:off exec '$HOME/.config/sway/bordertoggle.sh normal'
+# bindswitch tablet:on exec '$HOME/.config/sway/scripts/bordertoggle.sh tablet'
+# bindswitch tablet:off exec '$HOME/.config/sway/scripts/bordertoggle.sh normal'
 
 # autostart applications
 exec_always --no-startup-id autotiling
-exec $HOME/.config/sway/autostart.sh
+exec $HOME/.config/sway/scripts/autostart.sh
