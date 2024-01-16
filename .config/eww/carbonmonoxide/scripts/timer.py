@@ -4,7 +4,7 @@ import os
 import sys
 import subprocess
 
-eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.path.expanduser('~')}/.config/eww/carbonmonoxide"]
+eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
 def startstop():
     if os.path.exists("/tmp/timerstamp"):

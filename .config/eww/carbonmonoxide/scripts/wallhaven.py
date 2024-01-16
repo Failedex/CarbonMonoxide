@@ -8,7 +8,7 @@ import subprocess
 import shutil
 
 imgdir = "/tmp/wallpapers"
-eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.path.expanduser('~')}/.config/eww/carbonmonoxide"]
+eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
 try: 
     if sys.argv[1] == "search":

@@ -2,6 +2,9 @@
 
 import subprocess
 import json
+import os
+
+eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
 def get_workspaces():
     result = subprocess.run("swaymsg -r -t get_workspaces", shell = True, capture_output=True, text=True).stdout
@@ -28,19 +31,10 @@ def get_workspaces():
     return active
 
 def main():
-    # while True:
-    #     # subprocess.call(["swaymsg",  "-t",  "subscribe",  "['workspace']"], shell=True) 
-    #     subprocess.call("sleep 5s", shell=True)
-    #     active = get_workspaces()
-    #     literal = "(box	:class \"workspaces widget\"	:orientation \"h\" :spacing 5 :space-evenly \"false\" "
-    #     for lab in active:
-    #         literal += f"(label \"{lab}\") "
-    #     print (literal)
-    # literal = "(box	:class 'workspaces widget'	:orientation 'v' :space-evenly true "
-    # for i, lab in enumerate(active):
-    #     literal += f"(button :onclick \"swaymsg -t command 'workspace number {i+1}'\" {lab}) "
-    # print (literal + ")")
     print(json.dumps(get_workspaces()))
+    while True: 
+        subprocess.run(["swaymsg", "-t" ,"subscribe", "[\"workspace\"]"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.run(eww_bin + ["update", f"workspacejson={json.dumps(get_workspaces())}"])
 
 if __name__ == "__main__":
     main()

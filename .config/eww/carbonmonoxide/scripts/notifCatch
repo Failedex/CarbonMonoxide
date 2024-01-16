@@ -22,10 +22,11 @@ from gi.repository import Gtk, GdkPixbuf
 from html.parser import HTMLParser
 
 # Taken from Juminai (and slightly modified)
+# Hi I'm Failed and I just stole this from tokyobot
 
 log_file = os.path.expandvars("/tmp/eww/notifications.json")
 cache_dir = os.path.expandvars("/tmp/eww/notifications_img")
-eww_dir = os.path.expandvars('$HOME/.config/eww/carbonmonoxide')
+eww_dir = os.getcwd()
 
 os.makedirs(cache_dir, exist_ok=True)
 

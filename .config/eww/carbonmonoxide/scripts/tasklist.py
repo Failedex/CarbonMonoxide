@@ -4,7 +4,7 @@ import subprocess
 import json
 import os 
 
-eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.path.expanduser('~')}/.config/eww/carbonmonoxide"]
+eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
 def recurse(node, apps, output): 
     if "app_id" in node and node["app_id"]:
@@ -38,7 +38,7 @@ def recurse(node, apps, output):
     for n in node["floating_nodes"]: 
         recurse(n, apps, output)
 
-def main(): 
+def update(): 
 
     result = subprocess.run("swaymsg -r -t get_tree", shell=True, capture_output=True, text=True).stdout
     result = json.loads(result)
@@ -113,8 +113,15 @@ def main():
 
 
     subprocess.run(eww_bin + ["update", f"windows={json.dumps(windows)}"])
+    subprocess.run(eww_bin + ["update", f"tasksjson={json.dumps(appsjson)}"])
 
-    print(json.dumps(appsjson))
+def main():
+    update()
+    while True: 
+        subprocess.run(["swaymsg", "-t", "subscribe", "[\"window\", \"workspace\"]"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+
+        update()
+    
 
 if __name__ == "__main__":
     main()

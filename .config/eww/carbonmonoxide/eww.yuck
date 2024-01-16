@@ -16,7 +16,7 @@
 
 (deflisten workspacejson 
   :initial '[{"focused": true, "empty": false, "name": 1}, {"focused": false, "empty": true, "name": 2}, {"focused": false, "empty": true, "name": 3}, {"focused": false, "empty": true, "name": 4}, {"focused": false, "empty": true, "name": 5}]'
-  "./scripts/workspace.sh")
+  "./scripts/workspace.py")
 
 ;; used mainly in control panel and dashboard
 (defpoll hostname :initial "idk" :interval "24h" 'echo "$(whoami)"')
@@ -57,7 +57,7 @@
 (defpoll quotejson :interval "1h" `./scripts/quote.py`)
 
 ;; dock 
-(deflisten tasksjson :initial "[]" "./scripts/icon.sh")
+(deflisten tasksjson :initial "[]" "./scripts/tasklist.py")
 (defvar revealdock false)
 
 ;; fucking desktop icons
