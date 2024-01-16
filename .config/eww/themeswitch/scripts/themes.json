@@ -16,9 +16,16 @@
     "catppuccin": {
         "background": "catppuccinlan.png",
         "prev": "oxocarbon_light",
-        "next": "rosepine",
+        "next": "catppuccin_latte",
         "bg": "#313244",
         "fg": "#cdd6f4" 
+    },
+    "catppuccin_latte": {
+        "background": "forrest.png",
+        "prev": "catppuccin",
+        "next": "rosepine",
+        "bg": "#ccd0da",
+        "fg": "#4c4f69" 
     },
     "rosepine": {
         "background": "rosepine.jpg",
