@@ -17,12 +17,14 @@
 }
 
 .notifclose {
-    font-family: "Iosevka Nerd Font";
+    font-family: "Symbols Nerd Font";
+    font-size: 25px;
+    min-width: 1em;
+    min-height: 1em;
     color: $red;
-    padding-right: 5px;
 }
 
-.notifbar label {
+.notiflabel {
     font-size: 18px;
     margin-bottom: 5px;
 }

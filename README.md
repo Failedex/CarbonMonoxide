@@ -1,4 +1,4 @@
-# Carbon Monoxide, a sway dotfile
+# Carbon Monoxide, a sway(fx) dotfile
 
 I usually forget to update these screenshots and stuff
 ![Carbon Monoxide bottom bar ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide_bottom.png?raw=true)
@@ -43,3 +43,10 @@ stow .
 ```
 
 If there are any conflicts, move your current configurations somewhere else. I encourage users to look through the config and make your own changes, because the defaults are tailored to my preferences, and my preference is a bit silly. 
+
+## Reviews 
+
+> "The code **will** make you suffocate of laughter because of how bad it is" - [Aproxia](https://github.com/Aproxia-dev)
+
+> "bloated af, 10/10 peak toxic content" - [chadcat7](https://github.com/chadcat7)
+

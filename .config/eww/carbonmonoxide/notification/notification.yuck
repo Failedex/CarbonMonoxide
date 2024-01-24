@@ -5,7 +5,7 @@
               :y 0
               :width 480
               :height 0
-              :anchor "top center")
+              :anchor "top right")
   :stacking "overlay"
   :monitor 0
   (revealer
@@ -30,11 +30,14 @@
       (image :halign "start" :image-width 30 :image-height 30 :path {noti.icon != "null" ? noti.icon : "./image/idk.svg"})
       (scroll 
         :halign "center"
+        :valign "center"
         :hexpand true
         :hscroll true
         :vscroll false 
         :width 200
-        (label :text {noti.app}))
+        (label 
+          :class "notiflabel"
+          :text {noti.app}))
       (button 
         :halign "end"
         :onclick "./scripts/notifManage --close ${noti.id}"

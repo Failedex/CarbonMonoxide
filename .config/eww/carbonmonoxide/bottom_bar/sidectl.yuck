@@ -265,7 +265,7 @@
       :orientation "v"
       (button :onclick "swaymsg kill" 
         (label :class "largetouchicon" :text "󰅙"))
-      (button :onclick "${EWW_CMD} update revealcontrolpanel=false && wofi --show=drun -i -I"
+      (button :onclick "${EWW_CMD} update revealcontrolpanel=false && (cd && wofi --show=drun -i -I)"
         (label :class "largetouchicon" :text "󰀻"))
       (button :onclick "./scripts/touchkey.sh && ${EWW_CMD} update revealcontrolpanel=false" 
         (label :class "largetouchicon" :text "󰌌"))
