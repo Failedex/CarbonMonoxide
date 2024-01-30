@@ -99,6 +99,7 @@
 }
 
 .mpdcover {
+    transition: 500ms ease;
     background-color: $surface0;
     margin: 5px; 
     border-radius: 5px;
