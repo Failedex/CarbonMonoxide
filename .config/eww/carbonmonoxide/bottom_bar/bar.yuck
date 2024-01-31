@@ -17,7 +17,7 @@
     (centerbox 
       :class "barwidget"
       :orientation "h"
-      :height "60"
+      :height 60
       (left)
       (middle)
       (right))
