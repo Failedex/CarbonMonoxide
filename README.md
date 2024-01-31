@@ -30,8 +30,9 @@ The config will still run without these, but there will be silent errors and mis
 - playerctl
 - mpDris2 (and mpd I guess)
 - grim and wl-copy
-- python3 (for quotes, weather, timer, and sway workspaces)
-- wvkbd-mobintl and wofi (for touchscreen purposes)
+- python3 (and i3ipc, gobject)
+- wvkbd-mobintl (for touchscreen purposes)
+- wofi
 - swaylock
 - a file under `~/Documents/fuck.txt`. This is a to-do list
 
