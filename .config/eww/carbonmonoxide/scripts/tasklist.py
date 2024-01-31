@@ -8,7 +8,7 @@ import i3ipc
 eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
 def recurse(apps, workspace, output): 
-    for l in workspace.descendents(): 
+    for l in workspace.descendants(): 
         if not l.pid:
             continue
         app_id = l.app_id.lower()
@@ -48,7 +48,7 @@ def update(i3, e):
     windows = [[] for _ in range(10)]
 
     for output in root.nodes:
-        if output.name != "eDP-1" and output.name != "DP-1": 
+        if output.name == "__i3": 
             continue 
 
         for workspace in output.nodes: 
