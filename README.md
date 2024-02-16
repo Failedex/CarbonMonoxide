@@ -23,7 +23,7 @@ https://github.com/Failedex/CarbonMonoxide/assets/92513573/f35b322f-3af1-4b10-81
 ## Dependencies 
 
 The config will still run without these, but there will be silent errors and missing features. 
-- Iosevka Nerd Font
+- Iosevka Nerd Font and Symbols Nerd Font
 - pamixer
 - brightnessctl
 - nmcli
@@ -33,6 +33,7 @@ The config will still run without these, but there will be silent errors and mis
 - python3 (and i3ipc, gobject)
 - wvkbd-mobintl (for touchscreen purposes)
 - wofi
+- foot
 - swaylock
 - a file under `~/Documents/fuck.txt`. This is a to-do list
 

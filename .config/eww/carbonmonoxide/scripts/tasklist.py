@@ -9,7 +9,7 @@ eww_bin= [subprocess.getoutput("which eww"), "-c", f"{os.getcwd()}"]
 
 def recurse(apps, workspace, output): 
     for l in workspace.descendants(): 
-        if not l.pid:
+        if not l.pid or not l.app_id:
             continue
         app_id = l.app_id.lower()
 
