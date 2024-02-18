@@ -98,6 +98,41 @@ elif [[ $1 == "select" ]]; then
         swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
         ;;
     esac
+elif [[ $1 == "setup" ]]; then
+    case $current in 
+    "oxocarbon_light")
+        switch_theme "oxocarbon_light"
+        swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
+        ;;
+    "catppuccin") 
+        switch_theme "catppuccin"
+        swaymsg output \* bg ~/.config/sway/wallpaper/catppuccinlan.png fill
+        ;;
+    "catppuccin_latte") 
+        switch_theme "catppuccin_latte"
+        swaymsg output \* bg ~/.config/sway/wallpaper/forrest.png fill
+        ;;
+    "rosepine") 
+        switch_theme "rosepine"
+        swaymsg output \* bg ~/.config/sway/wallpaper/rosepine.jpg fill
+        ;;
+    "swamp") 
+        switch_theme "swamp"
+        swaymsg output \* bg ~/.config/sway/wallpaper/swamp.png fill
+        ;;
+    "biscuit") 
+        switch_theme "biscuit"
+        swaymsg output \* bg ~/.config/sway/wallpaper/biscuitcat.png fill
+        ;;
+    "camellia") 
+        switch_theme "camellia"
+        swaymsg output \* bg ~/.config/sway/wallpaper/camelliawoman.jpg fill
+        ;;
+    *)
+        switch_theme "oxocarbon"
+        swaymsg output \* bg ~/.config/sway/wallpaper/tile.png tile
+        ;;
+    esac
 else
     echo $current
 fi
