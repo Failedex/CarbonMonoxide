@@ -123,7 +123,16 @@
         :spacing 5 
         (label :tooltip wifi_essid :class "icon" :text wifi_icon)
         (label :tooltip "${volume}%" :class "icon" :text {volumemute == 'false' ? "󰕾" : "󰖁"})
-        (label :tooltip "${bat0}%" :class {EWW_BATTERY.BAT0.status == "Charging" ? "minichargeindicator" : "icon"} :text baticon)
+        (overlay
+          :tooltip "${bat0}%" 
+          (label :class "icon" :text "")
+          (scale 
+            :hexpand false
+            :orientation "h"
+            :min 0 
+            :max 100 
+            :value bat0
+            :class "overbat ${EWW_BATTERY.BAT0.status == 'Charging' ? 'charging' : ''}"))
         ))))
 
 (defwidget battery []

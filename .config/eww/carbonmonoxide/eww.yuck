@@ -10,7 +10,7 @@
 (defpoll calendar_day :initial "1" :interval "20h" "date '+%d'")
 (defpoll calendar_year :initial "2000" :interval "20h" "date '+%Y'")
 (defpoll bat0 :initial "0" :interval "30s" "bash ./scripts/sys_info --bat")
-(defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
+;; (defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
 ;; (defpoll batstat :interval "30s" "cat /sys/class/power_supply/BAT0/status")
 (defpoll homedir :initial "" :interval "24h" "echo ~")
 

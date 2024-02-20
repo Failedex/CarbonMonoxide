@@ -67,7 +67,7 @@ code_icon_n = {
 }
 
 try:
-    req = requests.get(r"https://wttr.in/?format=j1").text
+    req = requests.get(r"https://wttr.in/?format=j1", timeout=15).text
     req = json.loads(req)
     res = req["current_condition"][0].copy() 
 

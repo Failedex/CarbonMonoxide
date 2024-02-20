@@ -195,7 +195,20 @@
     color: $accent;
 }
 
-.minichargeindicator {
-    @extend .icon;
-    color: $green; 
+.overbat {
+    all: unset;
+    trough {
+        min-height: 8px;
+        min-width: 10px;
+        border-radius: 0px;
+        padding: 0px 2px 1px 0px; 
+        background-color: $surface0;
+        slider {
+            all: unset;
+        }
+        highlight {
+            // background-color: $white0;
+            border-radius: 0px;
+        }
+    }
 }
