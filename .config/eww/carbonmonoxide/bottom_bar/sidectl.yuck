@@ -258,8 +258,8 @@
           (label :class "largetouchicon" :text "󱟱"))
         (button :onclick "foot -D ~" 
           (label :class "largetouchicon" :text ""))
-        (button :onclick "~/.config/sway/togglescratch.sh sterm" 
-          (label :class "largetouchicon" :text ""))
+        (button :onclick "./scripts/pop scrop" 
+          (label :class "largetouchicon" :text "󰆞"))
       )
     (box 
       :orientation "v"

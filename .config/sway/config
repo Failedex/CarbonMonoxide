@@ -231,8 +231,8 @@ default_border normal 2
 default_floating_border normal 2
 xwayland enable
 bindswitch lid:on exec 'swaylock -c 262626'
-# bindswitch tablet:on exec '$HOME/.config/sway/scripts/bordertoggle.sh tablet'
-# bindswitch tablet:off exec '$HOME/.config/sway/scripts/bordertoggle.sh normal'
+bindswitch tablet:on exec '$HOME/.config/sway/scripts/bordertoggle.sh tablet'
+bindswitch tablet:off exec '$HOME/.config/sway/scripts/bordertoggle.sh normal'
 
 # autostart applications
 exec_always --no-startup-id autotiling

@@ -129,6 +129,7 @@
           (scale 
             :hexpand false
             :orientation "h"
+            :active false
             :min 0 
             :max 100 
             :value bat0
