@@ -48,7 +48,7 @@
       :halign "fill"
       (button :onclick "./scripts/pop colourpick" (label :text "󰈊"))
       (button :onclick "./scripts/pop scrop" (label :text "󰆞"))
-      (button :onclick "./scripts/toggletheme toggle" (label :text "")))))
+      (button :onclick "~/.config/eww/themeswitch/scripts/pop" (label :text "")))))
 
 (defwidget chooser []
   (box 

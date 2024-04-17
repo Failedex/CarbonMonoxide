@@ -1,5 +1,5 @@
 
-.bar {
+.barwidget {
     background-color: $base;
     padding: 5px;
 }
@@ -133,7 +133,7 @@
 
 .launchicon {
     @extend .icon;
-    color: $red;
+    color: $accent;
 }
 
 .picon {
@@ -156,5 +156,5 @@
 }
 
 .workspacethingactive {
-    background-color: $red;
+    background-color: $accent;
 }

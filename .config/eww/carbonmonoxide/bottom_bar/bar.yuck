@@ -11,9 +11,9 @@
   (barstruct))
 
 (defwidget barstruct []
-  (box 
-    :orientation "v"
-    :space-evenly false 
+  ;; (box 
+  ;;   :orientation "v"
+  ;;   :space-evenly false 
     (centerbox 
       :class "barwidget"
       :orientation "h"
@@ -21,22 +21,23 @@
       (left)
       (middle)
       (right))
-    (revealer 
-      :transition "slideup"
-      :reveal revealcontrolpanel
-      (box 
-        :class "barwidget"
-        :orientation "h"
-        :space-evenly false
-        (box
-          :orientation "v"
-          :space-evenly false 
-          (user)
-          (chooser))
-        (overview)
-        (timer)
-        (touchpad)
-        ))))
+    ;; (revealer 
+    ;;   :transition "slideup"
+    ;;   :reveal revealcontrolpanel
+    ;;   (box 
+    ;;     :class "barwidget"
+    ;;     :orientation "h"
+    ;;     :space-evenly false
+    ;;     (box
+    ;;       :orientation "v"
+    ;;       :space-evenly false 
+    ;;       (user)
+    ;;       (chooser))
+    ;;     (overview)
+    ;;     (timer)
+    ;;     (touchpad)
+    ;;     )))
+    )
 
 (defwidget left [] 
   (box
@@ -64,6 +65,8 @@
     :space-evenly false
     :halign "end"
     :valign "fill"
+    (button :class "widget" :onclick "./scripts/touchkey.sh && ${EWW_CMD} update revealcontrolpanel=false" 
+        (label :class "icon" :style "padding-left: 3px;" :text "󰌌"))
     (playerctl)
     (sysicons)
     ;; (battery)

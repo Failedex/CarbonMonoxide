@@ -23,7 +23,7 @@
       :reveal revealcontrolpanel
       (control_widget))
       (centerbox 
-        :class "bar"
+        :class "barwidget"
         :orientation "v"
         :height "1080"
         ;; :space-evenly true
@@ -65,6 +65,7 @@
     :vexpand false
     :hexpand false
     (sliders)
+    (stray)
     (battery)
     (clock)
   ))
@@ -98,6 +99,17 @@
             :onrightclick "${EWW_CMD} open wallpaperselect --toggle"
             :cursor "pointer"
             (label :text "" :halign "center" :class "launchicon" :style "padding: 2px 0px;"))))
+
+(defwidget stray []
+  (box 
+    :class "widget"
+    :space-evenly false
+    (systray 
+      :icon_size 20
+      :pack-direction "down"
+      :hexpand true
+      :vexpand true)
+    ))
 
 (defwidget clock [] 
   (eventbox
