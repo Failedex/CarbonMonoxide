@@ -8,8 +8,8 @@ swayidle -w \
 		resume 'swaymsg "output * dpms on"' &
 
 $(which eww) daemon &
-# $(which eww) --config ~/.config/eww/carbonmonoxide open-many bar dock desktopicons notifypopup &
-$(which eww) --config ~/.config/eww/carbonmonoxide open-many bar sidectl1 sidectl2 sidectl3 notifypopup &
+$(which eww) --config ~/.config/eww/carbonmonoxide open-many bar notifypopup &
+# $(which eww) --config ~/.config/eww/carbonmonoxide open-many bar sidectl1 sidectl2 sidectl3 sidectl4 notifypopup &
 $HOME/.config/eww/carbonmonoxide/scripts/toggletheme setup &
 
 # I used to use waybar
