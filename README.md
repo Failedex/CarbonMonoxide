@@ -1,15 +1,15 @@
 # Carbon Monoxide, a sway(fx) dotfile
 
 I usually forget to update these screenshots and stuff
-![Carbon Monoxide bottom bar ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide_bottom.png?raw=true)
-
-https://github.com/Failedex/CarbonMonoxide/assets/92513573/dd0a75d6-f05b-4469-88ab-5055d61087f6
-
-Old sidebar, still exists in the config if you want to use it as a reference
 ![Carbon Monoxide ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide3.png?raw=true)
 
 https://github.com/Failedex/CarbonMonoxide/assets/92513573/f35b322f-3af1-4b10-8103-559f0973c15a
 
+![Carbon Monoxide bottom bar ss](https://github.com/Failedex/CarbonMonoxide/blob/main/assests/carbonmonoxide_bottom.png?raw=true)
+
+https://github.com/Failedex/CarbonMonoxide/assets/92513573/dd0a75d6-f05b-4469-88ab-5055d61087f6
+
+I switch between these versions whenever I feel like it. They both exist in this repo.
 
 ## Featuring
 - Oxocarbon color scheme

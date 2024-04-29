@@ -64,8 +64,8 @@
     :class "bottom_modules"
     :vexpand false
     :hexpand false
-    (sliders)
     (stray)
+    (sliders)
     (battery)
     (clock)
   ))
@@ -104,11 +104,19 @@
   (box 
     :class "widget"
     :space-evenly false
-    (systray 
-      :icon_size 20
-      :pack-direction "down"
-      :hexpand true
-      :vexpand true)
+    :valign "end"
+    :orientation "v"
+    (eventbox
+      :onclick "${EWW_CMD} update revealsystray=${!revealsystray}"
+      (label :angle {!revealsystray ? 90 : 270} :class "revealtouch" :tooltip "reveal systray" :text ""))
+    (revealer
+      :reveal revealsystray 
+      :transition "slideup"
+      (systray 
+        :icon_size 20
+        :pack-direction "down"
+        :hexpand true
+        :vexpand true))
     ))
 
 (defwidget clock [] 

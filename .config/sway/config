@@ -194,7 +194,7 @@ bindsym XF86MonBrightnessDown exec 'light -U 5'
 bindsym $mod+Shift+x exec "swaylock -c 262626"
 # bindsym $mod+Control+x exec "dm-tool lock"
 bindsym print exec 'grim -g "$(slurp)" - | wl-copy'
-bindsym Shift+print exec 'grim - | wl-copy'
+bindsym Shift+print exec 'grim -o eDP-1 - | wl-copy'
 bindsym $mod+Control+Return exec 'foot -a "foot_float" -w $(slurp -f "%wx%h")'
 bindsym $mod+v exec 'clipman pick -t wofi'
 bindsym $mod+q exec 'qalculate-gtk'

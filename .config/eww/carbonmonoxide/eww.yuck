@@ -111,6 +111,7 @@
 (defvar reveal5 false)
 (defvar reveal6 false)
 (defvar revealweather false)
+(defvar revealsystray false)
 (defvar revealcontrolpanel false)
 
 (defpoll theme :interval "24h" "./scripts/toggletheme")
