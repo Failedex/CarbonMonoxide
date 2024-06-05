@@ -1,0 +1,77 @@
+
+(defpoll thour :initial "0" :interval "60s" "date +'%I'")
+(defpoll tmin :initial "0" :interval "60s" "date +'%M'")
+(defpoll tpm :initial "0" :interval "60s" "date +'%p'")
+
+(defpoll calendar_day :initial "1" :interval "20h" "date '+%d'")
+(defpoll calendar_year :initial "2000" :interval "20h" "date '+%Y'")
+
+(defpoll volumemute :initial "false" :interval "1s" "pamixer --get-mute")
+(defpoll volume :initial "0" :interval "1s" "pamixer --get-volume")
+(defpoll brightness :initial "0" :interval "2s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defpoll wifi_icon :initial "" :interval "30s" "./scripts/wifi --ICON")
+(defpoll wifi_essid :initial "" :interval "30s" "./scripts/wifi --ESSID")
+(defpoll wifi_radio :initial "off" :interval "2s" "nmcli radio wifi")
+
+(defpoll bat0 :initial "0" :interval "30s" "bash ./scripts/sys_info --bat")
+(defpoll baticon :initial "" :interval "30s" "bash ./scripts/sys_info --baticon")
+
+(deflisten tasksjson :initial "[]" "./scripts/tasklist.py")
+
+(deflisten workspacejson 
+  :initial '[{"focused": true, "empty": false, "name": 1}, {"focused": false, "empty": true, "name": 2}, {"focused": false, "empty": true, "name": 3}, {"focused": false, "empty": true, "name": 4}, {"focused": false, "empty": true, "name": 5}]'
+  "./scripts/workspace.py")
+
+(deflisten psong "playerctl metadata --format '{{ title }}' -F")
+(deflisten partist "playerctl metadata --format '{{ artist }}' -F")
+(deflisten pcover "./scripts/pollcover.sh")
+(deflisten pstatus "playerctl status -F")
+(deflisten ptime 
+  :initial '{
+    "position": 0,
+    "duration": 0,
+    "readable": "0:00"
+  }'
+  "playerctl -F metadata -f '{ \"position\": {{position/1000000}}, \"duration\": {{mpris:length/1000000}}, \"readable\": \"{{duration(position)}}/{{duration(mpris:length)}}\" }'")
+
+; control panel info
+(defpoll hostname :initial "idk" :interval "24h" 'echo "$(whoami)"')
+(defpoll uptime :initial "idk" :interval "1m" "uptime -p")
+(defpoll datehour :initial "12" :interval "30m" "date +'%H'")
+(defpoll notesc :interval "2s" :run-while revealuserctl "cat -s ~/Documents/fuck.txt")
+(deflisten timerdis `./scripts/timer.py subscribe`)
+
+; Notifications
+(deflisten  notifications :initial '{
+    "count": 0,
+    "dnd": false,
+    "notifications": [],
+    "popups": []
+    }'
+    "./scripts/notifCatch"
+)
+
+; Variables
+(defvar revealsysctl false)
+(defvar revealtimectl false)
+(defvar revealuserctl false)
+
+(defvar revealsystray false)
+(defvar revealc1 false)
+(defvar revealc2 false)
+(defvar revealc3 false)
+
+(defvar caffeine false)
+
+(defvar gapsouter 0)
+(defvar gapsinner 10)
+(defvar borderpixel 2)
+
+(defpoll theme :initial "oxocarbon" :interval "1h" "./scripts/toggletheme")
+
+(include "./bar/bar.yuck")
+(include "./popups/sysctl.yuck")
+(include "./popups/timectl.yuck")
+(include "./popups/userctl.yuck")
+(include "./tasklist/tasklist.yuck")
+(include "./notification/notification.yuck")

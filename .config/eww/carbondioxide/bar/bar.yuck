@@ -1,0 +1,162 @@
+
+(defwindow bar
+  :geometry (geometry
+              :x "0%"
+              :y "0%"
+              :width "100%"
+              :height 50
+              :anchor "bottom center")
+  :exclusive true 
+  :monitor 0 
+  :wm-ignore false 
+  (barstruct))
+
+(defwidget barstruct [] 
+  (centerbox 
+    (left)
+    (middle)
+    (right)))
+
+(defwidget left []
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :halign "start"
+    (home)
+    (workspaces)
+    ))
+
+(defwidget middle []
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+    (tasklist :iconsize 40)
+    ))
+
+(defwidget right []
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :halign "end"
+    (stray)
+    (playerctl)
+    (system)
+    (time)
+    ))
+
+(defwidget home [] 
+  (box 
+    :class "widget"
+    (button
+      :onclick "${EWW_CMD} update revealuserctl=${!revealuserctl}"
+      (label 
+        :class "icon home"
+        :text ""))))
+
+(defwidget system [] 
+  (button
+    :onclick "${EWW_CMD} update revealsysctl=${!revealsysctl} revealtimectl=false"
+    (box 
+      :class "widget"
+      :orientation "h"
+      :space-evenly false 
+      :style "border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
+      (label :tooltip wifi_essid :class "icon element" :text wifi_icon)
+      (label :tooltip "${volume}%" :class "icon element" :text {volumemute == 'false' ? "󰕾" : "󰖁"})
+      (overlay
+        :tooltip "${bat0}%" 
+        (label :class "icon element" :text "")
+        (scale 
+          :hexpand false
+          :orientation "h"
+          :active false
+          :min 0 
+          :max 100 
+          :value bat0
+          :class "overbat ${EWW_BATTERY.BAT0.status == 'Charging' ? 'charging': bat0 < 16 ? 'dying': ''}")))))
+
+(defwidget time []
+  (button
+    :onclick "${EWW_CMD} update revealtimectl=${!revealtimectl} revealsysctl=false"
+    (box 
+      :class "widget"
+      :orientation "h"
+      :space-evenly false 
+      :style "border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+      (label :class "element" :text "${thour}:${tmin} ${tpm}"))))
+
+(defwidget workspaces []
+  (box
+    :class "workspaces widget"
+    :orientation "h"
+    :space-evenly false
+    (for i in {"[0, 1, 2, 3, 4]"}
+      (button
+        :onclick "swaymsg -t command workspace number ${workspacejson[i].name}"
+        (box
+          :hexpand false
+          :class { workspacejson[i].focused ? "workspacethingactive" : "workspacething"}
+          :orientation "h"
+          :space-evenly false
+          (box 
+            :width 40)
+          (revealer 
+            :reveal { !workspacejson[i].empty || workspacejson[i].focused }
+            :transition "slideright"
+            (box 
+              :width 20))
+          (revealer 
+            :reveal { workspacejson[i].focused }
+            :transition "slideright"
+            (box 
+              :width 10))
+          )))))
+
+(defwidget playerctl [] 
+  (revealer
+    :reveal { psong != "" }
+    :transition "slideleft"
+    (overlay 
+      (box
+        :halign "fill"
+        :width 120
+        :class { pcover != "" ? "mpdcover" : "widget"}
+        :style "background-image: url('${pcover}')")
+
+      (box
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        ;; (image 
+        ;;   :class "element"
+        ;;   :path { pcover == "" ? "./image/emptympd.png" : pcover }
+        ;;   :image-width 40)
+        (button :onclick "playerctl previous" 
+          (label :class "icon element" :text "󰒮"))
+        (button :onclick "playerctl play-pause"
+          (label :class "icon element" :text  { pstatus == "Playing" ? "" : "" }))
+        (button :onclick "playerctl next" 
+          (label :class "icon element" :text "󰒭"))
+        ))))
+
+(defwidget stray []
+  (box 
+    :space-evenly false 
+    :orientation "h"
+    (button
+      :onclick "${EWW_CMD} update revealsystray=${!revealsystray}"
+      (label 
+        :class "icon" 
+        :angle {!revealsystray ? 180 : 0}
+        :tooltip "reveal systray"
+        :text ""))
+    (revealer 
+      :reveal revealsystray 
+      :transition "slideleft"
+      (box 
+        :class "widget"
+        (systray 
+          :icon-size 22 
+          :orientation "h"
+          :prepend-new true)))))

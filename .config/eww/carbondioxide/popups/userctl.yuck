@@ -1,0 +1,302 @@
+
+(defwindow userctl 
+  :geometry (geometry
+             :x 0
+             :y 0
+             :width 340
+             :height 0
+             :anchor "bottom left"
+             )
+  :stacking "overlay"
+  :monitor 0
+  (revealer
+    :reveal revealuserctl
+    :transition "slideup"
+    (userwidget)))
+
+(defwidget userwidget[]
+  (box 
+    :class "popup"
+    :space-evenly false
+    :orientation "v"
+    :valign "fill"
+    :vexpand true
+    (user)
+    (chooser)
+    (box 
+      :orientation "h"
+      :space-evenly false 
+      :height 160
+      :halign "fill" 
+      (timer)
+      (bigslide))
+    ;; (box 
+    ;;   :space-evenly false 
+    ;;   :orientation "v"
+    ;;   :vexpand true
+    ;;   :visible {!short}
+    ;;   (tricontrol)
+    ;;   (notiweathertoggle))
+    ))
+
+(defwidget user[]
+  (revealer
+    :reveal {!revealc1 && !revealc2 && !revealc3}
+    :transition "slideup"
+    (box
+      :orientation "h"
+      :space-evenly false 
+      :height 140
+      :width 320
+      :class "widget"
+      :valign "start"
+      :halign "fill"
+      :hexpand true
+      (image :style "margin: 10px;" :image-width 80 :image-height 80 :path "./image/fieshidle.gif")
+      (scroll
+        :hscroll true 
+        :vscroll false
+        :hexpand true
+        (box
+          :orientation "v"
+          :space-evenly false
+          :valign "center"
+          :halign "center"
+          (label :halign "start" :text "${datehour < 12 ? 'good morning' : datehour < 18 ? 'good afternoon' : datehour < 22 ? 'good evening' : 'good night'} ${hostname}")
+          (label :halign "start" :text uptime :style "font-size: 12px;"))))))
+
+(defwidget chooser []
+  (box 
+    :orientation "v"
+    :halign "fill"
+    :height 60
+    :class "widget"
+    :space-evenly false
+    (box 
+      :orientation "h"
+
+      (button 
+        :onclick "${EWW_CMD} update revealc1=${!revealc1} revealc2=false revealc3=false" 
+        :onrightclick "foot nvim ~/Documents/fuck.txt"
+        (label :class {revealc1 ? "icontitleon" : "icontitle"} :text "Notes"))
+      (button 
+        :onclick "${EWW_CMD} update revealc2=${!revealc2} revealc1=false revealc3=false"
+        (label :class {revealc2 ? "icontitleon" : "icontitle"} :text "System"))
+      (button 
+        :onclick "${EWW_CMD} update revealc3=${!revealc3} revealc1=false revealc2=false"
+        (label :class {revealc3 ? "icontitleon" : "icontitle"} :text "Sway")))
+
+    (notes)
+    (sysinfo)
+    (wmctrl)
+    ))
+
+(defwidget notes []
+  (revealer 
+    :reveal revealc1
+    :transition "slideup"
+    (box 
+      :height 140
+      (box 
+        :orientation "h"
+        (scroll 
+          :hscroll true
+          :vscroll true
+          (label :text notesc))))))
+
+(defwidget sysinfo []
+  (revealer 
+    :reveal revealc2
+    :transition "slideup"
+      (box 
+        :orientation "h"
+        :height 140 
+        (systat :icon "󰻠" :val { EWW_CPU.avg })
+        (systat :icon "󰍛" :val { EWW_RAM.used_mem_perc })
+        (systat :icon "" :val { EWW_BATTERY.BAT0.capacity })
+        )))
+
+(defwidget systat [icon val] 
+  (overlay
+    (circular-progress 
+      :halign "center"
+      :valign "center"
+      :class "circsys"
+      :thickness 40
+      :value val)
+      
+    (box
+      :class "circiconcontain"
+      :halign "center"
+      :valign "center"
+      :height 55
+      :width 55
+      (label :text icon))))
+
+(defwidget wmctrl []
+  (revealer 
+    :reveal revealc3
+    :transition "slideup"
+    (scroll
+      :hscroll false 
+      :vscroll true
+      :height 140
+      (box
+        :orientation "v"
+        :valign "fill"
+        :space-evenly false
+        :spacing 5
+        (wmslider 
+          :name "gaps outer" 
+          :val gapsouter 
+          :onchange "swaymsg gaps outer all set {}" 
+          :max 300 
+          :reset "${EWW_CMD} update gapsouter=0 && swaymsg gaps outer all set 0")
+        (wmslider 
+          :name "gaps inner" 
+          :val gapsinner 
+          :onchange "swaymsg gaps inner all set {}" 
+          :max 150
+          :reset "${EWW_CMD} update gapsinner=15 && swaymsg gaps inner all set 15")
+        (wmslider 
+          :name "border size" 
+          :val borderpixel 
+          :onchange "swaymsg default_border pixel {} && swaymsg '[app_id=\".*\"] border pixel {}'" 
+          :max 50
+          :reset "${EWW_CMD} update borderpixel=2 && swaymsg default_border pixel 2 && swaymsg '[app_id=\".*\"] border pixel 2'")
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10 
+          (label :text "Reset touchpad")
+          (button 
+            :onclick "swaymsg input type:touchpad events disabled && swaymsg input type:touchpad events enabled" 
+            :style "padding: 0px 8px 0px 3px;"
+            ""))
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10 
+          (label :text "natural scrolling")
+          (checkbox 
+            :onchecked "swaymsg input \"type:touchpad\" natural_scroll enable"
+            :onunchecked "swaymsg input \"type:touchpad\" natural_scroll disable"))
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10
+          (label :text "disable when typing")
+          (checkbox 
+            :onchecked "swaymsg input \"type:touchpad\" dwt enable"
+            :onunchecked "swaymsg input \"type:touchpad\" dwt disable"
+          ))
+
+        (box 
+          :orientation "h"
+          :space-evenly false 
+          :halign "center"
+          :spacing 10
+          (label :text "caffeine")
+          (checkbox 
+            :onchecked "swaymsg [app_id='.*'] inhibit_idle open && ${EWW_CMD} update caffeine=true"
+            :onunchecked "swaymsg [app_id='.*'] inhibit_idle none && ${EWW_CMD} update caffeine=false"
+          ))
+))))
+
+(defwidget wmslider [name val onchange max reset]
+  (box 
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+    :width 20
+    :vexpand false
+    :valign "center"
+    :spacing 10
+    (label 
+      :text name)
+    (scale 
+      :min 0 
+      :max max
+      :class "wmctrlslide"
+      :tooltip val
+      :value val
+      :onchange onchange)
+    (button 
+      :onclick reset 
+      :style "padding: 0px 8px 0px 3px;"
+      "")))
+
+(defwidget timer[]
+  (box
+    :orientation "v"
+    :class "widget"
+    :space-evenly false
+    :width 180
+    :valign "fill"
+    (label :class "timer" :valign "center" :vexpand true :text timerdis)
+    (box
+      :orientation "h"
+      :class "timer_butt"
+      :valign "end"
+      (button 
+        :onclick "./scripts/timer.py timedec" 
+        (label 
+          :class "icon"
+          :text "-"))
+      (button 
+        :onclick "./scripts/timer.py toggle" 
+        (label 
+          :class "icon" 
+          :text { !matches(timerdis, ":") ? "󱎫" : "󱫎"}))
+      (button 
+        :onclick "./scripts/timer.py timeinc" 
+        (label 
+          :class "icon"
+          :text "+")))))
+
+(defwidget bigslide []
+  (box
+    :valign "fill"
+    :halign "fill"
+    :class "widget"
+    :hexpand true
+    :space-evenly true
+    (bigvol)
+    (bigbright)))
+
+(defwidget bigvol [] 
+  (overlay
+    (scale 
+      :width 50
+      :class "bigslide"
+      :value volume
+      :onchange "pamixer --set-volume {}"
+      :orientation "v"
+      :tooltip "${volume}%"
+      :max 100
+      :min 0
+      :flipped true)
+  (label 
+    :class "slideicon"
+    :valign "end"
+    :text {volumemute == 'false' ? "󰕾" : "󰖁"})))
+
+(defwidget bigbright [] 
+  (overlay
+    (scale 
+      :width 50
+      :class "bigslide"
+      :value brightness
+      :onchange "brightnessctl set {}%"
+      :orientation "v"
+      :tooltip "${brightness}%"
+      :max 100
+      :min 0
+      :flipped true)
+  (label 
+    :class "slideicon"
+    :valign "end"
+    :text "󰃞")))

@@ -1,0 +1,66 @@
+@import ".config/wofi/themes/oxocarbon.css";
+
+/* ::root{ */
+/*     --accent: #ff7eb6; */
+/*     --fg: #dde1e6; */
+/*     --base: #ffffff; */
+/*     --surface0: #262626;  */
+/*     --surface1: #393939;  */
+/*     --surface2: #525252;  */
+/* } */
+
+*{
+    font-family: Iosevka Nerd Font;
+    font-size: 15px;
+}
+
+window {
+    background-color: @base;
+    border: 2px solid @surface2;
+    border-radius: 5px;
+    /* animation: slideIn 2s ease-in-out both; */
+} 
+/* Slide In */
+
+#input {
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 3px solid @surface2;
+    background-color: @surface0;
+    color: @white0;
+}
+
+#inner-box {
+    background-color: @surface0;
+}
+
+#outer-box {
+    margin: 5px;
+    padding:20px;
+    background-color: @base;
+}
+
+#scroll {
+}
+
+#text {
+padding: 5px;
+color: @white0;
+}
+
+#entry {
+    border-radius: 5px;
+}
+
+#entry:nth-child(even){
+    background-color: @surface1;
+}
+
+#entry:selected {
+    background-color: @accent;
+}
+
+#text:selected {
+    color: @base;
+}

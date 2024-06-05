@@ -1,0 +1,85 @@
+
+.bar {
+  background-color: $base;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  padding: $padding;
+}
+
+.widget {
+  padding: $padding;
+  margin: $margin;
+  border-radius: $round;
+  background-color: $surface0;
+}
+
+.icon {
+  font-family: "Symbols Nerd Font";
+  min-width: 1em;
+  min-height: 1em;
+  font-size: 18px;
+}
+
+.element {
+  padding: 0px 4px;
+}
+
+.workspaces {
+    padding: $padding; 
+}
+
+.workspacething, .workspacethingactive {
+    transition: 500ms ease;
+    border-radius: $round;
+    margin: $margin;
+}
+
+.workspacething {
+    background-color: $surface2;
+}
+
+.workspacethingactive {
+    background-color: $accent;
+}
+
+.home {
+  color: $accent;
+  padding: 0px 3px;
+}
+
+.mpdcover {
+  transition: 500ms ease;
+  background-color: $surface0;
+  margin: $margin; 
+  border-radius: $round;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+}
+
+.overbat {
+  all: unset;
+  trough {
+    min-height: 7px;
+    min-width: 10px;
+    border-radius: 0px;
+    margin: 0px 8px 0px 7px; 
+    background-color: unset;
+    slider {
+      all: unset;
+    }
+    highlight {
+      background-color: $white0;
+      border-radius: 0px;
+    }
+  }
+}
+
+.charging trough highlight {
+    background-color: $green;
+}
+
+.dying trough highlight {
+   background-color: $red;
+}

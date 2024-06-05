@@ -1,0 +1,85 @@
+
+(defwindow timectl
+  :geometry (geometry
+              :x "0%"
+              :y "0%"
+              :width 350
+              :height 0
+              :anchor "bottom right")
+  :monitor 0 
+  :stacking "overlay"
+  (revealer
+    :reveal revealtimectl 
+    :transition "slideup"
+    (box
+      :orientation "v"
+      :valign "end"
+      :space-evenly false
+      (box
+        :height 650
+        :class "popup"
+          (notificationlog))
+
+      (box
+        :class "popup"
+        (box
+          :class "unbarwidget"
+          (calendar 
+            :day calendar_day 
+            :year calendar_year)))
+      )))
+
+(defwidget notificationlog []
+  (box 
+    :width 320
+    :space-evenly false 
+    :orientation "v"
+    :class "widget"
+    (overlay
+      :vexpand true
+      (scroll
+        :hscroll false
+        :vscroll true
+        :vexpand true
+        :valign "fill"
+        (box
+          :orientation "v" 
+          :valign "start"
+          :space-evenly false
+          (box 
+            :visible { psong != "" }
+            (singlenotif 
+              :noti '{
+                "app": "Media",
+                "image": "${pcover}",
+                "id": "",
+                "summary": "${psong}",
+                "body": "${partist}",
+                "actions": []
+              }' 
+              :class "notifbox"
+              :music true))
+
+          (for noti in {notifications.notifications}
+            (singlenotif :noti noti :class "notifbox"))
+          ))
+
+      (box 
+        :valign "end"
+        :hexpand true
+        :vexpand false
+        :height 80
+        :class "fadeoutbox"))
+    (box 
+      :orientation "h"
+      (button
+        :onclick "./scripts/notifManage --clear"
+        (label
+          :class "icontitle"
+          :text "Clear All"))
+      (button
+        :onclick "./scripts/notifManage --toggle"
+        (label
+          :class { notifications.dnd ? "icontitleon" : "icontitle"}
+          :text "Do Not Disturb")))))
+

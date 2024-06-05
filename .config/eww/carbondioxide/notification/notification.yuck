@@ -1,0 +1,104 @@
+
+(defwindow notifypopup 
+  :geometry (geometry
+              :x 0
+              :y 0
+              :width 480
+              :height 0
+              :anchor "top right")
+  :stacking "overlay"
+  :monitor 0
+  (revealer
+    :reveal { arraylength(notifications.popups) > 0 }
+    :transition "slidedown"
+    (box
+      :orientation "v"
+      :space-evenly false 
+      :spacing 5
+      (for noti in {notifications.popups}
+        (box 
+          :class "popup"
+          (singlenotif :noti noti))))))
+
+(defwidget singlenotif [noti ?class ?music]
+  (box 
+    :orientation "v"
+    :class "widget ${class}"
+    :space-evenly false 
+
+    (scroll 
+      :halign "center"
+      :valign "center"
+      :hexpand true
+      :hscroll true
+      :vscroll false 
+      :width 200
+      (label 
+        :class "notiflabel"
+        :text {noti.app}))
+
+    (box 
+      :orientation "h"
+      :halign "fill"
+      :height 80
+      :space-evenly false
+      :spacing 10
+
+      (box
+        :halign "fill"
+        :width 80
+        :class "notiimage"
+        :style "background-image: url('${noti.image != "null" ? noti.image : "./image/idk.svg"}')")
+
+      (box 
+        :orientation "v"
+        :space-evenly false
+        :hexpand true 
+        :vexpand true
+      (button 
+        :onclick "./scripts/notifManage --dismiss ${noti.id}"
+        :onrightclick "./scripts/notifManage --close ${noti.id}"
+        :tooltip "${noti.time}"
+        :hexpand true
+        :vexpand true
+        (box 
+          :orientation "v" 
+          :space-evenly false 
+          :valign "center"
+          (scroll
+            :hscroll true 
+            :vscroll false
+            :hexpand true
+            (label 
+              :class "notiftitle" 
+              :text {noti.summary}))
+          (scroll
+            :hscroll true 
+            :vscroll false
+            :hexpand true
+            (label 
+              :class "notifbody"
+              :visible {noti.body != "null"}
+              :text {noti.body}))))
+
+          (box
+            :orientation "h"
+            (for action in {noti.actions}
+              (button
+                :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}"
+                (label 
+                  :class "notifactions"
+                  :text {action[1]}))))
+
+          (box
+            :visible { music == true }
+            :orientation "h"
+            (button :onclick "playerctl previous" 
+              (label :class "icon notifications" :text "󰒮"))
+        (button :onclick "playerctl play-pause"
+          (label :class "icon notifications" :text  { pstatus == "Playing" ? "" : "" }))
+        (button :onclick "playerctl next" 
+          (label :class "icon notifications" :text "󰒭")))
+      ))
+
+    ))

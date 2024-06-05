@@ -1,0 +1,65 @@
+$round: 20px;
+$padding: 5px;
+$margin: 5px;
+
+@import './theme.scss';
+@import './bar/bar.scss';
+@import './tasklist/tasklist.scss';
+@import './popups/popups.scss';
+@import './notification/notification.scss';
+
+* {
+  all: unset;
+  color: $white0; 
+  font-family: "Iosevka Nerd Font";
+  font-size: 18px;
+}
+
+tooltip {
+  background-color: $surface0;
+  border-radius: $round;
+  font-size: 15px;
+}
+
+menu {
+    @extend .popup;
+}
+
+calendar {
+  background-color: $surface0;
+  font-size: 20;
+  color: $white0;
+  border-radius: $round;
+}
+
+calendar:selected {
+  color: $accent;
+  border-radius: $round;
+}
+
+calendar.header {
+  color: $accent;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: $surface2;
+}
+
+checkbutton {
+    border-radius: 24px;
+    background-color: $surface1;
+    padding: 4px;
+    check {
+        min-height: 15px;
+        min-width: 15px;
+        color: $white0;
+    }
+}
+
+checkbutton:checked {
+    check{
+        border-radius: 24px;
+        background-color: $white0;
+    }
+}
