@@ -8,7 +8,7 @@ swayidle -w \
 		resume 'swaymsg "output * dpms on"' &
 
 $(which eww) daemon &
-$(which eww) --config ~/.config/eww/carbonmonoxide open-many bar userctl sysctl timectl notifypopup &
+$(which eww) --config ~/.config/eww/carbondioxide open-many bar userctl sysctl timectl notifypopup &
 $HOME/.config/eww/carbondioxide/scripts/toggletheme setup &
 
 nm-applet --indicator &
