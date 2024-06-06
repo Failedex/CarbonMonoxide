@@ -23,7 +23,7 @@
       (box
         :class "popup"
         (box
-          :class "unbarwidget"
+          :class "widget"
           (calendar 
             :day calendar_day 
             :year calendar_year)))
@@ -50,11 +50,12 @@
             :visible { psong != "" }
             (singlenotif 
               :noti '{
-                "app": "Media",
+                "app": "media",
                 "image": "${pcover}",
                 "id": "",
                 "summary": "${psong}",
                 "body": "${partist}",
+                "time": "${ptime.readable}",
                 "actions": []
               }' 
               :class "notifbox"

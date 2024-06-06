@@ -47,6 +47,7 @@
       (box
         :halign "fill"
         :width 80
+        :height 80
         :class "notiimage"
         :style "background-image: url('${noti.image != "null" ? noti.image : "./image/idk.svg"}')")
 
@@ -55,50 +56,53 @@
         :space-evenly false
         :hexpand true 
         :vexpand true
-      (button 
-        :onclick "./scripts/notifManage --dismiss ${noti.id}"
-        :onrightclick "./scripts/notifManage --close ${noti.id}"
-        :tooltip "${noti.time}"
-        :hexpand true
-        :vexpand true
-        (box 
-          :orientation "v" 
-          :space-evenly false 
-          :valign "center"
-          (scroll
-            :hscroll true 
-            :vscroll false
-            :hexpand true
-            (label 
-              :class "notiftitle" 
-              :text {noti.summary}))
-          (scroll
-            :hscroll true 
-            :vscroll false
-            :hexpand true
-            (label 
-              :class "notifbody"
-              :visible {noti.body != "null"}
-              :text {noti.body}))))
+        :valign { music == true ? "center" : "fill"}
+        (button 
+          :onclick "./scripts/notifManage --dismiss ${noti.id}"
+          :onrightclick "./scripts/notifManage --close ${noti.id}"
+          :tooltip "${noti.time}"
+          :hexpand true
+          :vexpand true
+          (box 
+            :orientation "v" 
+            :space-evenly false 
+            :valign "center"
+            (scroll
+              :hscroll true 
+              :vscroll false
+              :hexpand true
+              (label 
+                :class "notiftitle" 
+                :text {noti.summary}))
+            (scroll
+              :hscroll true 
+              :vscroll false
+              :hexpand true
+              (label 
+                :class "notifbody"
+                :visible {noti.body != "null"}
+                :text {noti.body}))))
 
-          (box
-            :orientation "h"
-            (for action in {noti.actions}
-              (button
-                :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}"
-                (label 
-                  :class "notifactions"
-                  :text {action[1]}))))
+        (box
+          :orientation "h"
+          (for action in {noti.actions}
+            (button
+              :onclick "./scripts/notifManage --action ${noti.id} ${action[0]} && ./scripts/notifManage --close ${noti.id}"
+              (label 
+                :class "notifactions"
+                :text {action[1]}))))
 
-          (box
-            :visible { music == true }
-            :orientation "h"
-            (button :onclick "playerctl previous" 
-              (label :class "icon notifications" :text "󰒮"))
-        (button :onclick "playerctl play-pause"
-          (label :class "icon notifications" :text  { pstatus == "Playing" ? "" : "" }))
-        (button :onclick "playerctl next" 
-          (label :class "icon notifications" :text "󰒭")))
-      ))
+        (box
+          :visible { music == true }
+          :orientation "h"
+          :halign "center"
+          :spacing 20
+          (button :onclick "playerctl previous" 
+            (label :class "icon picons" :text "󰒮"))
+          (button :onclick "playerctl play-pause"
+            (label :class "icon picons" :text  { pstatus == "Playing" ? "" : "" }))
+          (button :onclick "playerctl next" 
+            (label :class "icon picons" :text "󰒭")))
+        ))
 
     ))
