@@ -1,7 +1,7 @@
 
 .popup {
   background-color: $base;
-  border-radius: $round;
+  border-radius: calc($round + $padding + $margin);
   padding: $padding;
   margin: $margin;
 }
@@ -9,7 +9,7 @@
 .basetitle {
   margin: $margin;
   padding: $padding;
-  border-radius: $round;
+  border-radius: calc($round - $margin - $padding);
   label {
     font-size: 15px;
   }
@@ -155,6 +155,12 @@
 .timer_butt label {
   color: $white0;
   font-size: 24px;
+}
+
+.calwrap {
+  margin: $margin;
+  background-color: $surface1;
+  border-radius: calc($round - $padding);
 }
 
 .calhead {

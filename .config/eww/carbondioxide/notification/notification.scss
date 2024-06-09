@@ -1,7 +1,7 @@
 
 .notifbox {
   background-color: $surface1;
-  border-radius: $round;
+  border-radius: calc($round - $margin - $padding);
   padding: $padding;
   margin: $margin;
 }

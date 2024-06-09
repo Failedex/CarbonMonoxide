@@ -53,10 +53,12 @@
           :class "icon"
           :text "")))
 
-    (calendar 
-      :month calendar_month
-      :year calendar_year
-      :show-heading false)))
+    (box 
+      :class "calwrap"
+      (calendar 
+        :month calendar_month
+        :year calendar_year
+        :show-heading false))))
 
 (defwidget notificationlog []
   (box 
@@ -64,42 +66,34 @@
     :space-evenly false 
     :orientation "v"
     :class "widget"
-    (overlay
+    (scroll
+      :hscroll false
+      :vscroll true
       :vexpand true
-      (scroll
-        :hscroll false
-        :vscroll true
-        :vexpand true
-        :valign "fill"
-        (box
-          :orientation "v" 
-          :valign "start"
-          :space-evenly false
-          (expander 
-            :expanded { psong != "" }
-            (singlenotif 
-              :noti '{
-                "app": "media",
-                "image": "${pcover}",
-                "id": "",
-                "summary": "${psong}",
-                "body": "${partist}",
-                "time": "${ptime.readable}",
-                "actions": []
-              }' 
-              :class "notifbox"
-              :music true))
+      :valign "fill"
+      (box
+        :orientation "v" 
+        :valign "start"
+        :space-evenly false
+        (revealer 
+          :reveal { psong != "" }
+          (singlenotif 
+            :noti '{
+              "app": "media",
+              "image": "${pcover}",
+              "id": "",
+              "summary": "${psong}",
+              "body": "${partist}",
+              "time": "${ptime.readable}",
+              "actions": []
+            }' 
+            :class "notifbox"
+            :music true))
 
-          (for noti in {notifications.notifications}
-            (singlenotif :noti noti :class "notifbox"))
-          ))
+        (for noti in {notifications.notifications}
+          (singlenotif :noti noti :class "notifbox"))
+        ))
 
-      (box 
-        :valign "end"
-        :hexpand true
-        :vexpand false
-        :height 80
-        :class "fadeoutbox"))
     (box 
       :orientation "h"
       (button

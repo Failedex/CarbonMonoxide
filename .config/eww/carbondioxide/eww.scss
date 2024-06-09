@@ -29,7 +29,7 @@ calendar {
   background-color: $surface1;
   font-size: 20px;
   color: $white0;
-  border-radius: $round;
+  border-radius: calc($round - $padding);
   padding: 3px;
 }
 
