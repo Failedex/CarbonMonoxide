@@ -119,7 +119,7 @@
 }
 
 .bigslide trough {
-  border-radius: $round; 
+  border-radius: calc($round - $margin - $padding); 
   margin: $margin;
   min-width: 60px;
   background-color: $surface1;
@@ -129,7 +129,7 @@
   }
   highlight{
     background-color: $surface2;
-    border-radius: $round;
+    border-radius: calc($round - $margin - $padding);
   }
 }
 
@@ -149,7 +149,7 @@
   background-color: $surface1; 
   margin: $margin;
   padding: calc($padding + 2px);
-  border-radius: $round;
+  border-radius: calc($round - $margin - $padding);
 }
 
 .timer_butt label {

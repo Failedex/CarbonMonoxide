@@ -75,8 +75,8 @@
         :orientation "v" 
         :valign "start"
         :space-evenly false
-        (revealer 
-          :reveal { psong != "" }
+        (box 
+          :visible { psong != "" }
           (singlenotif 
             :noti '{
               "app": "media",
