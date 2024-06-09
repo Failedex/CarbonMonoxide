@@ -22,12 +22,41 @@
 
       (box
         :class "popup"
-        (box
-          :class "widget"
-          (calendar 
-            :day calendar_day 
-            :year calendar_year)))
+        (datecalendar))
       )))
+
+(defwidget datecalendar [] 
+  (box
+    :class "widget"
+    :orientation "v"
+    :space-evenly false
+
+    (box 
+      :orientation "h"
+      :space-evenly false
+      :spacing 20
+      :halign "center"
+      :valign "center"
+      :class "calhead"
+      (button 
+        :onclick "${EWW_CMD} update calendar_year=${calendar_month == 1 ? calendar_year - 1 : calendar_year} calendar_month=${calendar_month == 1 ? 12 : calendar_month - 1}"
+        (label 
+          :class "icon"
+          :angle 180
+          :text ""))
+      (label 
+        :class "calheadinfo"
+        :text "${months[calendar_month]} ${calendar_year}")
+      (button 
+        :onclick "${EWW_CMD} update calendar_year=${calendar_month == 12 ? calendar_year + 1 : calendar_year} calendar_month=${calendar_month == 12 ? 1 : calendar_month + 1}"
+        (label 
+          :class "icon"
+          :text "")))
+
+    (calendar 
+      :month calendar_month
+      :year calendar_year
+      :show-heading false)))
 
 (defwidget notificationlog []
   (box 
@@ -46,8 +75,8 @@
           :orientation "v" 
           :valign "start"
           :space-evenly false
-          (box 
-            :visible { psong != "" }
+          (expander 
+            :expanded { psong != "" }
             (singlenotif 
               :noti '{
                 "app": "media",

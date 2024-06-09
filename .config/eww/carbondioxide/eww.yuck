@@ -3,8 +3,9 @@
 (defpoll tmin :initial "0" :interval "60s" "date +'%M'")
 (defpoll tpm :initial "0" :interval "60s" "date +'%p'")
 
-(defpoll calendar_day :initial "1" :interval "20h" "date '+%d'")
-(defpoll calendar_year :initial "2000" :interval "20h" "date '+%Y'")
+(defpoll calendar_month :initial "1" :interval "20h" "date '+%m'")
+(defpoll calendar_year :initial "1" :interval "20h" "date '+%Y'")
+(defvar months '["nothing to see here", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"]')
 
 (defpoll volumemute :initial "false" :interval "1s" "pamixer --get-mute")
 (defpoll volume :initial "0" :interval "1s" "pamixer --get-volume")

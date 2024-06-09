@@ -45,11 +45,12 @@
       :spacing 10
 
       (box
+        :visible { noti.image != "null" && noti.image != ""}
         :halign "fill"
         :width 80
         :height 80
         :class "notiimage"
-        :style "background-image: url('${noti.image != "null" ? noti.image : "./image/idk.svg"}')")
+        :style "background-image: url('${noti.image}')")
 
       (box 
         :orientation "v"

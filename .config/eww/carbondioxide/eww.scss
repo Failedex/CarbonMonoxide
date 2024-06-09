@@ -22,19 +22,21 @@ tooltip {
 }
 
 menu {
-    @extend .popup;
+  @extend .popup;
 }
 
 calendar {
-  background-color: $surface0;
-  font-size: 20;
+  background-color: $surface1;
+  font-size: 20px;
   color: $white0;
   border-radius: $round;
+  padding: 3px;
 }
 
 calendar:selected {
   color: $accent;
   border-radius: $round;
+  font-weight: bold;
 }
 
 calendar.header {
