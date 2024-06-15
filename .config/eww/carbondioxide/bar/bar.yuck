@@ -6,6 +6,7 @@
               :width "100%"
               :height 50
               :anchor "bottom center")
+  :stacking "bottom"
   :exclusive true 
   :monitor 0 
   :wm-ignore false 

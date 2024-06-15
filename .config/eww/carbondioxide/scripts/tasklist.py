@@ -13,8 +13,14 @@ def recurse(apps, workspace, output):
             continue
         app_id = l.app_id.lower()
 
-        if app_id == "com.github.xournalpp.xournalpp": 
-            app_id = "xournalpp"
+        translate = {
+                "com.github.xournalpp.xournalpp": "xournalpp",
+                "sterm": "foot",
+                "sranger": "folder",
+                "sncmpcpp": "music",
+                }
+
+        app_id = translate.get(app_id, app_id)
 
         rect = {
             "x": 0,
