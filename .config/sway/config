@@ -10,7 +10,7 @@ set $term foot
 set $menu 'wofi -i -I'
 
 ### Output configuration
-output * bg ~/.config/sway/wallpaper/tile.png tile
+# output * bg ~/.config/sway/wallpaper/tile.png tile
 
 # I considered it at some point
 # output * bg #dde1e6 solid_color
