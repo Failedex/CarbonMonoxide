@@ -36,6 +36,7 @@ input * {
     xkb_options "caps:escape"
     repeat_rate 50
     repeat_delay 500
+    accel_profile "flat"
     pointer_accel 0.1
 }
 
@@ -224,7 +225,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 corner_radius 5
 gaps inner 15
-font pango:IosevkaNerdFont Regular 12
+font pango:RobotoMonoNerdFont Regular 12
 titlebar_separator enable
 titlebar_padding 8
 title_align center
