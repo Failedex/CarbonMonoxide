@@ -3,7 +3,7 @@
   :geometry (geometry
               :x 0
               :y 0
-              :width 480
+              :width 400
               :height 0
               :anchor "top right")
   :stacking "overlay"

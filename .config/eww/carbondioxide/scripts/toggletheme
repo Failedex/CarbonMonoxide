@@ -36,7 +36,7 @@ if [[ $1 == "toggle" ]]; then
     case $current in 
     "oxocarbon")
         switch_theme "oxocarbon_light"
-        swaymsg output \* bg ~/.config/sway/wallpaper/oxocarbon_tile.png tile
+        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png tile
         ;;
     "oxocarbon_light") 
         switch_theme "catppuccin"
@@ -60,14 +60,14 @@ if [[ $1 == "toggle" ]]; then
         ;;
     *)
         switch_theme "oxocarbon"
-        swaymsg output \* bg ~/.config/sway/wallpaper/oxocarbon_tile.png tile
+        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png tile
         ;;
     esac
 elif [[ $1 == "select" ]]; then
     case $2 in 
     "oxocarbon_light")
         switch_theme "oxocarbon_light"
-        swaymsg output \* bg ~/.config/sway/wallpaper/oxocarbon_tile.png tile
+        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png tile
         ;;
     "catppuccin") 
         switch_theme "catppuccin"
@@ -95,14 +95,14 @@ elif [[ $1 == "select" ]]; then
         ;;
     *)
         switch_theme "oxocarbon"
-        swaymsg output \* bg ~/.config/sway/wallpaper/oxocarbon_tile.png tile
+        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png tile
         ;;
     esac
 elif [[ $1 == "setup" ]]; then
     case $current in 
     "oxocarbon_light")
         switch_theme "oxocarbon_light"
-        swaymsg output \* bg ~/.config/sway/wallpaper/oxocarbon_tile.png tile
+        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png tile
         ;;
     "catppuccin") 
         switch_theme "catppuccin"
@@ -130,7 +130,7 @@ elif [[ $1 == "setup" ]]; then
         ;;
     *)
         switch_theme "oxocarbon"
-        swaymsg output \* bg ~/.config/sway/wallpaper/oxocarbon_tile.png tile
+        swaymsg output \* bg ~/.config/sway/wallpaper/flowerbw.png tile
         ;;
     esac
 else
